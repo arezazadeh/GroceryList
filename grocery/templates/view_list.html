@@ -1,0 +1,24 @@
+
+<title>Grocery List</title>
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>List Items</th>
+        <th>Date Added</th>
+    </tr>
+    {% for i in list %}
+    <tr>
+        <td>
+            {{ i.item }}
+        </td>
+        <td>
+            {{ i.date }}
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

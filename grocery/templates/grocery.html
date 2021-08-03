@@ -1,0 +1,34 @@
+<title>Grocery</title>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="margin-top: 20px; text-align:center">
+    <h3>List of Items from the selected category</h3>
+</div>
+<form action="{% url 'grocery:add' %}" method="post" class="form-control">
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+    <tr>
+        <th>Item</th>
+    </tr>
+</thead>
+    {% for i in item %}
+    <tr>
+        <td>
+            {% csrf_token %}
+            <div class="form-check">
+                <label class="form-check-label" for="item">{{ i.item }}</label>
+            <input class="form-check-input" name="item" type="checkbox" value="{{ i.item }}" id="item">
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+    <button type="submit" class="btn btn-success">Add to List</button>
+</form>
+
+<br>
+<br>
+
+{% endblock %}

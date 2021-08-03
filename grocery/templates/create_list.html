@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="card" style="margin-top:20px">
+    <div class="card-header">
+        <h3> Please Choose your Category Below</h3>
+
+    </div>
+    <div class="card-body">
+        <form action="{% url 'grocery:create_list' %}" method="post">
+    {% csrf_token %}
+ <label for="cat">Choose a Category:</label>
+<select  name="cat" id="cat">
+    <option  value="Vegetable">Vegetable</option>
+    <option value="Sauce">Sauce</option>
+    <option value="Fruit">Fruits</option>
+    <option value="Bread">Bread</option>
+    <option value="Protein">Protein</option>
+    <option value="Oil">Oil</option>
+    <option value="Cleaning">Cleaning</option>
+    <option value="Drink">Drink</option>
+    <option value="Carbs">Carbs</option>
+    <option value="Baking">Baking</option>
+    <option value="Cheese">Cheese</option>
+    <option value="Cooking">Cooking</option>
+
+
+</select>
+<!--<input name="item" type="checkbox">-->
+<button type="submit">Submit</button>
+</form>
+    </div>
+</div>
+
+
+{% endblock %}
