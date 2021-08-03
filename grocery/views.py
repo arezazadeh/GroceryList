@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
+from django.db import connection, transaction
+
 
 
 def create_list(request):
@@ -28,11 +30,30 @@ def add_to_list(request):
                 GroceryList.objects.create(item=i)
             else:
                 print('Item already in your list')
-
     return redirect('grocery:create_list')
 
 
 def view_list(request):
     grocery_list = GroceryList.objects.all()
-
     return render(request, 'view_list.html', {'list': grocery_list})
+
+
+def complete(request, item_id): 
+    grocery_list = GroceryList.objects.all()
+    item = GroceryList.objects.filter(id=item_id)
+    item.update(completed=True)
+    return render(request, 'view_list.html', {'list': grocery_list})
+
+
+def undo_item(request, item_id): 
+    grocery_list = GroceryList.objects.all()
+    item = GroceryList.objects.filter(id=item_id)
+    item.update(completed=False)
+    return render(request, 'view_list.html', {'list': grocery_list})
+
+
+def delete_list(request):
+    cursor = connection.cursor()
+    cursor.execute(f'insert into "grocery_grocerylistarchive" select * from "grocery_grocerylist" ')
+    GroceryList.objects.all().delete()
+    return redirect('grocery:create_list')

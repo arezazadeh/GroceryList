@@ -18,9 +18,17 @@ class GroceryItem(models.Model):
 
 class GroceryList(models.Model):
     item = models.CharField(max_length=255, null=True, unique=True)
+    completed = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.item
 
 
+class GroceryListArchive(models.Model):
+    item = models.CharField(max_length=255, null=True)
+    completed = models.BooleanField(default=False)
+    date = models.DateTimeField(datetime.now())
+
+    def __str__(self):
+        return self.item
