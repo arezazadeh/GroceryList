@@ -17,6 +17,7 @@ class GroceryItem(models.Model):
 
 
 class GroceryList(models.Model):
+    user_id = models.IntegerField(max_length=255, null=True)
     item = models.CharField(max_length=255, null=True, unique=True)
     completed = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True, null=True)
@@ -26,6 +27,7 @@ class GroceryList(models.Model):
 
 
 class GroceryListArchive(models.Model):
+    user_id = models.IntegerField(max_length=255, null=True)
     item = models.CharField(max_length=255, null=True)
     completed = models.BooleanField(default=False)
     date = models.DateTimeField(datetime.now())

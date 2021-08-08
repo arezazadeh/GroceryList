@@ -12,7 +12,7 @@
         <form action="{% url 'grocery:create_list' %}" method="post">
     {% csrf_token %}
  <label for="cat">Choose a Category:</label>
-<select  name="cat" id="cat">
+<select  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="cat" id="cat">
     <option  value="Vegetable">Vegetable</option>
     <option value="Sauce">Sauce</option>
     <option value="Fruit">Fruits</option>
@@ -29,7 +29,7 @@
 
 </select>
 <!--<input name="item" type="checkbox">-->
-<button type="submit">Submit</button>
+<button type="submit" class="btn btn-success">Submit</button>
 </form>
     </div>
 </div>

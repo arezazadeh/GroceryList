@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+	{% load static %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'accounts_style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'accounts_util.css' %}">
+
+</head>
+<style>
+	.login100-form-title {
+		font-family: 'Poppins', sans-serif;
+
+	}
+
+	.login100-form-btn,
+	.text-center .txt1,
+	.text-center .txt2 {
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	#error_msg {
+		font-size: 12px;
+	}
+</style>
+
+<body>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" action="{% url 'user_account:login' %}" method="post">
+					{% csrf_token %}
+					<span class="login100-form-title p-b-26">
+						Network Portal
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+						<input class="input100" type="text" name="username">
+						<span class="focus-input100" data-placeholder="S-ID Only"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+
+						<input class="input100" type="password" name="password">
+						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
+					{% if request.GET.next %}
+
+					<input type="hidden" name="next" value="{{ request.GET.next }}">
+					{% endif %}
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Login
+							</button>
+						</div>
+					</div>
+					<br>
+					{% for message in messages %}
+					<div class="alert {{ message.tags }} alert-dismissible" role="alert" id="error_msg">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						{{ message | safe }}
+					</div>
+					{% endfor %}
+					<div class="text-center p-t-115">
+						<span class="txt1">
+							Please Login With Your Stanford ID
+						</span>
+
+					</div>
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+	{% load static %}
+
+	<script type="text/javascript" src="{% static 'accounts_js.js' %}"></script>
+
+</body>
+
+</html>

@@ -40,6 +40,15 @@
             <li><a class="dropdown-item" href="#">Add to Item</a></li>
           </ul>
         </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user_account:logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user_account:login' %}">Login</a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </div>
