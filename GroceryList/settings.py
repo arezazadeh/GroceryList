@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-grocery-cart.herokuapp.com', '10.243.0.249']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -136,4 +135,3 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
