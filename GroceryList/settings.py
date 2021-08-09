@@ -26,7 +26,7 @@ SECRET_KEY = '=uan#hv&^14ldwbw3m7=l1i!t)^ssx9guxy+h(k!4@j8(0^4&#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-grocery-cart.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-grocery-cart.herokuapp.com', '10.243.0.249']
 
 
 # Application definition

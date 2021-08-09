@@ -28,14 +28,16 @@ def create_list(request):
 def add_to_list(request):
     if request.method == 'POST':
         user_id = request.session['_auth_user_id']
-        item = request.POST.getlist('item')
+        item_list = request.POST.getlist('item')
         print(request.user)
-        for i in item:
-            exists = GroceryList.objects.filter(item=i)
-            if not exists:
+        for i in item_list:
+            user_items = GroceryList.objects.filter(user_id=user_id)
+            item_exist = user_items.filter(item=i)
+            if not item_exist:
                 GroceryList.objects.create(item=i, user_id=user_id)
             else:
                 print('Item already in your list')
+        return redirect('grocery:create_list')
     return redirect('grocery:create_list')
 
 
