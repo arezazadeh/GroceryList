@@ -23,6 +23,6 @@ it should be as follow:<br>
 
 ## Opening the app on the browser
 * open your browser and enter <br>
-<code>http://localhost:5000 </code>
+<code>http://localhost:8000 </code>
 
 # If it doesnt work, contact Ahmad-Aghaa for Assistance 
