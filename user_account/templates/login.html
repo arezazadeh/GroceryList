@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-	<title>Login</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
+{% block content %}
 	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'account.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'accounts_style.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'accounts_util.css' %}">
 
 </head>
@@ -74,7 +68,7 @@
 					{% endfor %}
 					<div class="text-center p-t-115">
 						<span class="txt1">
-							Don't have an account? <a href="{% url 'user_account:signup' %}">Signup</a>
+							Please Login With Your Stanford ID
 						</span>
 
 					</div>
@@ -87,10 +81,11 @@
 	</div>
 
 
-	{% load static %}
-
-	<script type="text/javascript" src="{% static 'js/account.js' %}"></script>
-
+	
 </body>
 
 </html>
+{% load static %}
+
+<script type="text/javascript" src="{% static 'accounts_js.js' %}"></script>
+{% endblock %}
