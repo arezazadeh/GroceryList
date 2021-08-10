@@ -3,14 +3,14 @@
 
 ## 1- install python3
 - <a href="https://www.python.org/downloads/"> Download Python </a>
-- make sure the version is the correct version by issuing the below command: <br>
+- make sure the version is the correct version by issuing the below command in the terminal - FYI - doesnt matter which folder you are on: <br>
 <code> python3 --version </code>
 <br>
 it should be as follow:<br>
 <code> Python 3.9.5 </code>
  
 
-## 2- install the virtual environment
+## 2- install the virtual environment - FYI - doesnt matter which folder you are on
 * <code> pip3 install pipenv </code>
 
 ## 3- Install Django
