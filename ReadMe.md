@@ -25,4 +25,16 @@ it should be as follow:<br>
 * open your browser and enter <br>
 <code>http://localhost:8000 </code>
 
-# If it doesnt work, contact Ahmad-Aghaa for Assistance 
+<hr> </hr>
+
+# Pushing the changes to GitHub and Heroku 
+* on the project directory issue the below commands: <br>
+
+<code>
+git add . <br>
+git commit -m "[msg]" <br>
+git push origin main <br>
+git push heroku main <br>
+</code>
+
+
