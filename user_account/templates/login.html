@@ -32,7 +32,7 @@
 				<form class="login100-form validate-form" action="{% url 'user_account:login' %}" method="post">
 					{% csrf_token %}
 					<span class="login100-form-title p-b-26">
-						Network Portal
+						Grocery List
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
@@ -68,7 +68,7 @@
 					{% endfor %}
 					<div class="text-center p-t-115">
 						<span class="txt1">
-							Please Login With Your Stanford ID
+							Dont have Account? <a href="{% url 'user_account:signup' %}">Signup </a>
 						</span>
 
 					</div>
