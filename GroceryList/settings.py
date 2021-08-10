@@ -40,10 +40,10 @@ INSTALLED_APPS = [
     'grocery.apps.GroceryConfig',
     'user_account.apps.UserAccountConfig',
 ]
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
