@@ -8,36 +8,50 @@
 
 <div class="card" id="category">
     <div class="card-header">
-        <h3> Please Choose your Category Below</h3>
+        <h4>Select a Category</h4>
 
     </div>
     <div class="card-body">
         <form action="{% url 'grocery:create_list' %}" method="post">
-    {% csrf_token %}
-<label for="cat">Choose a Category:</label>
-<select  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="cat" id="cat">
-    {% for i in cat %}
-    <option value="{{ i.category }}">{{ i.category }}</option>
-    <!-- <option  value="Vegetable">Vegetable</option>
-    <option value="Sauce">Sauce</option>
-    <option value="Fruit">Fruits</option>
-    <option value="Bread">Bread</option>
-    <option value="Protein">Protein</option>
-    <option value="Oil">Oil</option>
-    <option value="Cleaning">Cleaning</option>
-    <option value="Drink">Drink</option>
-    <option value="Carbs">Carbs</option>
-    <option value="Baking">Baking</option>
-    <option value="Cheese">Cheese</option>
-    <option value="Cooking">Cooking</option> -->
+            {% csrf_token %}
+            <label for="cat">Choose a Category:</label>
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="cat" id="cat">
+                {% for i in cat %}
+                <option value="{{ i.category }}">{{ i.category }}</option>
 
-    {% endfor %}
-</select>
-<!--<input name="item" type="checkbox">-->
-<button type="submit" class="btn btn-success">Submit</button>
-</form>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-success">Show Items</button>
+        </form>
     </div>
 </div>
+{% if new %}
+<div class="card">
+    <div class="card-header">
+        <h4>Select an Item</h4>
+    </div>
+    <div class="card-body">
 
-
+        <form action="{% url 'grocery:add' %}" method="post" class="form-control">
+            <table class="table table-striped">
+                    <tr>
+                        <th>Item</th>
+                    </tr>
+                {% for i in item %}
+                <tr>
+                    <td>
+                        {% csrf_token %}
+                        <div class="form-check">
+                            <label class="form-check-label" for="item">{{ i.item }}</label>
+                            <input class="form-check-input" name="item" type="checkbox" value="{{ i.item }}" id="item">
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button type="submit" class="btn btn-success">Add to List</button>
+        </form>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

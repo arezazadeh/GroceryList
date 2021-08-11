@@ -13,20 +13,22 @@ def create_list(request):
     # a = cursor.execute(f'insert into "grocery_grocerylistarchive" select * from "grocery_grocerylist" where user_id={user_id}')
     # for i in a:
     #     print(i)
-    current_category = GroceryCategory.objects.all()
+    
+    
     print("11111111")
     for k, v in request.session.items():
         print(k, v)
     print("11111111")
-    user_id = request.session['_auth_user_id']
+    
+    current_category = GroceryCategory.objects.all()
     if request.method == "POST":
         cat = request.POST.get('cat')
 
         category = GroceryCategory.objects.filter(category=cat)
         cat_item = GroceryItem.objects.filter(category=category[0])
 
-        return render(request, 'grocery.html', {'item': cat_item})
-    return render(request, 'create_list.html', {'cat': current_category})
+        return render(request, 'create_list.html', {'item': cat_item, 'cat': current_category, 'new': True})
+    return render(request, 'create_list.html', {'cat': current_category, 'new': False})
 
 
 @login_required(login_url='/account/login')
