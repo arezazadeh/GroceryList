@@ -10,10 +10,12 @@ table {
     font-size: 200px;
     color: black;
     text-align: center;
+    margin-top: 30px;
 }
-.category {
-    margin-top: 40px;
+#category {
+    margin-top: 20px;
 }
+
 @media only screen 
   and (min-device-width: 375px) 
   and (max-device-width: 667px) 
@@ -21,16 +23,22 @@ table {
 
 /* view_list.html list table */
 th, td , th{
-    font-size: 45px;
+    font-size: 20px;
+}
+#date {
+    font-size: 15px;
 }
 /* base.html navbar */
 .navbar-brand{
-    font-size: 55px;
+    font-size: 20px;
 }
 .nav-link {
-    font-size: 45px;
+    font-size: 20px;
 }
 .navbar-toggler {
-    font-size: 50px;
+    font-size: 20px;
 }
+}
+#category {
+    margin-top: 0px;
 }

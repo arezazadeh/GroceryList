@@ -24,7 +24,7 @@
         <td>
          <s><a href="{% url 'grocery:undo' item_id=i.id %}">{{ i.item }}</a>
         </td>
-        <td>
+        <td id="date">
             <s>{{ i.date }}</s>
         </td>
     </tr>
@@ -36,7 +36,7 @@
         <td>
          <a href="{% url 'grocery:complete' item_id=i.id %}">{{ i.item }}</a>
         </td>
-        <td>
+        <td id="date">
             {{ i.date }}
         </td>
     </tr>
