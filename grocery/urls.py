@@ -10,6 +10,8 @@ urlpatterns = [
     path('undo_item/<int:item_id>/', views.undo_item, name='undo'),
     path('delete/', views.delete_list, name='delete'),
     path('new_cat/', views.new_cat, name='new_cat'),
+    path('new_item/', views.new_item, name='new_item'),
+    path('archived/', views.view_archived, name='archive'),
     
 
 

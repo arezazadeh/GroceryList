@@ -7,41 +7,33 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
-
+<br>
+<br>
+<div style="text-align: center;">
+    <a href="/" class="btn btn-success">Back </a>
+    <a href="{% url 'grocery:delete' %}" class="btn btn-success">Purchased </a>
+    </div>
 
 <table class="table table-striped table-bordered">
     <tr>
-        <!-- <th>List Items</th> -->
-        <th>Date Added</th>
-        <th>Index </th>
+        <th>List Items</th>
     </tr>
     {% for i in list %}
     {% if i.completed %}
     <tr>
-        <!-- <td>
-            <s>{{ i.id }}</s>
-        </td> -->
         <td>
          <s><a href="{% url 'grocery:undo' item_id=i.id %}">{{ i.item }}</a>
-        </td>
-        <td id="date">
-            <s>{{ i.date }}</s>
         </td>
     </tr>
     {% else %}
     <tr>
-        <!-- <td>
-            {{ i.id }}
-        </td> -->
+
         <td>
          <a href="{% url 'grocery:complete' item_id=i.id %}">{{ i.item }}</a>
-        </td>
-        <td id="date">
-            {{ i.date }}
         </td>
     </tr>
     {% endif %}
     {% endfor %}
-
 </table>
+
 {% endblock %}

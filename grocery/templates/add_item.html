@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md"> -->
+<div class="card" id="category">
+    <div class="card-header">
+        <h3>Choose your Category Below</h3>
+
+    </div>
+    <div class="card-body">
+        <form action="{% url 'grocery:new_item' %}" method="post">
+            {% csrf_token %}
+            <label for="cat">Choose a Category:</label>
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="cat" id="cat">
+                {% for i in cat %}
+                <option value="{{ i.category }}">{{ i.category }}</option>
+                {% endfor %}
+            </select>
+            <label for="item">New Item
+            </label>
+            <br>
+            <input class="form-control" id="item" type="text" name="item" placeholder="Apple" required>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message | safe }}
+        </div>
+        {% endfor %}
+</div>
+
+
+{% endblock %}

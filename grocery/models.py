@@ -20,7 +20,7 @@ class GroceryList(models.Model):
     user_id = models.IntegerField(max_length=255, null=True)
     item = models.CharField(max_length=255, null=True)
     completed = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now=True, null=True)
+    date = models.DateField(auto_now=True, null=True)
 
     def __str__(self):
         return self.item
@@ -29,8 +29,8 @@ class GroceryList(models.Model):
 class GroceryListArchive(models.Model):
     user_id = models.IntegerField(max_length=255, null=True)
     item = models.CharField(max_length=255, null=True)
-    completed = models.BooleanField(default=False)
-    date = models.DateTimeField(datetime.now())
+    completed = models.CharField(max_length=255, null=True)
+    date = models.DateField(auto_now=True, null=True)
 
     def __str__(self):
         return self.item

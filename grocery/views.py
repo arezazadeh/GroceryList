@@ -7,17 +7,20 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/account/login')
 def create_list(request):
+    cursor = connection.cursor()
+    user_id = request.session['_auth_user_id']
+
+    # a = cursor.execute(f'insert into "grocery_grocerylistarchive" select * from "grocery_grocerylist" where user_id={user_id}')
+    # for i in a:
+    #     print(i)
     current_category = GroceryCategory.objects.all()
     print("11111111")
     for k, v in request.session.items():
         print(k, v)
+    print("11111111")
     user_id = request.session['_auth_user_id']
     if request.method == "POST":
         cat = request.POST.get('cat')
-        item = request.POST.get('item')
-        # carb = GroceryCategory.objects.create(category="Cooking")
-        # category = GroceryCategory.objects.filter(category=cat)
-        # new_item = GroceryItem.objects.create(item=item, category=category[0])
 
         category = GroceryCategory.objects.filter(category=cat)
         cat_item = GroceryItem.objects.filter(category=category[0])
@@ -75,6 +78,7 @@ def delete_list(request):
     return redirect('grocery:create_list')
 
 
+@login_required(login_url='/account/login')
 def new_cat(request):
     if request.method == 'POST':
         cat = request.POST.get('cat')
@@ -91,3 +95,33 @@ def new_cat(request):
             return redirect("grocery:new_cat")
 
     return render(request, 'add_to_cat.html')
+
+
+@login_required(login_url='/account/login')
+def new_item(request):
+    current_category = GroceryCategory.objects.all()
+
+    if request.method == "POST":
+        cat = request.POST.get('cat')
+        item = request.POST.get('item')
+        print(cat, item)
+        
+        category = GroceryCategory.objects.filter(category=cat)
+        check_for_duplicate = GroceryItem.objects.filter(item=item)
+        if not check_for_duplicate:
+            new_item = GroceryItem.objects.create(item=item, category=category[0])
+            print(new_item)
+            messages.success(request, f"{item} added to the Database")
+            return redirect("grocery:new_item")
+        else:
+            messages.error(request, f"{item} already exist in Database")
+            return redirect("grocery:new_item")
+    return render(request, 'add_item.html', {'cat': current_category})
+
+
+@login_required(login_url='/account/login')
+def view_archived(request):
+    user_id = request.session['_auth_user_id']
+    archived_list = GroceryListArchive.objects.filter(user_id=user_id)
+    
+    return render(request, 'archived.html', {'item_list': archived_list})

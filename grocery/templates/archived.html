@@ -1,0 +1,29 @@
+
+<title>Grocery Archived List</title>
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Item</th>
+        <th>Date Added </th>
+    </tr>
+    {% for i in item_list %}
+    <tr>
+        <td>
+         {{ i.item }}
+        </td>
+        <td id="date">
+            {{ i.date }}
+        </td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}
