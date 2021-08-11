@@ -2,8 +2,11 @@
 
 {% block content %}
 
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
 
-<div class="card" style="margin-top:20px">
+
+<div class="card" id="category">
     <div class="card-header">
         <h3> Please Choose your Category Below</h3>
 
@@ -11,7 +14,7 @@
     <div class="card-body">
         <form action="{% url 'grocery:create_list' %}" method="post">
     {% csrf_token %}
- <label for="cat">Choose a Category:</label>
+<label for="cat">Choose a Category:</label>
 <select  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="cat" id="cat">
     <option  value="Vegetable">Vegetable</option>
     <option value="Sauce">Sauce</option>
