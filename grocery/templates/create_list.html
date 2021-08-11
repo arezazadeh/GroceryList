@@ -16,7 +16,9 @@
     {% csrf_token %}
 <label for="cat">Choose a Category:</label>
 <select  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="cat" id="cat">
-    <option  value="Vegetable">Vegetable</option>
+    {% for i in cat %}
+    <option value="{{ i.category }}">{{ i.category }}</option>
+    <!-- <option  value="Vegetable">Vegetable</option>
     <option value="Sauce">Sauce</option>
     <option value="Fruit">Fruits</option>
     <option value="Bread">Bread</option>
@@ -27,9 +29,9 @@
     <option value="Carbs">Carbs</option>
     <option value="Baking">Baking</option>
     <option value="Cheese">Cheese</option>
-    <option value="Cooking">Cooking</option>
+    <option value="Cooking">Cooking</option> -->
 
-
+    {% endfor %}
 </select>
 <!--<input name="item" type="checkbox">-->
 <button type="submit" class="btn btn-success">Submit</button>

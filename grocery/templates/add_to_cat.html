@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <h3>Add New Category </h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{% url 'grocery:new_cat' %}">
+            {% csrf_token %}
+        <label for="cat">New Category
+        </label>
+        <br>
+            <input id="cat" type="text" name="cat" placeholder="Vegetable" required>
+            <br>
+            <br>
+            <button class="btn btn-success" type="submit">Add </button>
+        </form>
+    </div>
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message | safe }}
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

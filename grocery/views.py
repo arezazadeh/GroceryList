@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import *
 from django.db import connection, transaction
@@ -6,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/account/login')
 def create_list(request):
+    current_category = GroceryCategory.objects.all()
     print("11111111")
     for k, v in request.session.items():
         print(k, v)
@@ -21,7 +23,7 @@ def create_list(request):
         cat_item = GroceryItem.objects.filter(category=category[0])
 
         return render(request, 'grocery.html', {'item': cat_item})
-    return render(request, 'create_list.html')
+    return render(request, 'create_list.html', {'cat': current_category})
 
 
 @login_required(login_url='/account/login')
@@ -45,7 +47,6 @@ def add_to_list(request):
 def view_list(request):
     user_id = request.session['_auth_user_id']
     grocery_list = GroceryList.objects.filter(user_id=user_id)
-    # grocery_list = GroceryList.objects.all()
     return render(request, 'view_list.html', {'list': grocery_list})
 
 @login_required(login_url='/account/login')
@@ -53,12 +54,6 @@ def complete(request, item_id):
     user_id = request.session['_auth_user_id']
     grocery_list = GroceryList.objects.filter(user_id=user_id)
     grocery_list.filter(id=item_id).update(completed=True)
-    
-    # grocery_list = GroceryList.objects.all()
-    # item = GroceryList.objects.filter(id=item_id)
-    # grocery_list.update(completed=True)
-    # item.update(completed=True)
-    
     return render(request, 'view_list.html', {'list': grocery_list})
 
 
@@ -67,11 +62,6 @@ def undo_item(request, item_id):
     user_id = request.session['_auth_user_id']
     grocery_list = GroceryList.objects.filter(user_id=user_id)
     grocery_list.filter(id=item_id).update(completed=False)
-    
-    # grocery_list = GroceryList.objects.all()
-    # item = GroceryList.objects.filter(id=item_id)
-    # item.update(completed=False)
-    
     return render(request, 'view_list.html', {'list': grocery_list})
 
 
@@ -83,3 +73,21 @@ def delete_list(request):
     cursor.execute(f'insert into "grocery_grocerylistarchive" select * from "grocery_grocerylist" where user_id = {user_id} ')
     grocery_list.delete()
     return redirect('grocery:create_list')
+
+
+def new_cat(request):
+    if request.method == 'POST':
+        cat = request.POST.get('cat')
+        if not cat:
+            messages.error(request, f"Please enter a valid Category")
+            return redirect("grocery:new_cat")
+        existing_category = GroceryCategory.objects.filter(category=cat)
+        if not existing_category:
+            GroceryCategory.objects.create(category=cat)
+            messages.success(request, f"Category {cat} was successfully added")
+            return redirect("grocery:new_cat")
+        else:
+            messages.error(request, f"Category {cat} already exist in Database")
+            return redirect("grocery:new_cat")
+
+    return render(request, 'add_to_cat.html')
