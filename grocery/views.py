@@ -27,8 +27,8 @@ def create_list(request):
         category = GroceryCategory.objects.filter(category=cat)
         cat_item = GroceryItem.objects.filter(category=category[0])
 
-        return render(request, 'create_list.html', {'item': cat_item, 'cat': current_category, 'new': True})
-    return render(request, 'create_list.html', {'cat': current_category, 'new': False})
+        return render(request, 'create_list.html', {'item': cat_item, 'cat': current_category, 'new': True, 'this': cat})
+    return render(request, 'create_list.html', {'cat': current_category, 'new': False })
 
 
 @login_required(login_url='/account/login')
