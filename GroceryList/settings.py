@@ -52,7 +52,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 ROOT_URLCONF = 'GroceryList.urls'
 
 TEMPLATES = [
@@ -89,10 +88,21 @@ WSGI_APPLICATION = 'GroceryList.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd7pv1ucrreqn29',
+        'HOST': 'ec2-44-194-112-166.compute-1.amazonaws.com',
+        'POST': 5432,
+        'USER': 'vowybgcskedxat',
+        'PASSWORD': 'dcbdadafbfa7c22cd5db46a46db3a946e2df369946c8100684f68215321c68f9'
     }
 }
 
