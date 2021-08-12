@@ -25,7 +25,7 @@
         <td>
          <s><a href="{% url 'grocery:undo' item_id=i.id %}">{{ i.item }}</a>
         </td>
-        <td><a href="{% url 'grocery:del_item' item_id=i.id %}">X</a></td>
+        <td><span><a href="{% url 'grocery:del_item' item_id=i.id %}">X</a></span></td>
     </tr>
     {% else %}
     <tr>

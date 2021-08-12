@@ -25,13 +25,11 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            user_info = request.user.is_authenticated
-            print(request.user)
-            print(user_info)
-            return redirect('/')
-
-        if 'next' in request.POST:
-            return redirect(request.POST.get('next'))
+            if 'next' in request.POST:
+                print(request.POST.get('next'))
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('/')
             
     return render(request, 'login.html')
 
