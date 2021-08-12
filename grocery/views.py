@@ -109,7 +109,8 @@ def new_item(request):
         print(cat, item)
         
         category = GroceryCategory.objects.filter(category=cat)
-        check_for_duplicate = GroceryItem.objects.filter(item=item)
+        check_for_duplicate = GroceryItem.objects.filter(item=item, category=category[0])
+        # check_for_duplicate = GroceryItem.objects.filter(item=item)
         if not check_for_duplicate:
             new_item = GroceryItem.objects.create(item=item, category=category[0])
             print(new_item)
