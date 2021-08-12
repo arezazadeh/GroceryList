@@ -12,6 +12,7 @@ urlpatterns = [
     path('new_cat/', views.new_cat, name='new_cat'),
     path('new_item/', views.new_item, name='new_item'),
     path('archived/', views.view_archived, name='archive'),
+    path('delete_item/<int:item_id>/', views.delete_item, name='del_item'),
     
 
 

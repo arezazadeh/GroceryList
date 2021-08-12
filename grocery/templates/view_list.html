@@ -17,6 +17,7 @@
 <table class="table table-striped table-bordered">
     <tr>
         <th>List Items</th>
+        <th>Delete </th>
     </tr>
     {% for i in list %}
     {% if i.completed %}
@@ -24,6 +25,7 @@
         <td>
          <s><a href="{% url 'grocery:undo' item_id=i.id %}">{{ i.item }}</a>
         </td>
+        <td><a href="{% url 'grocery:del_item' item_id=i.id %}">X</a></td>
     </tr>
     {% else %}
     <tr>
@@ -31,6 +33,7 @@
         <td>
          <a href="{% url 'grocery:complete' item_id=i.id %}">{{ i.item }}</a>
         </td>
+        <td><a href="{% url 'grocery:del_item' item_id=i.id %}">X</a></td>
     </tr>
     {% endif %}
     {% endfor %}

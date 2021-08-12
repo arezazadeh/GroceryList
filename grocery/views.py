@@ -63,6 +63,14 @@ def complete(request, item_id):
 
 
 @login_required(login_url='/account/login')
+def delete_item(request, item_id): 
+    user_id = request.session['_auth_user_id']
+    grocery_list = GroceryList.objects.filter(user_id=user_id)
+    grocery_list.filter(id=item_id).delete()
+    return render(request, 'view_list.html', {'list': grocery_list})
+
+
+@login_required(login_url='/account/login')
 def undo_item(request, item_id): 
     user_id = request.session['_auth_user_id']
     grocery_list = GroceryList.objects.filter(user_id=user_id)
