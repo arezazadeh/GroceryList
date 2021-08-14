@@ -1,6 +1,23 @@
 from django.db import models
 from datetime import datetime
 
+
+class PersonalMenu(models.Model):
+    user_id = models.IntegerField(null=True)
+    dish = models.CharField(max_length=255, null=True)
+
+    def __str__(self):
+        return self.dish
+
+
+class DishItem(models.Model):
+    item = models.CharField(max_length=255, null=True)
+    dish = models.ForeignKey(PersonalMenu, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.item
+
+
 class GroceryCategory(models.Model):
     category = models.CharField(max_length=255, null=True)
 
@@ -34,3 +51,7 @@ class GroceryListArchive(models.Model):
 
     def __str__(self):
         return self.item
+    
+
+
+    

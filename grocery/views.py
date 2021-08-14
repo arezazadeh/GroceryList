@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
@@ -134,5 +134,45 @@ def new_item(request):
 def view_archived(request):
     user_id = request.session['_auth_user_id']
     archived_list = GroceryListArchive.objects.filter(user_id=user_id)
-    
     return render(request, 'archived.html', {'item_list': archived_list})
+
+
+@login_required(login_url='/account/login')
+def create_menu(request):
+    if request.method == "POST":
+        user_id = request.session['_auth_user_id']
+        dish = request.POST.get('dish')
+        item_list = request.POST.getlist('item')
+        
+        new_dish = PersonalMenu.objects.filter(user_id=user_id)
+        existing_dish = new_dish.filter(dish=dish)
+        print(existing_dish)
+        
+        if not existing_dish:
+            create_new_dish = PersonalMenu.objects.create(user_id=user_id, dish=dish)
+            new_dish = PersonalMenu.objects.filter(dish=create_new_dish)
+
+            for item in item_list:
+                DishItem.objects.create(item=item, dish=new_dish[0])
+            messages.success(request, f"{dish} was added successfully")
+            return redirect("grocery:c-menu")
+        
+        # else statement if the dish already exists 
+        
+    return render(request, "add_dish.html")
+
+
+@login_required(login_url='/account/login')
+def view_menu(request):
+    user_id = request.session["_auth_user_id"]
+    dish = PersonalMenu.objects.filter(user_id=user_id)
+    return render(request, 'view_menu.html', {'dish': dish})
+
+
+@login_required(login_url='/account/login')
+def view_menu_detail(request, dish_id):
+    dish = PersonalMenu.objects.filter(id=dish_id)
+    dish_item = DishItem.objects.filter(dish=dish[0])
+    
+    
+    return render(request, 'menu_detail.html', {'dish': dish, 'dish_detail': dish_item})

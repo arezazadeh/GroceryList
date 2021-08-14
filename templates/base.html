@@ -38,9 +38,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'grocery:list' %}">View List</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="{% url 'grocery:delete' %}">Delete List</a>
-        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'grocery:menu' %}">Personal Menu</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'grocery:archive' %}">History</a>
         </li>
@@ -52,6 +52,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="{% url 'grocery:new_cat' %}">Add to Category</a></li>
             <li><a class="dropdown-item" href="{% url 'grocery:new_item' %}">Add to Item</a></li>
+            <li><a class="dropdown-item" href="{% url 'grocery:c-menu' %}">Create Menu</a></li>
           </ul>
         </li>
         {% if user.is_authenticated %}
