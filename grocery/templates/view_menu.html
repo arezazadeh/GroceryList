@@ -1,14 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
 
 <div class="card" id="category" style="margin: 20px;">
-    {% for i in dish %}
-    <h3><a href="{% url 'grocery:menu_detail' dish_id=i.id%}">{{ i.dish }}</a>
-        <h3>
-
-            {% endfor %}
-
+    <div class="card-header">
+        <h2>Personal Menu</h2>
+    </div>
+    <div class="card-body" id="menu-card">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th style="width: 20px; text-align:center"><h4>Index</h4></th>
+                <th style="text-align:center"><h4>Dish</h4></th>
+            </tr>
+            
+                    
+        {% for i in dish %}
+        <tr>
+            <td style="text-align:center" >{{forloop.counter|add:0}}</td>
+            <td>
+        <h4><a href="{% url 'grocery:menu_detail' dish_id=i.id%}">{{ i.dish }}</a></h4></td>
+        {% endfor %}
+        </tr>
+    </div>
 </div>
 
 

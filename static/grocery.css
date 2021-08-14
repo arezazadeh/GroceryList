@@ -7,8 +7,8 @@ table {
     margin-top: 20px;
 }
 .home {
-    font-size: 200px;
-    color: black;
+    /* font-size: 200px; */
+    color:aliceblue;
     text-align: center;
 }
 #category {
@@ -35,6 +35,9 @@ th, td , th{
     font-size: 20px;
 }
 .navbar-toggler {
+    font-size: 20px;
+}
+#home-text{
     font-size: 20px;
 }
 }

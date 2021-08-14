@@ -7,13 +7,14 @@ table {
     margin-top: 20px;
 }
 .home {
-    font-size: 200px;
-    color: black;
+    color:aliceblue;
     text-align: center;
-    margin-top: 30px;
+}
+#home-text{
+    font-size: 100px;
 }
 #category {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 @media only screen 
@@ -38,7 +39,10 @@ th, td , th{
 .navbar-toggler {
     font-size: 20px;
 }
+#home-text{
+    font-size: 25px;
 }
-#category {
-    margin-top: 0px;
+#menu-card h4 {
+    font-size: 15px;
+}
 }
