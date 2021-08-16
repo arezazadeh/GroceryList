@@ -16,6 +16,11 @@ table {
 #category {
     margin-top: 10px;
 }
+#home-img {
+    background-image: url(https://images.squarespace-cdn.com/content/v1/5ade21d31137a68018a194df/1524704598930-IJW7YCD63Y7UB2TP41CE/faded+food.jpg?format=2500w);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
 
 @media only screen 
   and (min-device-width: 375px) 
@@ -46,6 +51,6 @@ th, td , th{
     font-size: 15px;
 }
 #home-img {
-    background-repeat: repeat;
+    background-repeat:repeat-y;
 }
 }
