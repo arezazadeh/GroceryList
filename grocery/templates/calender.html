@@ -1,0 +1,13 @@
+
+<title>Grocery List</title>
+{% extends 'base.html' %}
+
+
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'calender.css' %}">
+
+{% block content %}
+{{ calendar }}
+{% endblock %}

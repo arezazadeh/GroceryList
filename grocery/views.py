@@ -5,6 +5,7 @@ from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
 
 
+
 @login_required(login_url='/account/login')
 def create_list(request):
     cursor = connection.cursor()
@@ -176,3 +177,4 @@ def view_menu_detail(request, dish_id):
     
     
     return render(request, 'menu_detail.html', {'dish': dish, 'dish_detail': dish_item})
+

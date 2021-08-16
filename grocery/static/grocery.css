@@ -45,4 +45,7 @@ th, td , th{
 #menu-card h4 {
     font-size: 15px;
 }
+#home-img {
+    background-repeat: repeat;
+}
 }

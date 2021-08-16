@@ -40,4 +40,7 @@ th, td , th{
 #home-text{
     font-size: 20px;
 }
+#home-img {
+    background-repeat: repeat;
+}
 }
