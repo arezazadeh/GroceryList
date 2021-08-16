@@ -1,12 +1,17 @@
 
 <title>Grocery List</title>
 {% extends 'base.html' %}
-{% load static %}
+
 
 
 
 {% block content %}
+
+{% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+
+<body id="base-bg-img">
+
 <br>
 <br>
 <div style="text-align: center;">
@@ -38,5 +43,5 @@
     {% endif %}
     {% endfor %}
 </table>
-
+</body>
 {% endblock %}

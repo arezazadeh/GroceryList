@@ -2,6 +2,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+
+<body id="base-bg-img">
 
 <div style="margin-top: 20px; text-align:center">
     <h3>List of Items from the selected category</h3>
@@ -30,5 +34,5 @@
 
 <br>
 <br>
-
+</body>
 {% endblock %}

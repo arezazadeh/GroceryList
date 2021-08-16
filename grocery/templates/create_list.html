@@ -5,6 +5,7 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
 
+<body id="base-bg-img">
 
 <div class="card" id="category">
     <div class="card-header">
@@ -26,7 +27,7 @@
     </div>
 </div>
 {% if new %}
-<div class="card">
+<div class="card" id="item">
     <div class="card-header">
         <h4>Select an Item in "{{ this }}"</h4>
     </div>
@@ -54,4 +55,6 @@
     </div>
 </div>
 {% endif %}
+
+</body>
 {% endblock %}

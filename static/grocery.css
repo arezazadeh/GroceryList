@@ -7,17 +7,24 @@ table {
     margin-top: 20px;
 }
 .home {
-    /* font-size: 200px; */
-    color:aliceblue;
+    color:rgb(13, 109, 0);
     text-align: center;
+}
+#home-text{
+    font-size: 100px;
 }
 #category {
     margin-top: 10px;
 }
 #home-img {
-    background-image: url(https://images.squarespace-cdn.com/content/v1/5ade21d31137a68018a194df/1524704598930-IJW7YCD63Y7UB2TP41CE/faded+food.jpg?format=2500w);
+    background-image: url(https://images.unsplash.com/photo-1584055482118-3f355578daef?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1268&q=80);
     background-repeat: no-repeat;
     background-size:cover;
+}
+#base-bg-img {
+    background-image: url(https://i.imgur.com/XiPGYem.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 @media only screen 
   and (min-device-width: 375px) 
@@ -47,7 +54,5 @@ th, td , th{
 #menu-card h4 {
     font-size: 15px;
 }
-#home-img {
-    background-repeat:repeat-y;
-}
+
 }
