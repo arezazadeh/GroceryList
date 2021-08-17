@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+
+<form method="POST" action="{% url 'grocery:recipe_search' %}" class="form-control">
+    {% csrf_token %}
+
+    <input type="text" name="food">Main Ingredient
+    <input type="text" name="cuisine">Cuisine type
+<button type="submit" class="btn btn-success">Search </button>
+</form>
+
+<table class="table table-striped table-bordered" style="width: max-content;">
+    <tr>
+        <th style="text-align: center;font-size:25px">Index</th>
+        <th style="text-align: center; font-size:25px"> Image </th>
+        <th style="text-align: center;font-size:25px"> Recipe Name </th>
+        <th style="text-align: center;font-size:25px"> Add to Menu</th>
+    </tr>
+    {% for i in food %}
+    <tr>
+        <td>{{ forloop.counter }}
+        <td>
+            <img src='{{ i.recipe.image }}' style="max-width: 150px;">
+        </td>
+        <td><h4>{{ i.recipe.label }}</h4></td>
+        <td><a href="#" class="btn btn-error">Add</a>
+    </tr>
+    {% endfor %}
+</table>
+            
+
+{% endblock %}

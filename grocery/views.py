@@ -1,9 +1,10 @@
+from grocery.api_function import food_search
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
-
+import requests
 
 
 @login_required(login_url='/account/login')
@@ -178,3 +179,23 @@ def view_menu_detail(request, dish_id):
     
     return render(request, 'menu_detail.html', {'dish': dish, 'dish_detail': dish_item})
 
+
+
+def recipe_search(request):
+    if request.method == "POST":
+        food = request.POST.get('food')
+        cuisine = request.POST.get('cuisine')
+        res = food_search(food, cuisine)
+        
+        for food in res:
+            recipe = food["recipe"]
+            image = recipe["image"]
+            ing = recipe["ingredientLines"]
+            if "cuisineType" in recipe:
+                cuisineType = recipe["cuisineType"]
+            else:
+                cuisineType = "Not Specified"
+            # print(cuisineType, recipe["label"], recipe["url"], image)
+            recipe_id = recipe["uri"].split("#")[1]
+        return render(request, 'recipe_search.html', {'food': res})
+    return render(request, "recipe_search.html")
