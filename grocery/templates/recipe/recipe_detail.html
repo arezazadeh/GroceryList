@@ -9,8 +9,10 @@
 <div class="card">
     <div class="card-header">
     <h4>{{ res.recipe.label }} </h4>
-    <a href="{{ res.recipe.url }}" target="_blank"><span>See Instruction</span></a>
+    <span> <a href="{{ res.recipe.url }}" target="_blank">See Instruction</a></span>
         <br>
+    <span><a href="{% url 'grocery:add_recipe' recipe_id=recipe_id %}">Add to Personal Menu</a></span>
+    <br>
     <img src="{{ res.recipe.image }}">
     </div>
     <div class="card-body">

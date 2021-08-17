@@ -12,6 +12,8 @@ table {
 }
 #home-text{
     font-size: 100px;
+    text-shadow: 2px 2px white;
+
 }
 #category {
     margin-top: 10px;

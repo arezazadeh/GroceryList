@@ -205,7 +205,7 @@ def recipe_detail(request, recipe_id):
     res = get_recipe_detail(recipe_id)
     print(res["recipe"]["url"])
     # print(json.dumps(res, indent=4))
-    return render(request, 'recipe/recipe_detail.html', {'res': res})
+    return render(request, 'recipe/recipe_detail.html', {'res': res, 'recipe_id': recipe_id})
         
 
 def add_recipe_to_menu(request, recipe_id):
