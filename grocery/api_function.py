@@ -21,3 +21,9 @@ def food_search(food, cuisine):
     #         cuisineType = "Not Specified"
     #     # print(cuisineType, recipe["label"], recipe["url"], image)
     #     recipe_id = recipe["uri"].split("#")[1]
+
+def get_recipe_detail(recipe_id):
+    url = f"https://api.edamam.com/api/recipes/v2/{recipe_id}?type=public&app_id=925f7b82&app_key=36e76867b08c6842fb530f8c1c851693"
+    response = requests.get(url).json()
+    # res = response["hits"]
+    return response

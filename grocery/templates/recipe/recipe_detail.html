@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+
+<div class="card">
+    <div class="card-header">
+    <h4>{{ res.recipe.label }} </h4>
+    <a href="{{ res.recipe.url }}" target="_blank"><span>See Instruction</span></a>
+        <br>
+    <img src="{{ res.recipe.image }}">
+    </div>
+    <div class="card-body">
+        {% for i in res.recipe.ingredientLines %}
+        {{ i }} <br>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

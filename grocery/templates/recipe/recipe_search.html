@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+<div class="card">
+    <div class="card-header">
+        <h3>Search For Recipe </h3>
+    </div>
+    <div class="card-body">
+<form method="POST" action="{% url 'grocery:recipe_search' %}" class="form-control">
+    {% csrf_token %}
+    <label for="food">Main Ingredient
+    <input type="text" name="food" id="food" class="form-control" placeholder="i.e. Chicken" required> 
+    <br>
+    <label for="cuisine">Cuisine type
+    <input type="text" name="cuisine" id="cuisine" class="form-control" placeholder="i.e. Indian">
+    <br>
+    <br>
+
+<button type="submit" class="btn btn-success">Search </button>
+</form>
+    </div>
+</div>
+            
+
+{% endblock %}

@@ -1,10 +1,10 @@
-from grocery.api_function import food_search
+from grocery.api_function import food_search, get_recipe_detail
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
-import requests
+import requests, json
 
 
 @login_required(login_url='/account/login')
@@ -197,5 +197,12 @@ def recipe_search(request):
                 cuisineType = "Not Specified"
             # print(cuisineType, recipe["label"], recipe["url"], image)
             recipe_id = recipe["uri"].split("#")[1]
-        return render(request, 'recipe_search.html', {'food': res})
-    return render(request, "recipe_search.html")
+        return render(request, 'recipe/recipe_view.html', {'food': res, "recipe_id": recipe_id})
+    return render(request, "recipe/recipe_search.html")
+
+def recipe_detail(request, recipe_id):
+    res = get_recipe_detail(recipe_id)
+    print(res["recipe"]["url"])
+    # print(json.dumps(res, indent=4))
+    return render(request, 'recipe/recipe_detail.html', {'res': res})
+        
