@@ -20,7 +20,7 @@
             <img src='{{ i.recipe.image }}' style="max-width: 150px;">
         </td>
         <td><a href="{% url 'grocery:recipe_detail' recipe_id=recipe_id %}"><h4>{{ i.recipe.label }}</h4></a></td>
-        <td><a href="#" class="btn btn-error">Add</a>
+        <td><a href="{% url 'grocery:add_recipe' recipe_id=recipe_id %}" class="btn btn-error">Add</a>
     </tr>
     {% endfor %}
 </table>

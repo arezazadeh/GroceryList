@@ -187,6 +187,7 @@ def recipe_search(request):
         cuisine = request.POST.get('cuisine')
         res = food_search(food, cuisine)
         
+        
         for food in res:
             recipe = food["recipe"]
             image = recipe["image"]
@@ -205,4 +206,22 @@ def recipe_detail(request, recipe_id):
     print(res["recipe"]["url"])
     # print(json.dumps(res, indent=4))
     return render(request, 'recipe/recipe_detail.html', {'res': res})
+        
+
+def add_recipe_to_menu(request, recipe_id):
+    res = get_recipe_detail(recipe_id)
+    user_id = request.session["_auth_user_id"]
+    recipe_name = res["recipe"]["label"]
+    menu = PersonalMenu.objects.filter(dish=recipe_name)
+    if not menu:
+        PersonalMenu.objects.create(user_id=user_id, dish=recipe_name)
+
+    new_menu = PersonalMenu.objects.filter(dish=recipe_name)
+    for ing in res["recipe"]["ingredients"]:
+        ingredient = ing["text"]
+    
+        DishItem.objects.create(item=ingredient, dish=new_menu[0])
+        
+    
+    return render(request, 'recipe/recipe_search.html')
         

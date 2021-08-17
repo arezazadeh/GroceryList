@@ -7,7 +7,6 @@ def food_search(food, cuisine):
     querystring = {"cuisineType": cuisine or None, "q": food, "imageSize": "REGULAR"}
     
     response = requests.request("GET", url, params=querystring).json()
-    
     res = response["hits"]
     return res
     
