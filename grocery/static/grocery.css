@@ -8,12 +8,14 @@ table {
 }
 
 .home {
-    color:rgb(13, 109, 0);
+    color:rgba(0, 176, 6, 0.666);
+    margin-top: 20px;
     text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 #home-text{
     font-size: 100px;
-    text-shadow: 2px 2px white;
+    text-shadow: 2px 2px 7px white;
 }
 #category, #item {
     margin-top: 10px;
