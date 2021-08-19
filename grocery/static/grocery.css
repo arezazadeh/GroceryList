@@ -6,7 +6,12 @@ table {
     max-width: 90%;
     margin-top: 20px;
 }
-
+.new_list .card { 
+    margin: 0 auto;
+    float: none;
+    width: 90%;
+    margin-top: 20px;
+}
 .home {
     color:rgba(0, 176, 6, 0.666);
     margin-top: 20px;

@@ -13,15 +13,16 @@
 
     </div>
     <div class="card-body">
-        <form action="{% url 'grocery:create_list' %}" method="post">
+        <form action="{% url 'grocery:create_list' list_id=list_id %}" method="post">
             {% csrf_token %}
             <label for="cat">Choose a Category:</label>
             <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="cat" id="cat">
                 {% for i in cat %}
                 <option value="{{ i.category }}">{{ i.category }}</option>
-
+                
                 {% endfor %}
             </select>
+            <input type="hidden" name="list_name" value="{{ new_list.0.name }}">
             <button type="submit" class="btn btn-success">Show Items</button>
         </form>
     </div>
@@ -33,7 +34,7 @@
     </div>
     <div class="card-body">
 
-        <form action="{% url 'grocery:add' %}" method="post" class="form-control">
+        <form action="{% url 'grocery:add' list_id=list_id %}" method="post" class="form-control">
             <table class="table table-striped">
                     <tr>
                         <th>Item</th>
@@ -50,6 +51,7 @@
                 </tr>
                 {% endfor %}
             </table>
+            <input type="hidden" name="list_name" value="{{ list_id }}">
             <button type="submit" class="btn btn-success">Add to List</button>
         </form>
     </div>

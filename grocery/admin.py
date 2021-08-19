@@ -16,7 +16,10 @@ class GroceryItemAdmin(admin.ModelAdmin):
     list_display = ["item", "category"]
 
 class GroceryListAdmin(admin.ModelAdmin):
-    list_display = ["user_id", "item", "completed", "date"]
+    list_display = ["id", "name", "item", "completed", "date"]
+    
+class GroceryListNameAdmin(admin.ModelAdmin):
+    list_display = ["id", "user_id", "name"]
     
 class GroceryListArchiveAdmin(admin.ModelAdmin):
     list_display = ["user_id", "item", "completed", "date"]
@@ -29,3 +32,4 @@ admin.site.register(GroceryCategory, GroceryCategoryAdmin)
 admin.site.register(GroceryItem, GroceryItemAdmin)
 admin.site.register(GroceryList, GroceryListAdmin)
 admin.site.register(GroceryListArchive, GroceryListArchiveAdmin)
+admin.site.register(GroceryListName, GroceryListNameAdmin)

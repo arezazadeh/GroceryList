@@ -4,11 +4,36 @@ from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
-import requests, json
+
 
 
 @login_required(login_url='/account/login')
-def create_list(request):
+def create_new_list(request):
+    user_id = request.session['_auth_user_id']
+    current_category = GroceryCategory.objects.all()
+    
+    if request.method == "POST":
+        list_name = request.POST.get('name')
+        exising_name = GroceryListName.objects.filter(user_id=user_id, name=list_name)
+        print(exising_name)
+        if not exising_name:
+            GroceryListName.objects.create(user_id=user_id, name=list_name)
+        else:
+            print("list is there")
+            
+        new_list = GroceryListName.objects.filter(user_id=user_id, name=list_name)
+        user_lists = GroceryListName.objects.filter(user_id=user_id)
+        return render(request, 'user_lists.html', {'user_lists': user_lists})    
+        # return render(request, 'create_list.html', {'cat': current_category, 'new': False, 'new_list': new_list})
+    return render(request, 'create_new_list.html')
+
+
+
+@login_required(login_url='/account/login')
+def create_list(request, list_id):
+    print()
+    print(list_id)
+    print()
     cursor = connection.cursor()
     user_id = request.session['_auth_user_id']
 
@@ -25,59 +50,79 @@ def create_list(request):
     current_category = GroceryCategory.objects.all()
     if request.method == "POST":
         cat = request.POST.get('cat')
-
+        list_name = request.POST.get('list_name')
         category = GroceryCategory.objects.filter(category=cat)
         cat_item = GroceryItem.objects.filter(category=category[0])
 
-        return render(request, 'create_list.html', {'item': cat_item, 'cat': current_category, 'new': True, 'this': cat})
-    return render(request, 'create_list.html', {'cat': current_category, 'new': False })
+        return render(request, 'create_list.html', {'item': cat_item, 'cat': current_category, 'list_id': list_id, 'new': True, 'this': cat, 'new_list':list_name})
+    return render(request, 'create_list.html', {'cat': current_category, 'new': False, 'list_id': list_id })
 
 
 @login_required(login_url='/account/login')
-def add_to_list(request):
+def add_to_list(request, list_id):
+    print(f"--------- {list_id} -------------")
+    user_id = request.session['_auth_user_id']
     if request.method == 'POST':
-        user_id = request.session['_auth_user_id']
+        list_name = request.POST.get('list')
         item_list = request.POST.getlist('item')
-        print(request.user)
+        
+        new_list = GroceryListName.objects.filter(id=list_id)
+        print("````````````````````")
+        print(new_list)
+        if not new_list:
+            list_id = request.POST.get('menu_list_id')
+            print(list_id)
+            new_list = GroceryListName.objects.filter(id=list_id)
+        print(new_list)
         for i in item_list:
-            user_items = GroceryList.objects.filter(user_id=user_id)
+            user_items = GroceryList.objects.filter(name=new_list[0].id)
+            print(f"$$$$$$$$$$$$ {user_items}")
             item_exist = user_items.filter(item=i)
             if not item_exist:
-                GroceryList.objects.create(item=i, user_id=user_id)
+                GroceryList.objects.create(item=i, name=new_list[0])
+                
             else:
                 print('Item already in your list')
-        return redirect('grocery:create_list')
-    return redirect('grocery:create_list')
+        grocery_list = GroceryList.objects.filter(name=list_id)
+        return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+    return redirect('grocery:create_list', {'list_id': list_id})
 
 
 @login_required(login_url='/account/login')
-def view_list(request):
-    user_id = request.session['_auth_user_id']
-    grocery_list = GroceryList.objects.filter(user_id=user_id)
-    return render(request, 'view_list.html', {'list': grocery_list})
+def view_list(request, list_id):
+    grocery_list = GroceryList.objects.filter(name=list_id)
+    return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+
 
 @login_required(login_url='/account/login')
-def complete(request, item_id): 
+def view_lists(request):
     user_id = request.session['_auth_user_id']
-    grocery_list = GroceryList.objects.filter(user_id=user_id)
+    user_lists = GroceryListName.objects.filter(user_id=user_id)
+    return render(request, 'user_lists.html', {'user_lists': user_lists})
+
+
+
+@login_required(login_url='/account/login')
+def complete(request, item_id, list_id): 
+    grocery_list = GroceryList.objects.filter(name=list_id)
     grocery_list.filter(id=item_id).update(completed=True)
-    return render(request, 'view_list.html', {'list': grocery_list})
-
+    return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+    
 
 @login_required(login_url='/account/login')
-def delete_item(request, item_id): 
+def delete_item(request, item_id, list_id): 
     user_id = request.session['_auth_user_id']
-    grocery_list = GroceryList.objects.filter(user_id=user_id)
+    grocery_list = GroceryList.objects.filter(name=list_id)
     grocery_list.filter(id=item_id).delete()
-    return render(request, 'view_list.html', {'list': grocery_list})
+    return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
 
 
 @login_required(login_url='/account/login')
-def undo_item(request, item_id): 
+def undo_item(request, item_id, list_id): 
     user_id = request.session['_auth_user_id']
-    grocery_list = GroceryList.objects.filter(user_id=user_id)
+    grocery_list = GroceryList.objects.filter(name=list_id)
     grocery_list.filter(id=item_id).update(completed=False)
-    return render(request, 'view_list.html', {'list': grocery_list})
+    return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
 
 
 @login_required(login_url='/account/login')
@@ -173,14 +218,15 @@ def view_menu(request):
 
 @login_required(login_url='/account/login')
 def view_menu_detail(request, dish_id):
+    user_id = request.session["_auth_user_id"]
     dish = PersonalMenu.objects.filter(id=dish_id)
     dish_item = DishItem.objects.filter(dish=dish[0])
+    user_list = GroceryListName.objects.filter(user_id=user_id)
     
-    
-    return render(request, 'menu_detail.html', {'dish': dish, 'dish_detail': dish_item})
+    return render(request, 'menu_detail.html', {'dish': dish, 'dish_detail': dish_item, 'lists': user_list})
 
 
-
+@login_required(login_url='/account/login')
 def recipe_search(request):
     if request.method == "POST":
         food = request.POST.get('food')
@@ -201,6 +247,8 @@ def recipe_search(request):
         return render(request, 'recipe/recipe_view.html', {'food': res, "recipe_id": recipe_id})
     return render(request, "recipe/recipe_search.html")
 
+
+@login_required(login_url='/account/login')
 def recipe_detail(request, recipe_id):
     res = get_recipe_detail(recipe_id)
     print(res["recipe"]["url"])
@@ -208,6 +256,7 @@ def recipe_detail(request, recipe_id):
     return render(request, 'recipe/recipe_detail.html', {'res': res, 'recipe_id': recipe_id})
         
 
+@login_required(login_url='/account/login')
 def add_recipe_to_menu(request, recipe_id):
     res = get_recipe_detail(recipe_id)
     user_id = request.session["_auth_user_id"]
@@ -221,7 +270,6 @@ def add_recipe_to_menu(request, recipe_id):
         ingredient = ing["text"]
     
         DishItem.objects.create(item=ingredient, dish=new_menu[0])
-        
-    
     return render(request, 'recipe/recipe_search.html')
         
+

@@ -33,8 +33,16 @@ class GroceryItem(models.Model):
         return self.item
 
 
-class GroceryList(models.Model):
+class GroceryListName(models.Model):
     user_id = models.IntegerField(null=True)
+    name = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.name
+
+
+class GroceryList(models.Model):
+    name = models.ForeignKey(GroceryListName, on_delete=models.CASCADE, null=True)
     item = models.CharField(max_length=255, null=True)
     completed = models.BooleanField(default=False)
     date = models.DateField(auto_now=True, null=True)

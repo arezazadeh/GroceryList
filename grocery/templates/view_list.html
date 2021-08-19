@@ -1,4 +1,3 @@
-
 <title>Grocery List</title>
 {% extends 'base.html' %}
 
@@ -12,36 +11,41 @@
 
 <body id="base-bg-img">
 
-<br>
-<br>
-<div style="text-align: center;">
-    <a href="/" class="btn btn-success">Back </a>
-    <a href="{% url 'grocery:delete' %}" class="btn btn-success">Purchased </a>
+    <br>
+    <br>
+    <div style="text-align: center;">
+        <a href="/" class="btn btn-success">Back </a>
+        <a href="{% url 'grocery:create_list' list_id=list_id %}" class="btn btn-success">Add to List </a>
     </div>
 
-<table class="table table-striped table-bordered">
-    <tr>
-        <th>List Items</th>
-        <th>Delete </th>
-    </tr>
-    {% for i in list %}
-    {% if i.completed %}
-    <tr>
-        <td>
-         <s><a href="{% url 'grocery:undo' item_id=i.id %}">{{ i.item }}</a>
-        </td>
-        <td><span><a href="{% url 'grocery:del_item' item_id=i.id %}">X</a></span></td>
-    </tr>
-    {% else %}
-    <tr>
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>List Items</th>
+            <th>Delete </th>
+        </tr>
+        {% for i in list %}
+        {% if i.completed %}
+        <tr>
+            <td>
+                <s><a href="{% url 'grocery:undo' item_id=i.id list_id=i.name.id %}">{{ i.item }}</a>
+            </td>
+            <td><span><a href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}">X</a></span></td>
+        </tr>
+        {% else %}
+        <tr>
 
-        <td>
-         <a href="{% url 'grocery:complete' item_id=i.id %}">{{ i.item }}</a>
-        </td>
-        <td><a href="{% url 'grocery:del_item' item_id=i.id %}">X</a></td>
-    </tr>
-    {% endif %}
-    {% endfor %}
-</table>
+            <td>
+                <a href="{% url 'grocery:complete' item_id=i.id list_id=i.name.id %}">{{ i.item }}</a>
+            </td>
+            <td>
+                <a href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}">X</a>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
 </body>
+
+
+
 {% endblock %}
