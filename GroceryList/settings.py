@@ -29,8 +29,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'grocery.apps.GroceryConfig',
     'user_account.apps.UserAccountConfig',
-    'api.apps.ApiConfig',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
