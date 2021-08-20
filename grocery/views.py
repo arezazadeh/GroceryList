@@ -1,10 +1,10 @@
-from grocery.api_function import food_search, get_recipe_detail
+from grocery.api_function import *
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
-
+import json
 
 
 @login_required(login_url='/account/login')
@@ -15,7 +15,6 @@ def create_new_list(request):
     if request.method == "POST":
         list_name = request.POST.get('name')
         exising_name = GroceryListName.objects.filter(user_id=user_id, name=list_name)
-        print(exising_name)
         if not exising_name:
             GroceryListName.objects.create(user_id=user_id, name=list_name)
         else:
@@ -31,16 +30,9 @@ def create_new_list(request):
 
 @login_required(login_url='/account/login')
 def create_list(request, list_id):
-    print()
-    print(list_id)
-    print()
+
     cursor = connection.cursor()
     user_id = request.session['_auth_user_id']
-
-    # a = cursor.execute(f'insert into "grocery_grocerylistarchive" select * from "grocery_grocerylist" where user_id={user_id}')
-    # for i in a:
-    #     print(i)
-    
     
     print("11111111")
     for k, v in request.session.items():
@@ -67,16 +59,13 @@ def add_to_list(request, list_id):
         item_list = request.POST.getlist('item')
         
         new_list = GroceryListName.objects.filter(id=list_id)
-        print("````````````````````")
-        print(new_list)
+
         if not new_list:
             list_id = request.POST.get('menu_list_id')
-            print(list_id)
+
             new_list = GroceryListName.objects.filter(id=list_id)
-        print(new_list)
         for i in item_list:
             user_items = GroceryList.objects.filter(name=new_list[0].id)
-            print(f"$$$$$$$$$$$$ {user_items}")
             item_exist = user_items.filter(item=i)
             if not item_exist:
                 GroceryList.objects.create(item=i, name=new_list[0])
@@ -169,14 +158,12 @@ def new_item(request):
     if request.method == "POST":
         cat = request.POST.get('cat')
         item = request.POST.get('item')
-        print(cat, item)
         
         category = GroceryCategory.objects.filter(category=cat)
         check_for_duplicate = GroceryItem.objects.filter(item=item, category=category[0])
         # check_for_duplicate = GroceryItem.objects.filter(item=item)
         if not check_for_duplicate:
             new_item = GroceryItem.objects.create(item=item, category=category[0])
-            print(new_item)
             messages.success(request, f"{item} added to the Database")
             return redirect("grocery:new_item")
         else:
@@ -201,7 +188,6 @@ def create_menu(request):
         
         new_dish = PersonalMenu.objects.filter(user_id=user_id)
         existing_dish = new_dish.filter(dish=dish)
-        print(existing_dish)
         
         if not existing_dish:
             create_new_dish = PersonalMenu.objects.create(user_id=user_id, dish=dish)
@@ -239,35 +225,34 @@ def recipe_search(request):
     if request.method == "POST":
         food = request.POST.get('food')
         cuisine = request.POST.get('cuisine')
-        res = food_search(food, cuisine)
+        result = food_search(food, cuisine)
+        food_list = []
         
-        
-        for food in res:
-            recipe = food["recipe"]
-            image = recipe["image"]
-            ing = recipe["ingredientLines"]
-            if "cuisineType" in recipe:
-                cuisineType = recipe["cuisineType"]
-            else:
-                cuisineType = "Not Specified"
-            # print(cuisineType, recipe["label"], recipe["url"], image)
-            recipe_id = recipe["uri"].split("#")[1]
-        return render(request, 'recipe/recipe_view.html', {'food': res, "recipe_id": recipe_id})
+        for food in result:
+            food_list.append({
+                'link': food["_links"]["self"]["href"],
+                'image': food["recipe"]["image"],
+                'label': food["recipe"]["label"]
+            })
+        return render(request, 'recipe/recipe_view.html', {'food': food_list})
     return render(request, "recipe/recipe_search.html")
 
 
 @login_required(login_url='/account/login')
-def recipe_detail(request, recipe_id):
-    res = get_recipe_detail(recipe_id)
-    print(res["recipe"]["url"])
-    # print(json.dumps(res, indent=4))
+def recipe_detail(request, recipe_link):
+    res = get_recipe_detail(recipe_link)
+    recipe_id = res["recipe"]["uri"].split("#recipe_")[1]
+    res['link'] = res["_links"]["self"]["href"]
+    
     return render(request, 'recipe/recipe_detail.html', {'res': res, 'recipe_id': recipe_id})
         
 
 @login_required(login_url='/account/login')
 def add_recipe_to_menu(request, recipe_id):
-    res = get_recipe_detail(recipe_id)
+    res = add_recipe_to_personal_menu(recipe_id)
+
     user_id = request.session["_auth_user_id"]
+    
     recipe_name = res["recipe"]["label"]
     menu = PersonalMenu.objects.filter(dish=recipe_name)
     if not menu:
@@ -278,6 +263,6 @@ def add_recipe_to_menu(request, recipe_id):
         ingredient = ing["text"]
     
         DishItem.objects.create(item=ingredient, dish=new_menu[0])
-    return render(request, 'recipe/recipe_search.html')
+    return redirect("grocery:menu")
         
 

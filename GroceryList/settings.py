@@ -20,6 +20,8 @@ ALLOWED_HOSTS = ['192.168.1.153', '127.0.0.1', 'localhost', 'my-grocery-cart.her
 
 # Application definition
 
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
