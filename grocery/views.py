@@ -136,6 +136,14 @@ def delete_list(request):
 
 
 @login_required(login_url='/account/login')
+def delete_user_list(request, list_id):
+    selected_list = GroceryListName.objects.filter(pk=list_id)
+    selected_list.delete()
+    return redirect("grocery:user_lists")
+    
+
+
+@login_required(login_url='/account/login')
 def new_cat(request):
     if request.method == 'POST':
         cat = request.POST.get('cat')
