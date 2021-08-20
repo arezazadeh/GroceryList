@@ -3,6 +3,8 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+
 
 
 <body id="base-bg-img">
@@ -24,7 +26,7 @@
             <td style="text-align:center" >{{forloop.counter|add:0}}</td>
             <td>
         <h4><a href="{% url 'grocery:menu_detail' dish_id=i.id%}">{{ i.dish }}</a></h4></td>
-        <td><a href="{% url 'grocery:delete_menu' menu_id=i.id %}">X</a></td>
+        <td><a href="{% url 'grocery:delete_menu' menu_id=i.id %}"><i class="fa fa-trash"></i></a></td>
     </tr>
     {% endfor %}
     </div>

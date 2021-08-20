@@ -8,7 +8,6 @@ from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
 import json
 from .forms import *
-from django.views.generic.edit import CreateView
 
 
 @login_required(login_url='/account/login')

@@ -10,8 +10,7 @@
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
-
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
 <body id="base-bg-img">
 
     <br>
@@ -34,7 +33,7 @@
                 <s><a href="{% url 'grocery:undo' item_id=i.id list_id=i.name.id %}">{{ i.item }}</a>
             </td>
             <td>{{ i.date }}</td>
-            <td><span><a href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}">X</a></span></td>
+            <td><span><a href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i class="fa fa-trash"></i></a></span></td>
         </tr>
         {% else %}
         <tr>
@@ -44,12 +43,13 @@
             </td>
             <td>--</td>
             <td>
-                <a href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}">X</a>
+                <a href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i class="fa fa-trash"></i></a>
             </td>
         </tr>
         {% endif %}
         {% endfor %}
     </table>
+
 </body>
 
 

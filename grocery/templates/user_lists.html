@@ -32,7 +32,7 @@
          <a href="{% url 'grocery:list' list_id=i.id %}">{{ i.name }}</a>
         </td>
         <td>
-            <a href="{% url 'grocery:del_user_list' list_id=i.id %}">X</a>
+            <a href="{% url 'grocery:del_user_list' list_id=i.id %}"><i class="fa fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
