@@ -45,7 +45,7 @@ class GroceryList(models.Model):
     name = models.ForeignKey(GroceryListName, on_delete=models.CASCADE, null=True)
     item = models.CharField(max_length=255, null=True)
     completed = models.BooleanField(default=False)
-    date = models.DateField(auto_now=True, null=True)
+    date = models.DateField()
 
     def __str__(self):
         return self.item

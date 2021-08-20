@@ -6,18 +6,21 @@
 
 {% block content %}
 
+
+
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+
 
 <body id="base-bg-img">
 
     <br>
     <br>
+
     <div style="text-align: center;">
         <a href="{% url 'grocery:user_lists' %}" class="btn btn-success">Back </a>
         <a href="{% url 'grocery:create_list' list_id=list_id %}" class="btn btn-success">Add to List </a>
     </div>
-
     <table class="table table-striped table-bordered">
         <tr>
             <th>List Items</th>
