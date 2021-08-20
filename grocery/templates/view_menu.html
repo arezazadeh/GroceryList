@@ -16,16 +16,17 @@
             <tr>
                 <th style="width: 20px; text-align:center"><h4>Index</h4></th>
                 <th style="text-align:center"><h4>Dish</h4></th>
+                <th style="text-align: center;">Delete</th>
             </tr>
             
-                    
         {% for i in dish %}
         <tr>
             <td style="text-align:center" >{{forloop.counter|add:0}}</td>
             <td>
         <h4><a href="{% url 'grocery:menu_detail' dish_id=i.id%}">{{ i.dish }}</a></h4></td>
-        {% endfor %}
-        </tr>
+        <td><a href="{% url 'grocery:delete_menu' menu_id=i.id %}">X</a></td>
+    </tr>
+    {% endfor %}
     </div>
 </div>
 

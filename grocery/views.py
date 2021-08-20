@@ -1,3 +1,4 @@
+from datetime import date
 from grocery.api_function import *
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse
@@ -94,7 +95,9 @@ def view_lists(request):
 @login_required(login_url='/account/login')
 def complete(request, item_id, list_id): 
     grocery_list = GroceryList.objects.filter(name=list_id)
-    grocery_list.filter(id=item_id).update(completed=True)
+    grocery_item = grocery_list.filter(id=item_id)
+    grocery_item.update(completed=True, date=date.today())
+    
     return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
     
 
@@ -266,3 +269,8 @@ def add_recipe_to_menu(request, recipe_id):
     return redirect("grocery:menu")
         
 
+@login_required(login_url='/account/login')
+def delete_menu(request, menu_id):
+    menu = PersonalMenu.objects.filter(pk=menu_id)
+    menu.delete()
+    return redirect("grocery:menu")
