@@ -2,9 +2,8 @@
 
 {% block content %}
 
-
 <div class="container">
-    <div class="card" >
+    <div class="card"  >
         <div style="background-color: rgb(85, 85, 85); color:aliceblue" class="card-header">
             {% for i in user_post %}
             <h4>{{ i.title }}</h4>
@@ -13,12 +12,21 @@
             <span style="font-size: small; color:rgb(160, 160, 160)"> {{ i.user_name }}</span>
             {% endfor %}
         </div>
-        <div class="card-body" style="overflow: scroll;">
+        <div class="card-body" style="overflow: scroll; height:400px">
             {% for comm in user_comment %}
             <div>
             <p style="margin-bottom: 2px;">{{ comm.comment }}</p>
-            <p style="font-size: small; color:rgb(160, 160, 160); margin-bottom:20px">{{ comm.user_name }}</p>
-            </div>
+            <p style="font-size: small; color:rgb(160, 160, 160);">{{ comm.user_name }}</p>
+
+            <!-- <form action="{% url 'grocery:delete_comment' %}" method="POST">
+                <input type="hidden" name="comment" value="{{ comm }}">
+                <input type="hidden" name="user_name" value="{{ comm.user_name }}">
+                <input type="hidden" name="user_post" value="{{ user_post }}">
+                <button style="max-width:70px; font-size:10px; margin-bottom:20px" type="submit" class="btn btn-warning">delete</button>
+            </form> -->
+            <br>
+            
+        </div>
             {% endfor %}
         </div>
     </div>
@@ -29,7 +37,9 @@
         <textarea class="form-control" id="comment" name="comment"></textarea>
         <br>
         <button type="submit" class="btn btn-success">Comment</button>
+        <a href="{% url 'grocery:discussion' %}" class="btn btn-success">Back</a>
     </form>
+    
     
 </div>
 

@@ -5,7 +5,7 @@
 <title>Discussion</title>
 
 <div class="container">
-    <div class="card">
+    <div class="card" style="margin-top: 20px; margin-bottom:20px">
         <div class="card-header">
             <h3>Discussion</h3>
         </div>
@@ -24,13 +24,12 @@
         </div>
        
     </div>
-    <hr>
     <div class="card" style="overflow: scroll;">
         <div class="card-body">
             {% for i in posts %}
 
             <a href="{% url 'grocery:post' post_id=i.id %}"><h4> {{ i.title }}</h4></a>
-            <span style="color: rgb(133, 133, 133);">{{ i.user_name }}</span>
+            <p style="color: rgb(133, 133, 133); margin-bottom:20px">{{ i.user_name }}</p>
 
             {% endfor %}
         </div>

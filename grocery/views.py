@@ -301,6 +301,7 @@ def discussion(request):
 def post_detail(request, post_id):
     user_post = UserPost.objects.filter(pk=post_id)
     user_comment = UserComments.objects.filter(post=user_post[0])
+    user = request.user
     if request.method == "POST":
         comment = request.POST.get('comment')
         user_post = UserPost.objects.filter(pk=post_id)
@@ -308,5 +309,9 @@ def post_detail(request, post_id):
         UserComments.objects.create(comment=comment, post=user_post[0], user_name=user_name)
         return render(request, 'discussion/post.html', {'user_post': user_post, 'user_comment': user_comment, 'post_id': post_id})
         
-    return render(request, 'discussion/post.html', {'user_post': user_post, 'user_comment': user_comment, 'post_id': post_id})
+    return render(request, 'discussion/post.html', {'user_post': user_post, 'user_comment': user_comment, 'post_id': post_id, 'user':user})
     
+    
+@login_required(login_url='/account/login')
+def delete_comment(request):
+    return redirect("grocery:post")
