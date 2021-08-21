@@ -1,5 +1,8 @@
+from typing import no_type_check
 from django.db import models
 from datetime import datetime
+
+from requests.api import post
 
 
 class PersonalMenu(models.Model):
@@ -45,7 +48,7 @@ class GroceryList(models.Model):
     name = models.ForeignKey(GroceryListName, on_delete=models.CASCADE, null=True)
     item = models.CharField(max_length=255, null=True)
     completed = models.BooleanField(default=False)
-    date = models.DateField()
+    date = models.DateField(null=True)
 
     def __str__(self):
         return self.item
@@ -59,4 +62,23 @@ class GroceryListArchive(models.Model):
 
     def __str__(self):
         return self.item
+
+
+class UserPost(models.Model):
+    user_name = models.CharField(max_length=255, null=True)
+    title = models.CharField(max_length=255, null=True)
+    post = models.TextField()
+    date = models.DateField(auto_now=True)
     
+    def __str__(self):
+        return self.title
+    
+class UserComments(models.Model):
+    comment = models.TextField()
+    post = models.ForeignKey(UserPost, on_delete=models.CASCADE)
+    user_name = models.CharField(max_length=255, null=True)
+    date = models.DateField(auto_now=True, null=True)
+    
+    
+    def __str__(self):
+        return self.comment

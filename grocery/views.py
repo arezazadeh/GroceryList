@@ -277,3 +277,36 @@ def delete_menu(request, menu_id):
     menu.delete()
     return redirect("grocery:menu")
 
+
+@login_required(login_url='/account/login')
+def discussion(request):
+    posts = UserPost.objects.all()
+    print(posts)
+
+    if request.method == "POST":
+        title = request.POST.get('title')
+        post = request.POST.get('post')
+        user_name = request.user
+        # print(title)
+        # print()
+        # print(post)
+        # print(request.user)     
+        UserPost.objects.create(user_name=user_name, title=title, post=post)
+        posts = UserPost.objects.all()
+        return render(request, 'discussion/discussion.html', {'posts': posts})    
+    return render(request, 'discussion/discussion.html', {'posts': posts})
+
+
+@login_required(login_url='/account/login')
+def post_detail(request, post_id):
+    user_post = UserPost.objects.filter(pk=post_id)
+    user_comment = UserComments.objects.filter(post=user_post[0])
+    if request.method == "POST":
+        comment = request.POST.get('comment')
+        user_post = UserPost.objects.filter(pk=post_id)
+        user_name = request.user
+        UserComments.objects.create(comment=comment, post=user_post[0], user_name=user_name)
+        return render(request, 'discussion/post.html', {'user_post': user_post, 'user_comment': user_comment, 'post_id': post_id})
+        
+    return render(request, 'discussion/post.html', {'user_post': user_post, 'user_comment': user_comment, 'post_id': post_id})
+    

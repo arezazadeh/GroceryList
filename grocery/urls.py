@@ -23,5 +23,7 @@ urlpatterns = [
     path('user_lists/', views.view_lists, name='user_lists'),
     path('delete_list/<int:list_id>/', views.delete_user_list, name='del_user_list'),
     path('delete_menu/<int:menu_id>/', views.delete_menu, name='delete_menu'),
+    path('discussion/', views.discussion, name='discussion'),
+    path('post_detail/<int:post_id>/', views.post_detail, name='post'),
 
 ]

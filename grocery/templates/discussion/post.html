@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="card" >
+        <div style="background-color: rgb(85, 85, 85); color:aliceblue" class="card-header">
+            {% for i in user_post %}
+            <h4>{{ i.title }}</h4>
+            <hr>
+            <p> {{ i.post }}</p>
+            <span style="font-size: small; color:rgb(160, 160, 160)"> {{ i.user_name }}</span>
+            {% endfor %}
+        </div>
+        <div class="card-body" style="overflow: scroll;">
+            {% for comm in user_comment %}
+            <div>
+            <p style="margin-bottom: 2px;">{{ comm.comment }}</p>
+            <p style="font-size: small; color:rgb(160, 160, 160); margin-bottom:20px">{{ comm.user_name }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <form action="{% url 'grocery:post' post_id=post_id %}" method="POST" class="form-control">
+        {% csrf_token %}
+        <label for="comment">Comment</label>
+        <textarea class="form-control" id="comment" name="comment"></textarea>
+        <br>
+        <button type="submit" class="btn btn-success">Comment</button>
+    </form>
+    
+</div>
+
+
+
+
+{% endblock %}
