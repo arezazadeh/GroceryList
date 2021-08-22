@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container">
-    <div class="card"  >
+    <div class="card"  style="margin-top:20px">
         <div style="background-color: rgb(85, 85, 85); color:aliceblue" class="card-header">
             {% for i in user_post %}
             <h4>{{ i.title }}</h4>
@@ -15,18 +15,21 @@
         <div class="card-body" style="overflow: scroll; height:400px">
             {% for comm in user_comment %}
             <div>
+                
             <p style="margin-bottom: 2px;">{{ comm.comment }}</p>
-            <p style="font-size: small; color:rgb(160, 160, 160);">{{ comm.user_name }}</p>
-
-            <!-- <form action="{% url 'grocery:delete_comment' %}" method="POST">
+            <p style="font-size: small; color:rgb(160, 160, 160);">{{ comm.user_name }} - {{ comm.date }}</p>
+            
+                {% if comm.user_name == user %}
+            <form action="{% url 'grocery:delete_comment' %}" method="POST">
                 <input type="hidden" name="comment" value="{{ comm }}">
                 <input type="hidden" name="user_name" value="{{ comm.user_name }}">
                 <input type="hidden" name="user_post" value="{{ user_post }}">
                 <button style="max-width:70px; font-size:10px; margin-bottom:20px" type="submit" class="btn btn-warning">delete</button>
-            </form> -->
+            </form>
+            <hr>
             <br>
-            
-        </div>
+                {% endif %}
+            </div>
             {% endfor %}
         </div>
     </div>

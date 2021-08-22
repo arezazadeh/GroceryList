@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from grocery.models import *
 
 
 def signup_view(request):
@@ -11,6 +12,8 @@ def signup_view(request):
             user = form.save()
             print(user)
             login(request, user)
+            user_id = request.session["_auth_user_id"]
+            GroceryListName.objects.create(user_id=user_id, name="Favorite")
             return redirect("/")
     else:
         form = UserCreationForm()

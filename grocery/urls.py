@@ -11,7 +11,6 @@ urlpatterns = [
     path('delete/', views.delete_list, name='delete'),
     path('new_cat/', views.new_cat, name='new_cat'),
     path('new_item/', views.new_item, name='new_item'),
-    path('archived/', views.view_archived, name='archive'),
     path('delete_item/<int:item_id>/<int:list_id>/', views.delete_item, name='del_item'),
     path('create_menu/', views.create_menu, name='c-menu'),
     path('view_menu/', views.view_menu, name='menu'),
@@ -26,5 +25,8 @@ urlpatterns = [
     path('discussion/', views.discussion, name='discussion'),
     path('post_detail/<int:post_id>/', views.post_detail, name='post'),
     path('delete_comment/', views.delete_comment, name='delete_comment'),
+    path('add_to_favorite/<int:item_id>/<int:list_id>/', views.add_to_favorite, name='favorite'),
+    path('remove_from_favorite/<int:item_id>/<int:list_id>/', views.remove_from_favorite, name='un-favorite'),
+
 
 ]

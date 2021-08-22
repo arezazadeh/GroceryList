@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'grocery.apps.GroceryConfig',
     'user_account.apps.UserAccountConfig',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
