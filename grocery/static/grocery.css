@@ -41,9 +41,11 @@ table {
   and (-webkit-min-device-pixel-ratio: 2) { 
 
 /* view_list.html list table */
-th, td , th{
-    font-size: 20px;
+#view_list th{
+    font-size: 12px;
+    text-align: center;
 }
+
 #date {
     font-size: 15px;
 }
