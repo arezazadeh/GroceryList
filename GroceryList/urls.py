@@ -9,4 +9,5 @@ urlpatterns = [
     path('', views.home),
     path('grocery/', include('grocery.urls')),
     path('account/', include('user_account.urls')),
+    path('', include('pwa.urls')),
 ]
