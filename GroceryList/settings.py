@@ -170,77 +170,77 @@ PWA_APP_STATUS_BAR_COLOR = getattr(settings, 'PWA_APP_STATUS_BAR_COLOR', 'defaul
 
 PWA_APP_ICONS = getattr(settings, 'PWA_APP_ICONS', [
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'size': '72x72'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'size': '96x96'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'size': '128x128'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'size': '144x144'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'size': '152x152'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'size': '192x192'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'size': '384x384'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'size': '512x512'
     }
 ])
 PWA_APP_SPLASH_SCREEN = getattr(settings, 'PWA_APP_SPLASH_SCREEN', [
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food1.png',
+        'src': '/static/img/food3.png',
         'media': '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)'
     }
 
