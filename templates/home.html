@@ -6,7 +6,9 @@
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
 <title>Grocery Shopping Cart</title>
 
-
+{% load pwa %}
+{% progressive_web_app_meta %}
+<link rel="manifest" href="manifest.json">
 </head>
 <body id="home-img">
     <div class="home">
