@@ -184,7 +184,7 @@ resolve_url = lazy(resolve_url, str)
 _PWA_SCRIPT_PREFIX = get_script_prefix()
 
 PWA_SERVICE_WORKER_PATH = getattr(settings, 'PWA_SERVICE_WORKER_PATH',
-                                  os.path.join(os.path.abspath(os.path.dirname(__file__)), 'templates',
+                                  os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static',
                                                'serviceworker.js'))
 
 
