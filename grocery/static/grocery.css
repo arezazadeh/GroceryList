@@ -48,6 +48,12 @@ background-repeat: no-repeat;
     text-align: center;
 }
 
+#home-img {
+    /* background-image: url(https://images.unsplash.com/photo-1584055482118-3f355578daef?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1268&q=80); */
+    /* background-image: url(https://images.unsplash.com/photo-1532980400857-e8d9d275d858?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzd8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80); */
+    background-image: url(https://images.squarespace-cdn.com/content/v1/51a26fefe4b0cf20ca08ec33/1569361984482-HFP7JH4S392MKTKL9OGL/_S7I0548QuinoaSaladLunch.jpg?format=2500w);
+    height:700px ;}
+
 #date {
     font-size: 15px;
 }
