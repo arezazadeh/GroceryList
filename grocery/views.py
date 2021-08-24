@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 import json
 from .forms import *
 from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 @login_required(login_url='/account/login')
@@ -306,29 +307,25 @@ def delete_menu(request, menu_id):
     return redirect("grocery:menu")
 
 
-# @login_required(login_url='/account/login')
-# def discussion(request):
-#     posts = UserPost.objects.all()
-#     print(posts)
+@login_required(login_url='/account/login')
+def discussion(request):
+    posts = UserPost.objects.all()
+    print(posts)
 
-#     if request.method == "POST":
-#         title = request.POST.get('title')
-#         post = request.POST.get('post')
-#         user_name = request.user
-#         # print(title)
-#         # print()
-#         # print(post)
-#         # print(request.user)     
-#         UserPost.objects.create(user_name=user_name, title=title, post=post)
-#         posts = UserPost.objects.all()
-#         return render(request, 'discussion/discussion.html', {'posts': posts})    
-#     return render(request, 'discussion/discussion.html', {'posts': posts})
+    if request.method == "POST":
+        title = request.POST.get('title')
+        post = request.POST.get('post')
+        user_name = request.user
+        # print(title)
+        # print()
+        # print(post)
+        # print(request.user)     
+        UserPost.objects.create(user_name=user_name, title=title, post=post)
+        posts = UserPost.objects.all()
+        return render(request, 'discussion/discussion.html', {'posts': posts})    
+    return render(request, 'discussion/discussion.html', {'posts': posts})
 
 
-class PostList(ListView):
-    queryset = UserPost.objects.all()
-    template_name = 'discussion/discussion.html'
-    context_object_name = "posts"
 
 
 @login_required(login_url='/account/login')
