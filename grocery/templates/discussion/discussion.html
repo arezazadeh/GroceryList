@@ -27,7 +27,7 @@
     <div class="card" style="overflow: scroll;">
         <div class="card-body">
             {% for i in posts %}
-
+            
             <a href="{% url 'grocery:post' post_id=i.id %}"><h4> {{ i.title }}</h4></a>
             <p style="color: rgb(133, 133, 133); margin-bottom:20px">{{ i.user_name }}</p>
 
