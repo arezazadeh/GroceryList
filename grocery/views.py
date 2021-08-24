@@ -134,6 +134,41 @@ def delete_user_list(request, list_id):
     return redirect("grocery:user_lists")
     
 
+@login_required(login_url='/account/login')
+def add_to_favorite(request, item_id, list_id):
+    print("this is add to favorite")
+    user_id = request.session["_auth_user_id"]
+    grocery_list = GroceryListName.objects.filter(pk=list_id)
+    grocery_item = GroceryList.objects.filter(name=grocery_list[0])
+    item = grocery_item.filter(pk=item_id)
+    add_to_favorite = item.update(favorite=True)
+    
+    favorite_list = GroceryListName.objects.filter(user_id=user_id, name="Favorite")
+    if not favorite_list:
+        GroceryListName.objects.create(user_id=user_id, name="Favorite")
+        favorite = GroceryListName.objects.filter(user_id=user_id, name="Favorite")
+        GroceryList.objects.create(item=item[0].item, name=favorite[0], favorite=True)
+    
+    else: 
+        favorite = GroceryListName.objects.filter(user_id=user_id, name="Favorite")
+        GroceryList.objects.create(item=item[0].item, name=favorite[0], favorite=True)
+            
+    return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id})
+
+
+@login_required(login_url='/account/login')
+def remove_from_favorite(request, item_id, list_id): 
+    user_id = request.session["_auth_user_id"]
+    grocery_list = GroceryListName.objects.filter(pk=list_id)
+    grocery_item = GroceryList.objects.filter(name=grocery_list[0])
+    item = grocery_item.filter(pk=item_id)
+    add_to_favorite = item.update(favorite=False)
+
+    favorite = GroceryListName.objects.filter(user_id=user_id, name="Favorite")
+    item = GroceryList.objects.filter(item=item[0].item, name=favorite[0])
+    item.delete()
+    return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id})
+
 
 @login_required(login_url='/account/login')
 def new_cat(request):
@@ -301,7 +336,7 @@ def post_detail(request, post_id):
         UserComments.objects.create(comment=comment, post=user_post[0], user_name=user_name)
         # return render(request, 'discussion/post.html', {'user_post': user_post, 'user_comment': user_comment, 'post_id': post_id})
         
-    return render(request, 'discussion/post.html', {'user_post': user_post, 'user_comment': user_comment, 'post_id': post_id, 'user':user})
+    return render(request, 'discussion/post.html', {'user_post': user_post[0], 'user_comment': user_comment, 'post_id': post_id})
     
     
 @login_required(login_url='/account/login')
@@ -309,37 +344,3 @@ def delete_comment(request):
     return redirect("grocery:post")
 
 
-@login_required(login_url='/account/login')
-def add_to_favorite(request, item_id, list_id):
-    print("this is add to favorite")
-    user_id = request.session["_auth_user_id"]
-    grocery_list = GroceryListName.objects.filter(pk=list_id)
-    grocery_item = GroceryList.objects.filter(name=grocery_list[0])
-    item = grocery_item.filter(pk=item_id)
-    add_to_favorite = item.update(favorite=True)
-    
-    favorite_list = GroceryListName.objects.filter(user_id=user_id, name="Favorite")
-    if not favorite_list:
-        GroceryListName.objects.create(user_id=user_id, name="Favorite")
-        favorite = GroceryListName.objects.filter(user_id=user_id, name="Favorite")
-        GroceryList.objects.create(item=item[0].item, name=favorite[0], favorite=True)
-    
-    else: 
-        favorite = GroceryListName.objects.filter(user_id=user_id, name="Favorite")
-        GroceryList.objects.create(item=item[0].item, name=favorite[0], favorite=True)
-            
-    return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id})
-
-
-@login_required(login_url='/account/login')
-def remove_from_favorite(request, item_id, list_id): 
-    user_id = request.session["_auth_user_id"]
-    grocery_list = GroceryListName.objects.filter(pk=list_id)
-    grocery_item = GroceryList.objects.filter(name=grocery_list[0])
-    item = grocery_item.filter(pk=item_id)
-    add_to_favorite = item.update(favorite=False)
-
-    favorite = GroceryListName.objects.filter(user_id=user_id, name="Favorite")
-    item = GroceryList.objects.filter(item=item[0].item, name=favorite[0])
-    item.delete()
-    return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id})
