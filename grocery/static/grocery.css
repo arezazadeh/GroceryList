@@ -26,8 +26,10 @@ table {
     margin-top: 10px;
 }
 #home-img {
-    background-image: url(https://images.unsplash.com/photo-1584055482118-3f355578daef?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1268&q=80);
-    background-repeat: no-repeat;
+    /* background-image: url(https://images.unsplash.com/photo-1584055482118-3f355578daef?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1268&q=80); */
+  background-image: url(https://images.unsplash.com/photo-1526383426426-c1716158d22a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80);
+/* background-image: url(https://images.unsplash.com/photo-1459663148042-6d8cb9340411?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80); */
+background-repeat: no-repeat;
     background-size:cover;
 }
 #base-bg-img {
