@@ -33,8 +33,10 @@ def login_view(request):
                 return redirect(request.POST.get('next'))
             else:
                 return redirect('/')
-            
-    return render(request, 'login.html')
+        else:
+            messages.error(request, "Invalid username or password")
+            return render(request, 'loginA.html')
+    return render(request, 'loginA.html')
 
 
 def logout_view(request):

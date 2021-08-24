@@ -10,7 +10,9 @@
             <hr>
             <p> {{ i.post }}</p>
             <span style="font-size: small; color:rgb(160, 160, 160)"> {{ i.user_name }}</span>
+
             {% endfor %}
+
         </div>
         <div class="card-body" style="overflow: scroll; height:400px">
             {% for comm in user_comment %}

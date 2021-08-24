@@ -145,8 +145,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/bootstrap/assets/images')
+MEDIA_URL = '/media/'
 
 resolve_url = lazy(resolve_url, str)
 _PWA_SCRIPT_PREFIX = get_script_prefix()

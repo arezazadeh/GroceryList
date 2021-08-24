@@ -57,6 +57,8 @@
 						</div>
 					</div>
 					<br>
+
+					<!-- this template is for throwing error/success/warning msgs -->
 					{% for message in messages %}
 					<div class="alert {{ message.tags }} alert-dismissible" role="alert" id="error_msg">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,6 +67,8 @@
 						{{ message | safe }}
 					</div>
 					{% endfor %}
+					<!-- end of template -->
+
 					<div class="text-center p-t-115">
 						<span class="txt1">
 							Dont have Account? <a href="{% url 'user_account:signup' %}">Signup </a>
