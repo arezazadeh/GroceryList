@@ -20,8 +20,8 @@ it should be as follow:<br>
 ## 4- Activate the Virtual Environment (venv)
 * to activate the virtual environment, follow the below steps: <br>
 <code>
-cd Desktop/ <br>
-cd GroceryList/ <br>
+cd Desktop <br>
+cd GroceryList <br>
 source venv/bin/activate <br>
 </code>
 (venv) will apear behind the terminal prompt if the virtual environment is activated properly
