@@ -17,9 +17,18 @@ it should be as follow:<br>
 * After Cloning the Repo, Navigate to the GroceryList Folder, and type: <br>
 <code> pipenv install django </code>
 
-## 4- Run the Django Server
+## 4- Activate the Virtual Environment (venv)
+* to activate the virtual environment, follow the below steps: <br>
+<code>
+cd Desktop/ <br>
+cd GroceryList/ <br>
+source venv/bin/activate <br>
+</code>
+(venv) will apear behind the terminal prompt if the virtual environment is activated properly
+
+## 5- Run the Django Server
 * while on the project directory, issue the following command: <br>
-<code> python3 manage.py runserver </code>
+<code> python manage.py runserver </code>
 
 ## Opening the app on the browser
 * open your browser and enter <br>
