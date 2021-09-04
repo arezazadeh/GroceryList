@@ -145,7 +145,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/bootstrap/assets/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
 MEDIA_URL = '/media/'
 
 resolve_url = lazy(resolve_url, str)
@@ -161,7 +161,7 @@ PWA_APP_THEME_COLOR = getattr(settings, 'PWA_APP_THEME_COLOR', '#000')
 PWA_APP_BACKGROUND_COLOR = getattr(settings, 'PWA_APP_BACKGROUND_COLOR', '#fff')
 PWA_APP_DISPLAY = getattr(settings, 'PWA_APP_DISPLAY', 'standalone')
 PWA_APP_SCOPE = resolve_url(getattr(settings, 'PWA_APP_SCOPE', _PWA_SCRIPT_PREFIX))
-PWA_APP_DEBUG_MODE = getattr(settings, 'PWA_APP_DEBUG_MODE', True)
+PWA_APP_DEBUG_MODE = getattr(settings, 'PWA_APP_DEBUG_MODE', False)
 PWA_APP_ORIENTATION = getattr(settings, 'PWA_APP_ORIENTATION', 'any')
 PWA_APP_START_URL = resolve_url(getattr(settings, 'PWA_APP_START_URL', _PWA_SCRIPT_PREFIX))
 PWA_APP_FETCH_URL = resolve_url(getattr(settings, 'PWA_APP_FETCH_URL', _PWA_SCRIPT_PREFIX))
@@ -169,77 +169,77 @@ PWA_APP_STATUS_BAR_COLOR = getattr(settings, 'PWA_APP_STATUS_BAR_COLOR', 'defaul
 
 PWA_APP_ICONS = getattr(settings, 'PWA_APP_ICONS', [
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'size': '72x72'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'size': '96x96'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'size': '128x128'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'size': '144x144'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'size': '152x152'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'size': '192x192'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'size': '384x384'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'size': '512x512'
     }
 ])
 PWA_APP_SPLASH_SCREEN = getattr(settings, 'PWA_APP_SPLASH_SCREEN', [
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)'
     },
     {
-        'src': '/static/img/food3.png',
+        'src': '/static/img/food2.png',
         'media': '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)'
     }
 
