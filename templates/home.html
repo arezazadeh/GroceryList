@@ -1,16 +1,168 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
 {% block content %}
+
 <head>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+
+
+<!-- inji template start here -->
+
+<!-- <link rel="icon" type="image/x-icon" href="assets/favicon.ico" /> -->
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="{% static 'bootstrap/home.css' %}" />
+
 <title>Grocery Shopping Cart</title>
 
+  <!-- Masthead-->
+  <header class="masthead">
+    <div class="container">
+        <!-- <div class="masthead-subheading">Grocery List!</div> -->
+        <div class="masthead-heading text-uppercase">Home, where love begins</div>
+    </div>
+</header>
 
+ <!-- Portfolio Grid-->
+ <section class="page-section bg-light" id="portfolio">
+    <div class="container">
+        <div class="text-center">
+            <!-- <h2 class="section-heading text-uppercase">Portfolio</h2> -->
+            <!-- <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3> -->
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <!-- Portfolio item 1-->
+                <div class="portfolio-item">
+                    <a class="portfolio-link" href="{% url 'user_account:login' %}">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <!-- <i class="fas fa-bars fa-3x"></i> -->
+                                Login
+                            </div>
+                        </div>
+                        <img class="img-fluid" style="height:500px ;width:500px" src="{% static 'images/5.jpg' %}" alt="..." />
+                    </a>
+                    <div class="portfolio-caption">
+                        <!-- <div class="portfolio-caption-heading">Login</div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <!-- Portfolio item 2-->
+                <div class="portfolio-item">
+                    <a class="portfolio-link" href="{% url 'grocery:user_lists' %}">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"> 
+                                <!-- <i class="fas fa-bars fa-3x"></i>< -->
+                                Grocery List</div>
+                        </div>
+                        <img class ="img-fluid" style="height:500px ;width:500px" src="{% static 'images/2.jpg' %}" alt="..." />
+                    </a>
+                    <div class="portfolio-caption">
+                        <!-- <div class="portfolio-caption-heading">Grocery List</div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <!-- Portfolio item 3-->
+                <div class="portfolio-item">
+                    <a class="portfolio-link" href="{% url 'grocery:menu' %}">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"> Menu
+                                <!-- <i class="fas fa-bars fa-3x"></i> -->
+                            </div>
+                        </div>
+                        <img class="img-fluid" style="height:500px ; width:500px"  src="{% static 'images/4.jpg' %}" alt="..." />
+                    </a>
+                    <div class="portfolio-caption">
+                        <!-- <div class="portfolio-caption-heading">Menu</div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+                <!-- Portfolio item 4-->
+                <div class="portfolio-item">
+                    <a class="portfolio-link" href="{% url 'grocery:discussion' %}">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"> Discussion</div>
+                        </div>
+                        <img class="img-fluid" style="height:500px ;width:500px" src="{% static 'images/6.jpg' %}" alt="..." />
+                    </a>
+                    <div class="portfolio-caption">
+                        <!-- <div class="portfolio-caption-heading">Discussion</div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
+                <!-- Portfolio item 5-->
+                <div class="portfolio-item">
+                    <a class="portfolio-link"  href="{% url 'grocery:recipe_search' %}">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <!-- <i class="fas fa-plus fa-3x"></i> -->
+                                Recipe
+                            </div>
+                        </div>
+                        <img class="img-fluid"style="height:500px ; width:500px"  src="{% static 'images/7.jpg' %}" alt="..." />
+                    </a>
+                    <div class="portfolio-caption">
+                        <!-- <div class="portfolio-caption-heading">Recipe</div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <!-- Portfolio item 6-->
+                <div class="portfolio-item">
+                    <a class="portfolio-link"href="{% url 'user_account:signup' %}">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                Signup
+                                <!-- <i class="fas fa-plus fa-3x"></i> -->
+                            </div>
+                        </div>
+                        <img class="img-fluid" style="height:500px ; width:500px" src="{% static 'images/8.jpg' %}" alt="..." />
+                    </a>
+                    <div class="portfolio-caption">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% load static %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts.js"></script>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+
+
+
+
+
+
+<!-- 
 </head>
 <body id="home-img">
     <div class="home">
         <h1 id="home-text">Home, Where Love Begins...</h1>
     </div>
+ -->
+
+
+
 </body>
 {% endblock %}
+
+
+
+
+

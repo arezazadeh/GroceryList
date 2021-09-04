@@ -2,36 +2,30 @@
 
 {% extends 'base.html' %}
 {% block content %}
-<!-- <form action="{% url 'user_account:signup' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <br>
-    <button type="submit" name="submit" class="btn btn-warning">Signup</button>
-</form> -->
 
-<br>
 <div class="card" style="margin: 10px;">
-    <div class="card-header">
-        <h2>Sign up</h2>
-    </div>
-    <div class="card-body">
+  <div class="card-header">
+      <h2>Sign up</h2>
+  </div>
+  <div class="card-body">
 <form method="post">
-  {% csrf_token %}
-  {% for field in form %}
-    <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-        <small style="color: grey">{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-        <p style="color: red">{{ error }}</p>
-      {% endfor %}
-    </p>
-  {% endfor %}
-  <button class="btn btn-success" type="submit">Sign up</button>
+{% csrf_token %}
+{% for field in form %}
+  <p>
+    {{ field.label_tag }}<br>
+    {{ field }}
+    {% if field.help_text %}
+      <small style="color: grey">{{ field.help_text }}</small>
+    {% endif %}
+    {% for error in field.errors %}
+      <p style="color: red">{{ error }}</p>
+    {% endfor %}
+  </p>
+{% endfor %}
+<button class="btn btn-success" type="submit">Sign up</button>
 </form>
 </div>
 </div>
+
 {% endblock %}
 
