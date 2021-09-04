@@ -33,5 +33,54 @@
 </form>
 </div>
 </div>
+
+
+<!-- <div class="card" style="margin: 10px;">
+  <div class="card-header">
+      <h2>Sign up</h2>
+  </div>
+  <div class="card-body">
+<form method="POST" action="{% url 'user_account:signup' %}" class="form-control">
+  {% csrf_token %}
+  <label  for="username"> 
+    Username:
+  </label>
+  <br>
+  <input type="text" id="username" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required>
+  <small style="color: gray;">
+    Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+  </small>
+<br>
+  <br>
+  <label for="password1">Password:</label>
+  <br>
+  <input id="password1" type="password" name="password1" autocomplete="new-password" required>
+  <ul>
+    <li>
+      <small style="color: gray;"> password can’t be too similar to your other personal information.</small>
+    </li>
+    <li> 
+      <small style="color: gray;"> Your password must contain at least 8 characters. </small>
+    </li>
+    <li>
+      <small style="color: gray;"> Your password can’t be a commonly used password. </small>
+    </li>
+    <li>
+      <small style="color: gray;">Your password can’t be entirely numeric.</small>
+    </li>
+  </ul>
+    <label for="password2">Password confirmation:</label>
+    <br>
+    <input id="password2" name="password2" type="password" autocomplete="new-password" required>
+    <small style="color: gray;">Enter the same password as before, for verification.</small>
+    <br>
+    <br>
+    <button class="btn btn-success" type="submit">Sign up</button>
+</form>
+  </div>
+</div> -->
+
+
+
 {% endblock %}
 
