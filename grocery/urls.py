@@ -7,6 +7,7 @@ urlpatterns = [
     path('add/<int:list_id>/', views.add_to_list, name='add'),
     path('list/<int:list_id>/', views.view_list, name='list'),
     path('complete/<int:item_id>/<int:list_id>/', views.complete, name='complete'),
+    path('custom_item/<int:list_id>/', views.add_custom_item_to_list, name='custom_item'),
     path('undo_item/<int:item_id>/<int:list_id>/', views.undo_item, name='undo'),
     path('delete/', views.delete_list, name='delete'),
     path('new_cat/', views.new_cat, name='new_cat'),

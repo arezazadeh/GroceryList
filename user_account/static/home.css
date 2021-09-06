@@ -11482,9 +11482,6 @@ header.masthead .masthead-heading {
     header.masthead {
       display: none;
     }
-    .row {
-      grid-template-columns: repeat(2, 1fr);
-    }
 
   }
 /* End of Customized Media Query */

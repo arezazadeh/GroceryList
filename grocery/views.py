@@ -82,6 +82,31 @@ def add_to_list(request, list_id):
     return redirect('grocery:create_list', {'list_id': list_id})
 
 
+
+@login_required(login_url='/account/login')
+def add_custom_item_to_list(request, list_id):
+    user_id = request.session['_auth_user_id']
+    if request.method == 'POST':
+        item = request.POST.get('item').lower()
+        list_id = request.POST.get('list_id')
+        
+        current_list = GroceryListName.objects.filter(id=list_id)
+
+        user_items = GroceryList.objects.filter(name=current_list[0].id)
+        item_exist = user_items.filter(item=item)
+        if not item_exist:
+            GroceryList.objects.create(item=item, name=current_list[0])
+            
+        else:
+            print('Item already in your list')
+        grocery_list = GroceryList.objects.filter(name=list_id)
+        return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+    return redirect('grocery:create_list', {'list_id': list_id})
+
+
+
+
+
 @login_required(login_url='/account/login')
 def view_list(request, list_id):
     grocery_list = GroceryList.objects.filter(name=list_id)
@@ -210,6 +235,9 @@ def new_item(request):
             messages.error(request, f"{item} already exist in Database")
             return redirect("grocery:new_item")
     return render(request, 'add_item.html', {'cat': current_category})
+
+
+
 
 
 
