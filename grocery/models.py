@@ -56,6 +56,15 @@ class GroceryList(models.Model):
         return self.item
 
 
+class Favorite(models.Model):
+    item = models.CharField(max_length=255, null=True)
+    user_id = models.IntegerField(null=True)
+
+
+    def __str__(self):
+        return self.item
+
+
 class UserPost(models.Model):
     user_name = models.CharField(max_length=255, null=True)
     title = models.CharField(max_length=255, null=True)

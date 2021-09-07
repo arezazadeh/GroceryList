@@ -22,6 +22,8 @@ class GroceryListNameAdmin(admin.ModelAdmin):
     list_display = ["id", "user_id", "name"]
     
 
+class FavoriteAdmin(admin.ModelAdmin):
+    list_display = ["id", "item", "user_id"]
 
 
 admin.site.register(PersonalMenu, PersonalMenuAdmin)
@@ -32,4 +34,5 @@ admin.site.register(GroceryList, GroceryListAdmin)
 admin.site.register(GroceryListName, GroceryListNameAdmin)
 admin.site.register(UserPost)
 admin.site.register(UserComments)
+admin.site.register(Favorite, FavoriteAdmin)
 

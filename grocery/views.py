@@ -105,8 +105,6 @@ def add_custom_item_to_list(request, list_id):
 
 
 
-
-
 @login_required(login_url='/account/login')
 def view_list(request, list_id):
     grocery_list = GroceryList.objects.filter(name=list_id)
@@ -120,6 +118,36 @@ def view_lists(request):
     return render(request, 'user_lists.html', {'user_lists': user_lists})
 
 
+# view Favorite List
+@login_required(login_url='/account/login')
+def view_fav(request):
+    user_id = request.session['_auth_user_id']
+    user_list = GroceryListName.objects.filter(user_id=user_id)
+    favorite_list = Favorite.objects.filter(user_id=user_id)
+    return render(request, 'view_favorite.html', {'fav': favorite_list, 'lists': user_list})
+
+
+
+# add to Favorite List
+@login_required(login_url='/account/login')
+def add_to_fav(request):
+    user_id = request.session['_auth_user_id']
+    user_list = GroceryListName.objects.filter(user_id=user_id)
+    favorite_list = Favorite.objects.filter(user_id=user_id)
+    if request.method == 'POST':
+        list_id = request.POST.get('menu_list_id')
+        list_items = request.POST.getlist('item')
+
+        selected_list = GroceryListName.objects.filter(pk=list_id)
+        for i in list_items:
+            check_for_duplicate = GroceryList.objects.filter(name=selected_list[0], item=i.lower())
+            if not check_for_duplicate:
+                GroceryList.objects.create(name=selected_list[0], item=i.lower())
+            else:
+                messages.warning(request, f"{i} already exists in {selected_list[0].name}")
+                return render(request, 'view_favorite.html', {'fav': favorite_list, 'lists': user_list})
+
+    return render(request, 'view_favorite.html', {'fav': favorite_list, 'lists': user_list})
 
 @login_required(login_url='/account/login')
 def complete(request, item_id, list_id): 
@@ -181,6 +209,32 @@ def add_to_favorite(request, item_id, list_id):
         GroceryList.objects.create(item=item[0].item, name=favorite[0], favorite=True)
             
     return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id})
+
+
+# Add item to Favorite 
+
+@login_required(login_url='/account/login')
+def favorite_item(request, item_id, item_name, list_id):
+    print("this is add to favorite")
+    user_id = request.session["_auth_user_id"]
+    grocery_list = GroceryListName.objects.filter(pk=list_id)
+    grocery_item = GroceryList.objects.filter(name=grocery_list[0])
+    
+    user_fav_list = Favorite.objects.filter(user_id=user_id)
+    existing_item_in_fav = user_fav_list.filter(item=item_name.lower())
+    if not existing_item_in_fav:
+        add_item_to_fav = Favorite.objects.create(item=item_name.lower(), user_id=user_id)
+    else:
+        messages.warning(request, "Item Already in Favorite")
+        return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id}) 
+        
+    grocery_item.filter(pk=item_id).update(favorite=True)
+            
+    return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id})
+
+# End of Add item to Favorite
+
+
 
 
 @login_required(login_url='/account/login')
