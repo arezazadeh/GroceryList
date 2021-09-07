@@ -28,7 +28,6 @@ def create_new_list(request):
         new_list = GroceryListName.objects.filter(user_id=user_id, name=list_name)
         user_lists = GroceryListName.objects.filter(user_id=user_id)
         return render(request, 'user_lists.html', {'user_lists': user_lists})    
-        # return render(request, 'create_list.html', {'cat': current_category, 'new': False, 'new_list': new_list})
     return render(request, 'create_new_list.html')
 
 
@@ -90,19 +89,21 @@ def add_custom_item_to_list(request, list_id):
     if request.method == 'POST':
         selected_item = request.POST.get('item').lower()
         list_id = request.POST.get('list_id')
-        if "/" in selected_item:
-            item = selected_item.replace('/', ".")
+        
+        item = selected_item.replace('/', ".")
         current_list = GroceryListName.objects.filter(id=list_id)
-
         user_items = GroceryList.objects.filter(name=current_list[0].id)
         item_exist = user_items.filter(item=item)
+        
         if not item_exist:
             GroceryList.objects.create(item=item, name=current_list[0])
-            
         else:
-            print('Item already in your list')
+            messages.warning(request, f"{item} already in the list")
+        
         grocery_list = GroceryList.objects.filter(name=list_id)
+        
         return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+    
     return redirect('grocery:create_list', {'list_id': list_id})
 
 
@@ -130,7 +131,7 @@ def view_fav(request):
 
 
 
-# add to Favorite List
+# add Favorited Item to Destination List
 @login_required(login_url='/account/login')
 def add_to_fav(request):
     user_id = request.session['_auth_user_id']
@@ -192,11 +193,39 @@ def delete_user_list(request, list_id):
     return redirect("grocery:user_lists")
     
 
+# Add Item to Favorite from Favorite
+@login_required(login_url='/account/login')
+def add_fav(request):
+    if request.method == "POST":
+        user_id = request.session['_auth_user_id']
+        item = request.POST.get('item')
+        check_for_item = Favorite.objects.filter(user_id=user_id, item=item)
+        if not check_for_item:
+            Favorite.objects.create(user_id=user_id, item=item)
+        user_list = GroceryListName.objects.filter(user_id=user_id)
+        favorite_list = Favorite.objects.filter(user_id=user_id)
+        return render(request, 'view_favorite.html', {'fav': favorite_list, 'lists': user_list})
+ 
 
-# Add item to Favorite 
+# Delete Item from Favorite In Favorite List
+@login_required(login_url='/account/login')
+def del_fav(request, item_id):
+    user_id = request.session['_auth_user_id']
+    check_for_item = Favorite.objects.filter(user_id=user_id)
+    item = check_for_item.filter(pk=item_id)
+    item.delete()
+    
+    
+    user_list = GroceryListName.objects.filter(user_id=user_id)
+    favorite_list = Favorite.objects.filter(user_id=user_id)
+    return render(request, 'view_favorite.html', {'fav': favorite_list, 'lists': user_list})
+ 
+
+
+
+# Favorite Items
 @login_required(login_url='/account/login')
 def favorite_item(request, item_id, item_name, list_id):
-    print("this is add to favorite")
     user_id = request.session["_auth_user_id"]
     grocery_list = GroceryListName.objects.filter(pk=list_id)
     grocery_item = GroceryList.objects.filter(name=grocery_list[0])
@@ -210,13 +239,11 @@ def favorite_item(request, item_id, item_name, list_id):
         return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id}) 
         
     grocery_item.filter(item=item_name).update(favorite=True)
-    
-            
     return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id})
 # End of Add item to Favorite
 
 
-# New Remove Favorite Function 
+# Remove Favorited Item  
 @login_required(login_url='/account/login')
 def remove_fav_item(request, item_id, item_name, list_id): 
     grocery_list = GroceryListName.objects.filter(pk=list_id)
