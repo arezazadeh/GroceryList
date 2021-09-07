@@ -22,14 +22,20 @@
     <div class="container">
         <br>
         <div class="row" style="width: 90%; margin:0 auto; float:none; margin-bottom:10px">
-            <div class="col-6" style="font-size: 25px; text-align:left; align-items:center">
+            <div class="col-4" style="font-size: 25px; text-align:left;">
                 <a href="{% url 'grocery:user_lists' %}"><i
                         class="fas fa-angle-double-left"></i></a>
             </div>
 
-            <div class="col-6" style="font-size: 25px; text-align:right">
+            <div class="col-4" style="font-size: 25px; text-align:center">
+                <a href="{% url 'grocery:view_fav' %}" ><i class="fas fa-heart"></i></a>
+            </div>
+
+            <div class="col-4" style="font-size: 25px; text-align:right">
                 <a href="{% url 'grocery:create_list' list_id=list_id %}" ><i class="fas fa-plus"></i> </a>
             </div>
+
+
 
         </div>
         <form method="POST" action="{% url 'grocery:custom_item' list_id=list_id %}" class="form-control"
@@ -74,7 +80,7 @@
                 <td><span><a href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
                                 class="fa fa-trash"></i></a></span></td>
                 {% if i.favorite %}
-                <td><a href="{% url 'grocery:un-favorite' item_id=i.id list_id=i.name.id %}"><i
+                <td><a href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
                             class="fas fa-star"></i></a></td>
                 {% else %}
                 <td><a href="{% url 'grocery:fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
@@ -97,10 +103,10 @@
 
 
                 {% if i.favorite %}
-                <td><a href="{% url 'grocery:un-favorite' item_id=i.id list_id=i.name.id %}"><i
+                <td><a href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
                             class="fas fa-star"></i></a></td>
                 {% else %}
-                <td><a href="{% url 'grocery:fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                <td><a href="{% url 'grocery:fav_item' item_id=257 item_name=i.item list_id=i.name.id %}"><i
                             class="far fa-star"></i></a></td>
                 {% endif %}
 

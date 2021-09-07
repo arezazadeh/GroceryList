@@ -26,11 +26,11 @@ urlpatterns = [
     path('discussion/', views.discussion, name='discussion'),
     path('post_detail/<int:post_id>/', views.post_detail, name='post'),
     path('delete_comment/', views.delete_comment, name='delete_comment'),
-    path('add_to_favorite/<int:item_id>/<int:list_id>/', views.add_to_favorite, name='favorite'),
-    path('remove_from_favorite/<int:item_id>/<int:list_id>/', views.remove_from_favorite, name='un-favorite'),
-    path('favorite_item/<int:item_id>/<str:item_name>/<int:list_id>/', views.favorite_item, name='fav_item'),
+    # path('add_to_favorite/<int:item_id>/<int:list_id>/', views.add_to_favorite, name='favorite'),
+    # path('remove_from_favorite/<int:item_id>/<int:list_id>/', views.remove_from_favorite, name='un-favorite'),
+    path('add_favorite_item/<int:item_id>/<str:item_name>/<int:list_id>/', views.favorite_item, name='fav_item'),
+    path('remove_favorite_item/<int:item_id>/<str:item_name>/<int:list_id>/', views.remove_fav_item, name='un_fav_item'),
     path('view_fav/', views.view_fav, name='view_fav'),
     path('add_to_fav/', views.add_to_fav, name='add_fav'),
-
 
 ]
