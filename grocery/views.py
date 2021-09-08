@@ -1,4 +1,6 @@
 from datetime import date
+
+from django.http.response import JsonResponse
 from grocery.forms import GroceryListForm
 from grocery.api_function import *
 from django.contrib import messages
@@ -62,6 +64,8 @@ def add_to_list(request, list_id):
         item_list = request.POST.getlist('item')
         
         new_list = GroceryListName.objects.filter(id=list_id)
+        print(new_list)
+        print(item_list)
 
         if not new_list:
             list_id = request.POST.get('menu_list_id')
@@ -74,6 +78,8 @@ def add_to_list(request, list_id):
                 if "/" in i:
                     new_item = i.replace("/", ".")
                     GroceryList.objects.create(item=new_item, name=new_list[0])
+                else:
+                    GroceryList.objects.create(item=i, name=new_list[0])
                 
             else:
                 print('Item already in your list')
@@ -436,4 +442,10 @@ def post_detail(request, post_id):
 def delete_comment(request):
     return redirect("grocery:post")
 
+
+def api_get(request):
+    if request.method == "GET":
+        user_id = 2
+        menu = PersonalMenu.objects.filter(user_id=user_id).values("dish")
+        return JsonResponse({"result": list(menu)})
 
