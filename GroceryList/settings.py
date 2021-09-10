@@ -151,7 +151,7 @@ MEDIA_URL = '/media/'
 resolve_url = lazy(resolve_url, str)
 _PWA_SCRIPT_PREFIX = get_script_prefix()
 
-PWA_SERVICE_WORKER_PATH = getattr(settings, 'PWA_SERVICE_WORKER_PATH', os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static', 'js/serviceworker.js'))
+PWA_SERVICE_WORKER_PATH = getattr(settings, 'PWA_SERVICE_WORKER_PATH', os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static', 'serviceworker.js'))
 
 
 PWA_APP_NAME = getattr(settings, 'PWA_APP_NAME', 'GroceryList')
