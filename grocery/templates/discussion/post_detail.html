@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+
+<article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <small class="mr-2"> {{ object.user_name }}</small>
+        <small class="text-muted">{{ object.date|date:"F d, Y" }}</small>
+        {% if object.user_name == user %}
+        <div>
+        <a class="btn btn-secondary mt-1 mb-1" href="{% url 'grocery:post-update' object.id %}">Update</a>
+        <a class="btn btn-danger mt-1 mb-1" href="{% url 'grocery:post-delete' object.id %}">Delete</a>
+        </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title" >{{ object.title }}</h2>
+      <p class="article-content">{{ object.post }}</p>
+    </div>
+  </article>
+
+
+
+
+{% endblock %}

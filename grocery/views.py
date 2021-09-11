@@ -1,16 +1,13 @@
 from datetime import date
-
 from django.http.response import JsonResponse
-from grocery.forms import GroceryListForm
 from grocery.api_function import *
 from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
-import json
 from .forms import *
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
@@ -421,7 +418,56 @@ def discussion(request):
     return render(request, 'discussion/discussion.html', {'posts': posts})
 
 
+# class base for discussion home page 
 
+class PostListView(ListView):
+    model = UserPost
+    template_name = 'discussion/discussion_home.html'
+    context_object_name = 'posts'
+    ordering = ["-date"]
+
+class PostDetailView(DetailView):
+    model = UserPost
+    template_name = 'discussion/post_detail.html'
+
+
+class PostCreateView(LoginRequiredMixin ,CreateView):
+    model = UserPost
+    fields = ["title", "post"]
+    template_name = "discussion/post_form.html"
+    
+    def form_valid(self, form):
+        form.instance.user_name = self.request.user
+        return super().form_valid(form)
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = UserPost
+    fields = ["title", "post"]
+    template_name = "discussion/post_form.html"
+    
+    def form_valid(self, form):
+        form.instance.user_name = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        post = self.get_object()
+        print(post.user_name)
+        print(self.request.user)
+        return self.request.user
+
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = UserPost
+    template_name = 'discussion/post_delete_confirm.html'
+    success_url = '/grocery/discussion/'
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user_name:
+            return True
+        else:
+            return False
 
 @login_required(login_url='/account/login')
 def post_detail(request, post_id):

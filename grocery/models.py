@@ -1,9 +1,8 @@
 from typing import no_type_check
 from django.db import models
-from datetime import datetime
-from django.db.models.expressions import F
-
-from requests.api import post
+from django.utils import timezone
+from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class PersonalMenu(models.Model):
@@ -66,13 +65,17 @@ class Favorite(models.Model):
 
 
 class UserPost(models.Model):
-    user_name = models.CharField(max_length=255, null=True)
+    user_name = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255, null=True)
     post = models.TextField()
-    date = models.DateField(auto_now=True)
+    date = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("grocery:post-detail", kwargs={"pk": self.pk})
+    
     
 class UserComments(models.Model):
     comment = models.TextField()

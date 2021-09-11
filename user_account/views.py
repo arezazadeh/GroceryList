@@ -4,18 +4,19 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from grocery.models import *
 
+from .forms import UserRegisterForm
+
 
 def signup_view(request):
-    if request.method == "POST":
-        
-        form = UserCreationForm(request.POST)
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            print(user)
-            login(request, user)
-            return redirect("/")
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            return redirect('/')
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()
     return render(request, 'signup.html', {'form': form})
 
 

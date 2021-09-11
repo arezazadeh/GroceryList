@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'user_account.apps.UserAccountConfig',
     'fontawesomefree',
     'pwa',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +149,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
 MEDIA_URL = '/media/'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
 resolve_url = lazy(resolve_url, str)
 _PWA_SCRIPT_PREFIX = get_script_prefix()
 
@@ -247,3 +251,6 @@ PWA_APP_SPLASH_SCREEN = getattr(settings, 'PWA_APP_SPLASH_SCREEN', [
 
 PWA_APP_DIR = getattr(settings, 'PWA_APP_DIR', 'auto')
 PWA_APP_LANG = getattr(settings, 'PWA_APP_LANG', 'en-US')
+
+LOGIN_REDIRECT_URL = 'grocery'
+LOGIN_URL = 'user_account:login'
