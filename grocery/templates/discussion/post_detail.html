@@ -13,7 +13,7 @@
     <div class="article-metadata">
       <small class="mr-2"> {{ object.0.user_name }} - </small>
       <small class="text-muted">{{ object.0.date|date:"F d, Y" }}</small>
-      {% if i.user_name == user %}
+      {% if object.0.user_name == user %}
       <div>
         <a class="btn btn-secondary mt-1 mb-1" href="{% url 'grocery:post-update' object.0.id %}">Update</a>
         <a class="btn btn-danger mt-1 mb-1" href="{% url 'grocery:post-delete' object.0.id %}">Delete</a>
