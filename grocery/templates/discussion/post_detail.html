@@ -1,26 +1,65 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+<a class="btn btn-outline-info mt-3" href="{% url 'grocery:discussion' %}">Back</a>
+
 
 <article class="media content-section">
-    <div class="media-body">
-      <div class="article-metadata">
-        <small class="mr-2"> {{ object.user_name }}</small>
-        <small class="text-muted">{{ object.date|date:"F d, Y" }}</small>
-        {% if object.user_name == user %}
-        <div>
-        <a class="btn btn-secondary mt-1 mb-1" href="{% url 'grocery:post-update' object.id %}">Update</a>
-        <a class="btn btn-danger mt-1 mb-1" href="{% url 'grocery:post-delete' object.id %}">Delete</a>
-        </div>
-        {% endif %}
+  <div class="media-body">
+    <div class="article-metadata">
+      <small class="mr-2"> {{ object.0.user_name }} - </small>
+      <small class="text-muted">{{ object.0.date|date:"F d, Y" }}</small>
+      {% if i.user_name == user %}
+      <div>
+        <a class="btn btn-secondary mt-1 mb-1" href="{% url 'grocery:post-update' object.0.id %}">Update</a>
+        <a class="btn btn-danger mt-1 mb-1" href="{% url 'grocery:post-delete' object.0.id %}">Delete</a>
       </div>
-      <h2 class="article-title" >{{ object.title }}</h2>
-      <p class="article-content">{{ object.post }}</p>
+      {% endif %}
     </div>
-  </article>
+    <h2 class="article-title">{{ object.0.title }}</h2>
+    <p class="article-content">{{ object.0.post }}</p>
+  </div>
+  <div>
+</article>
+
+<article class="media content-section" style="overflow: scroll; height:400px" >
+  {% for i in user_comment %}
+  <div class="media-body">
+    <div class="article-metadata">
+      <small class="mr-2"> {{ i.user_name }} - </small>
+      <small class="text-muted">{{ i.date|date:"F d, Y" }}</small>
+      {% if i.user_name == user %}
+      <div>
+        <a href="{% url 'grocery:comment-update' i.id %}">edit</a>
+        <a href="{% url 'grocery:post-delete' i.id %}">delete</a>
+      </div>
+      {% endif %}
+    </div>
+    <p class="article-content">{{ i.comment }}</p>
+  </div>
+  <div>
+    {% endfor %}
+</article>
+
+
+<div class="content-section">
+  <form method="POST" action="{% url 'grocery:comment-add' post_id=object.0.id %}">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Comment</legend>
+      <textarea name="comment" class="form-control"></textarea>
+      <input type="hidden" name="post_id" value="{{ object.0.id }}">
+    </fieldset>
+    <div class="form-group mt-3">
+      <button class="btn btn-outline-info" type="submit">Comment</button>
+    </div>
+  </form>
+
+</div>
 
 
 

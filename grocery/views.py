@@ -452,9 +452,10 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
     def test_func(self):
         post = self.get_object()
-        print(post.user_name)
-        print(self.request.user)
-        return self.request.user
+        if self.request.user == post.user_name:
+            return True
+        else:
+            return False
 
 
 
@@ -469,20 +470,61 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         else:
             return False
 
+class CommentCreateView(LoginRequiredMixin ,CreateView):
+    model = UserComments
+    fields = ["comment"]
+    template_name = "discussion/post_detail.html"
+    
+    def form_valid(self, form):
+        form.instance.user_name = self.request.user
+        return super().form_valid(form)
+
+
+
+
 @login_required(login_url='/account/login')
 def post_detail(request, post_id):
     user_post = UserPost.objects.filter(pk=post_id)
     user_comment = UserComments.objects.filter(post=user_post[0])
-    user = request.user
+    
+    return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment})
+    
+
+
+@login_required(login_url='/account/login')
+def comment_add(request, post_id):
+    user_post = UserPost.objects.filter(pk=post_id)
+    user_comment = UserComments.objects.filter(post=user_post[0])
     if request.method == "POST":
         comment = request.POST.get('comment')
-        user_post = UserPost.objects.filter(pk=post_id)
-        user_name = request.user
-        UserComments.objects.create(comment=comment, post=user_post[0], user_name=user_name)
-        # return render(request, 'discussion/post.html', {'user_post': user_post, 'user_comment': user_comment, 'post_id': post_id})
+        post = request.POST.get('post_id')
+        print(post)
+        user_post = UserPost.objects.filter(pk=post)
+        print(user_post)
+        UserComments.objects.create(comment=comment, post=user_post[0], user_name=request.user)
         
-    return render(request, 'discussion/post.html', {'user_post': user_post, 'user_comment': user_comment, 'post_id': post_id})
+        # return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment})
+        
+    return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment})
+
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = UserComments
+    fields = ["comment"]
+    template_name = "discussion/usercomments_form.html"
+    success_url = '/grocery/discussion/'
     
+    def form_valid(self, form):
+        form.instance.user_name = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.user_name:
+            return True
+        else:
+            return False
+
     
 @login_required(login_url='/account/login')
 def delete_comment(request):
