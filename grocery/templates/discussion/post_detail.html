@@ -15,8 +15,8 @@
       <small class="text-muted">{{ object.0.date|date:"F d, Y" }}</small>
       {% if object.0.user_name == user %}
       <div>
-        <a class="btn btn-secondary mt-1 mb-1" href="{% url 'grocery:post-update' object.0.id %}">Update</a>
-        <a class="btn btn-danger mt-1 mb-1" href="{% url 'grocery:post-delete' object.0.id %}">Delete</a>
+        <a class="btn btn-secondary mt-1 mb-1" href="{% url 'grocery:post-update' object.0.id %}"><i class="fa fa-edit"></i></a>
+        <a class="btn btn-danger mt-1 mb-1" href="{% url 'grocery:post-delete' object.0.id %}"><i class="fa fa-trash"></i></a>
       </div>
       {% endif %}
     </div>
@@ -34,8 +34,8 @@
       <small class="text-muted">{{ i.date|date:"F d, Y" }}</small>
       {% if i.user_name == user %}
       <div>
-        <a href="{% url 'grocery:comment-update' i.id object.0.id %}">edit</a>
-        <a href="{% url 'grocery:comment-delete' i.id object.0.id %}">delete</a>
+        <a href="{% url 'grocery:comment-update' i.id object.0.id %}"><i class="fa fa-edit"></i></a>
+        <a href="{% url 'grocery:comment-delete' i.id object.0.id %}"><i class="fa fa-trash"></i></a>
       </div>
       {% endif %}
     </div>

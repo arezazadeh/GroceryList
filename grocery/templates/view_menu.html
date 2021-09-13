@@ -3,14 +3,16 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'main02.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
 
 
 
 <body id="base-bg-img">
 
-<div class="card" id="category" style="margin: 20px;">
-    <a class="btn btn-success" href="{% url 'grocery:c-menu' %}">Create Menu</a>
+<a class="btn btn-outline-info mt-3" href="{% url 'grocery:c-menu' %}">Create Menu</a>
+<div class="card" id="category" >
     <div class="card-header">
         <h2>Personal Menu</h2>
     </div>

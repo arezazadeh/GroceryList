@@ -3,14 +3,14 @@ table {
     /* float: none; */
     margin-bottom: 10px;
     width: 200px;
-    max-width: 90%;
+    max-width: 100%;
     margin-top: 20px;
     
 }
 .new_list .card { 
     margin: 0 auto;
     float: none;
-    width: 90%;
+    width: 100%;
     margin-top: 20px;
 }
 .home {
