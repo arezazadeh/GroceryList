@@ -20,25 +20,25 @@
 <body id="base-bg-img">
     <div class="container">
         <br>
-        <div class="row" style="width: 90%; margin:0 auto; float:none; margin-bottom:10px">
-            <div class="col-4" style="font-size: 25px; text-align:left;">
-                <a href="{% url 'grocery:user_lists' %}"><i
+        <div class="row" style="width: 100%; margin:0 auto; float:none; margin-bottom:10px">
+            <div class="col-4" style="font-size: 30px; text-align:left;">
+                <a class="btn btn-outline-info" href="{% url 'grocery:user_lists' %}"><i
                         class="fas fa-angle-double-left"></i></a>
             </div>
 
-            <div class="col-4" style="font-size: 25px; text-align:center">
-                <a href="{% url 'grocery:view_fav' %}" ><i class="fas fa-heart"></i></a>
+            <div class="col-4" style="font-size: 30px; text-align:center">
+                <a class="btn btn-outline-danger" href="{% url 'grocery:view_fav' %}" ><i class="fas fa-heart"></i></a>
             </div>
 
-            <div class="col-4" style="font-size: 25px; text-align:right">
-                <a href="{% url 'grocery:create_list' list_id=list_id %}" ><i class="fas fa-plus"></i> </a>
+            <div class="col-4" style="font-size: 30px; text-align:right">
+                <a class="btn btn-outline-info" href="{% url 'grocery:create_list' list_id=list_id %}" ><i class="fas fa-plus"></i> </a>
             </div>
 
 
 
         </div>
         <form method="POST" action="{% url 'grocery:custom_item' list_id=list_id %}" class="form-control"
-            style="max-width: 90%; background-color:rgba(169, 169, 169, 0.728);float:none; margin:0 auto;">
+            style="max-width: 100%; background-color:rgba(169, 169, 169, 0.728);float:none; margin:0 auto;">
             {% csrf_token %}
             <label for="item_add">Add Item</label>
             <input type="text" id="item_add" name="item" class="form-control">
