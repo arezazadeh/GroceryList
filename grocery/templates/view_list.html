@@ -73,7 +73,7 @@
             {% if i.completed %}
             <tr>
                 <td>
-                    <s><a href="{% url 'grocery:undo' item_id=i.id list_id=i.name.id %}">{{ i.item }}</a>
+                    <s><a href="{% url 'grocery:undo' item_id=i.id list_id=i.name.id %}">{{ i.item|capfirst }}</a>
                 </td>
                 <td>{{ i.date }}</td>
                 <td style="text-align: center;"><span ><a class="btn btn-outline-danger" href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i

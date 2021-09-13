@@ -11,7 +11,7 @@
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
-      <small class="mr-2"> {{ object.0.user_name }} - </small>
+      <small class="mr-2"> {{ object.0.user_name|capfirst }} - </small>
       <small class="text-muted">{{ object.0.date|date:"F d, Y" }}</small>
       {% if object.0.user_name == user %}
       <div>
@@ -30,7 +30,7 @@
   {% for i in user_comment %}
   <div class="media-body">
     <div class="article-metadata">
-      <small class="mr-2"> {{ i.user_name }} - </small>
+      <small class="mr-2"> {{ i.user_name|capfirst }} - </small>
       <small class="text-muted">{{ i.date|date:"F d, Y" }}</small>
       {% if i.user_name == user %}
       <div>

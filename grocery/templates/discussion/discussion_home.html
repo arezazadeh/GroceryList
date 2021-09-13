@@ -8,7 +8,7 @@
         <article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <small class="mr-2" >{{ post.user_name }}</small>
+              <small class="mr-2" >{{ post.user_name|capfirst }}</small>
               <small class="text-muted">{{ post.date|date:"F d, Y" }}</small>
             </div>
             <h2><a class="article-title" href="{% url 'grocery:post-detail' post.id %}">{{ post.title }}</a></h2>
