@@ -76,13 +76,13 @@
                     <s><a href="{% url 'grocery:undo' item_id=i.id list_id=i.name.id %}">{{ i.item }}</a>
                 </td>
                 <td>{{ i.date }}</td>
-                <td><span><a href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
+                <td style="text-align: center;"><span ><a class="btn btn-outline-danger" href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
                                 class="fa fa-trash"></i></a></span></td>
                 {% if i.favorite %}
-                <td><a href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                <td style="text-align: center;"><a class="btn btn-outline-warning" href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
                             class="fas fa-star"></i></a></td>
                 {% else %}
-                <td><a href="{% url 'grocery:fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                <td style="text-align: center;"><a class="btn btn-outline-warning" href="{% url 'grocery:fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
                             class="far fa-star"></i></a></td>
                 {% endif %}
 
@@ -95,17 +95,17 @@
                     <a href="{% url 'grocery:complete' item_id=i.id list_id=i.name.id %}">{{ i.item }}</a>
                 </td>
                 <td>--</td>
-                <td>
-                    <a href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
+                <td style="text-align: center;">
+                    <a class="btn btn-outline-danger" href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
                             class="fa fa-trash"></i></a>
                 </td>
 
 
                 {% if i.favorite %}
-                <td><a href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                <td style="text-align: center;"><a class="btn btn-outline-warning" href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
                             class="fas fa-star"></i></a></td>
                 {% else %}
-                <td><a href="{% url 'grocery:fav_item' item_id=257 item_name=i.item list_id=i.name.id %}"><i
+                <td style="text-align: center;"><a class="btn btn-outline-warning" href="{% url 'grocery:fav_item' item_id=257 item_name=i.item list_id=i.name.id %}"><i
                             class="far fa-star"></i></a></td>
                 {% endif %}
 
