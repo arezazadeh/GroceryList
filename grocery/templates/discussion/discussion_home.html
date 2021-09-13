@@ -2,7 +2,7 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'main02.css' %}">
 <a style="margin-top: 20px;" href="{% url 'grocery:post-create' %}" class="btn btn-outline-info">Create New Post </a>
     {% for post in posts %}
         <article class="media content-section">

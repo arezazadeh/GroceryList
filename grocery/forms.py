@@ -1,18 +1,15 @@
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, fields
 
 from .models import *
 
-
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
-
-class GroceryListForm(ModelForm):
-
+class CommentForm(forms.ModelForm):
     class Meta:
-        model = GroceryList
-        fields = ['name', 'item', 'completed', 'date']
-        widgets = {
-            'made_on': DateInput(),
-        }
+        model = UserComments
+        fields = ["comment"]
+      
+  
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = UserPost
+        fields = ["title", "post"]

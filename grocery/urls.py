@@ -23,13 +23,17 @@ urlpatterns = [
     path('user_lists/', views.view_lists, name='user_lists'),
     path('delete_list/<int:list_id>/', views.delete_user_list, name='del_user_list'),
     path('delete_menu/<int:menu_id>/', views.delete_menu, name='delete_menu'),
+    
     path('discussion/', views.PostListView.as_view(), name='discussion'),
     path('post_detail/<int:post_id>/', views.post_detail, name='post-detail'),
     path('post/new/', views.PostCreateView.as_view(), name='post-create'),
-    path('post/update/<int:pk>/', views.PostUpdateView.as_view(), name='post-update'),
+    path('post/update/<int:post_id>/', views.post_update, name='post-update'),
     path('post/delete/<int:pk>/', views.PostDeleteView.as_view(), name='post-delete'),
+    
     path('comment/add/<int:post_id>/', views.comment_add, name='comment-add'),
-    path('comment/update/<int:pk>/', views.CommentUpdateView.as_view(), name='comment-update'),
+    path('comment/update/<int:comment_id>/<int:post_id>/', views.comment_update, name='comment-update'),
+    path('comment/delete/<int:comment_id>/<int:post_id>/', views.delete_comment, name='comment-delete'),
+    
     path('add_favorite_item/<int:item_id>/<str:item_name>/<int:list_id>/', views.favorite_item, name='fav_item'),
     path('remove_favorite_item/<int:item_id>/<str:item_name>/<int:list_id>/', views.remove_fav_item, name='un_fav_item'),
     path('view_fav/', views.view_fav, name='view_fav'),

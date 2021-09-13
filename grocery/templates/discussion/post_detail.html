@@ -4,7 +4,7 @@
 {% block content %}
 
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'main02.css' %}">
 <a class="btn btn-outline-info mt-3" href="{% url 'grocery:discussion' %}">Back</a>
 
 
@@ -34,8 +34,8 @@
       <small class="text-muted">{{ i.date|date:"F d, Y" }}</small>
       {% if i.user_name == user %}
       <div>
-        <a href="{% url 'grocery:comment-update' i.id %}">edit</a>
-        <a href="{% url 'grocery:post-delete' i.id %}">delete</a>
+        <a href="{% url 'grocery:comment-update' i.id object.0.id %}">edit</a>
+        <a href="{% url 'grocery:comment-delete' i.id object.0.id %}">delete</a>
       </div>
       {% endif %}
     </div>

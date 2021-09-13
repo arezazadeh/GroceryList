@@ -2,8 +2,9 @@ from datetime import date
 from django.http.response import JsonResponse
 from grocery.api_function import *
 from django.contrib import messages
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import get_object_or_404, render, redirect, HttpResponse, HttpResponseRedirect
 from .models import *
+from .forms import *
 from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
 from .forms import *
@@ -441,6 +442,10 @@ class PostCreateView(LoginRequiredMixin ,CreateView):
         return super().form_valid(form)
 
 
+
+
+
+
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = UserPost
     fields = ["title", "post"]
@@ -457,6 +462,19 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         else:
             return False
 
+
+@login_required(login_url='/account/login')
+def post_update(request, post_id):
+    context = {}
+    print(post_id)
+    obj = get_object_or_404(UserPost, id=post_id)
+    print(obj)
+    form = PostForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        return redirect(f"/grocery/post_detail/{post_id}/")
+    context["form"] = form
+    return render(request, 'discussion/usercomments_form.html', {'form': form})
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -487,7 +505,7 @@ def post_detail(request, post_id):
     user_post = UserPost.objects.filter(pk=post_id)
     user_comment = UserComments.objects.filter(post=user_post[0])
     
-    return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment})
+    return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment, 'post_id':post_id})
     
 
 
@@ -502,12 +520,26 @@ def comment_add(request, post_id):
         user_post = UserPost.objects.filter(pk=post)
         print(user_post)
         UserComments.objects.create(comment=comment, post=user_post[0], user_name=request.user)
+        return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment, "post_id": post_id})
         
-        # return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment})
-        
-    return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment})
+    return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment, "post_id": post_id})
 
 
+@login_required(login_url='/account/login')
+def comment_update(request, comment_id, post_id):
+    context = {}
+    print(post_id)
+    obj = get_object_or_404(UserComments, id=comment_id)
+    print(obj)
+    form = CommentForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        return redirect(f"/grocery/post_detail/{post_id}/")
+    context["form"] = form
+    return render(request, 'discussion/usercomments_form.html', {'form': form})
+    
+    
+    
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = UserComments
     fields = ["comment"]
@@ -520,15 +552,25 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
     def test_func(self):
         post = self.get_object()
+        
         if self.request.user == post.user_name:
             return True
         else:
             return False
 
+
     
 @login_required(login_url='/account/login')
-def delete_comment(request):
-    return redirect("grocery:post")
+def delete_comment(request, comment_id, post_id):
+    comment = UserComments.objects.filter(id=comment_id)
+    if comment:
+        comment.delete()
+        return redirect(f"/grocery/post_detail/{post_id}/")
+    return redirect('/')
+
+
+
+
 
 
 def api_get(request):
