@@ -436,6 +436,7 @@ class PostCreateView(LoginRequiredMixin ,CreateView):
     model = UserPost
     fields = ["title", "post"]
     template_name = "discussion/post_form.html"
+    success_url = "/grocery/discussion/"
     
     def form_valid(self, form):
         form.instance.user_name = self.request.user
