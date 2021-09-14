@@ -10,8 +10,11 @@ from .forms import UserRegisterForm
 def signup_view(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
+        
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
+            mylist = GroceryListName.objects.create(user_id=request.session['_auth_user_id'] ,name="MyList")
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
             return redirect('/')
