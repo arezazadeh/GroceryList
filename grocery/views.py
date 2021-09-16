@@ -11,6 +11,8 @@ from .forms import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from notifications.signals import notify
+from notifications.models import Notification
+
 
 
 
@@ -523,15 +525,36 @@ def comment_add(request, post_id):
         user_name = user_post[0].user_name
         receiver = User.objects.get(username=user_name)        
         sender = User.objects.get(username=request.user)
-
-        notify.send(sender, recipient=receiver, verb='Message', description=f"{sender} commented on your post")
         
+        notify.send(sender, recipient=receiver, verb='Message', description=f"{sender} commented on your post")
+        # print(b[0])
+        # for n in b:
+        #     for g in n[1]:
+        #         print(g.actor)
+        #         print(g.description)
+        #         print(g.id)
+                    
+        # print()
+        
+        # print()
+        # a = Notification.objects.all()
+        # for i in a:
+        #     print(i.id, i.description)
+
         user_post = UserPost.objects.filter(pk=post)
-        print(user_post)
         UserComments.objects.create(comment=comment, post=user_post[0], user_name=request.user)
         return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment, "post_id": post_id})
         
     return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment, "post_id": post_id})
+
+
+@login_required(login_url='/account/login')
+def delete_notification(request, notify_id):
+    notification_id = Notification.objects.get(id=notify_id).delete()
+    return redirect("/")
+    
+
+
 
 
 @login_required(login_url='/account/login')
