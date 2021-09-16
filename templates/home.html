@@ -11,6 +11,8 @@
 
 
     <title>Grocery Shopping Cart</title>
+</head>
+
     {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -23,14 +25,14 @@
     <!-- Masthead-->
     <header class="masthead">
 
-        <div class="container">
+    
             <!-- <div class="masthead-subheading">Grocery List!</div> -->
             <div id="home_msg">Home, where love begins</div>
-        </div>
+        
     </header>
 
     <!-- Portfolio Grid-->
-    <section class="page-section bg-light" id="portfolio">
+    <div class="page-section bg-light" id="portfolio">
         <div class="container">
             <div class="text-center">
                 <!-- <h2 class="section-heading text-uppercase">Portfolio</h2> -->
@@ -217,7 +219,7 @@
             </div>
             {% endif %}
         </div>
-    </section>
+    </div>
 
 
 
