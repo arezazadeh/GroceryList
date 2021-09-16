@@ -58,16 +58,7 @@ background-repeat: no-repeat;
 #date {
     font-size: 15px;
 }
-/* base.html navbar */
-.navbar-brand{
-    font-size: 20px;
-}
-.nav-link {
-    font-size: 20px;
-}
-.navbar-toggler {
-    font-size: 20px;
-}
+
 #home-text{
     font-size: 25px;
 }
