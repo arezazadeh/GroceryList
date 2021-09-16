@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from notifications.signals import notify
+
 
 
 @login_required(login_url='/account/login')
@@ -509,11 +511,21 @@ def post_detail(request, post_id):
 @login_required(login_url='/account/login')
 def comment_add(request, post_id):
     user_post = UserPost.objects.filter(pk=post_id)
+    
+    user_name = user_post[0].user_name
+    user_model = User.objects.get(username=user_name)
+    print(user_model)
     user_comment = UserComments.objects.filter(post=user_post[0])
     if request.method == "POST":
         comment = request.POST.get('comment')
         post = request.POST.get('post_id')
-        print(post)
+        
+        user_name = user_post[0].user_name
+        receiver = User.objects.get(username=user_name)        
+        sender = User.objects.get(username=request.user)
+
+        notify.send(sender, recipient=receiver, verb='Message', description=f"{sender} commented on your post")
+        
         user_post = UserPost.objects.filter(pk=post)
         print(user_post)
         UserComments.objects.create(comment=comment, post=user_post[0], user_name=request.user)
