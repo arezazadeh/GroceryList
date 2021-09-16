@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta content="text/html" charset="UTF-8"/>    
+  <meta content="text/html" charset="UTF-8" />
 
   <meta http-equiv='cache-control' content='no-cache'>
   <meta http-equiv='expires' content='0'>
@@ -11,50 +11,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
-  
+
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
 
-  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <!-- Core theme CSS (includes Bootstrap)-->
 
-  <link rel="icon" type="image/jpg" href="https://banner2.cleanpng.com/20180330/ykq/kisspng-grocery-store-shopping-bags-trolleys-supermarket-grocery-5abe30a68d1a89.828493021522413734578.jpg" />
-  
-  <script src="https://use.fontawesome.com/2a6069159f.js"></script>
 
-  {% load pwa %}
-  {% progressive_web_app_meta %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-  
-  
+  <link rel="icon" type="image/jpg"
+    href="https://banner2.cleanpng.com/20180330/ykq/kisspng-grocery-store-shopping-bags-trolleys-supermarket-grocery-5abe30a68d1a89.828493021522413734578.jpg" />
+
+  <!-- <script src="https://use.fontawesome.com/2a6069159f.js"></script> -->
+
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'main02.css' %}">
 
   <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
 
-  
+
+  {% load pwa %}
+  {% progressive_web_app_meta %}
+
+
+
+
+
+<style>
+  #row {
+    font-size: 30px;
+    text-align: center;
+    color: wheat;
+  }
+</style>
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-
-
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">GroceryList</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <div class="container" style="text-align: center;">
+    <!-- <a class="navbar-brand" href="/">GroceryList</a> -->
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <!-- <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li> -->
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="{% url 'grocery:new_list' %}">Create List</a>
-        </li> -->
+    </button> -->
+    <!-- <div id="navbarNavDropdown" style="text-align:center"> -->
+      <div class="row" >
+        <div id="row"  class="col-2">
+          <a href="/">
+          <i class="fa fa-home"></i>
+          </a>
+        </div>
+        <div id="row"  class="col-2">
+          <a href="{% url 'grocery:user_lists' %}">
+          <i class="fa fa-clipboard-list"></i>
+          </a>
+        </div>
+        <div id="row" class="col-2">
+          <a href="{% url 'grocery:menu' %}">
+            <i class="fa fa-pizza-slice"></i>
+          </a>
+        </div>
+        <div id="row" class="col-2">
+          <a href="{% url 'grocery:recipe_search' %}">
+          <i class="fa fa-utensils"></i>
+          </a>
+        </div>
+        <div id="row" class="col-2">
+          <a href="{% url 'grocery:discussion' %}">
+          <i class="fa fa-users"></i>
+          </a>
+        </div>
+        <div id="row" class="col-2">
+          {% if user.is_authenticated %}
+          <a href="{% url 'user_account:logout' %}">
+            <i class="fa fa-sign-out-alt"></i>
+          </a>
+          {% else %}
+          <a href="{% url 'user_account:login' %}" >
+          <i class="fa fa-sign-in-alt"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- <ul class="navbar-nav">
+
         <li class="nav-item">
           <a class="nav-link" href="{% url 'grocery:user_lists' %}">Views Your List</a>
         </li>
@@ -78,39 +124,44 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'user_account:login' %}">Login</a>
         </li>
-        {% endif %}
+        {% endif %} -->
 
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-bell"></i>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-         <!-- {% for notification in  user.notifications.unread %}
+         {% for notification in  user.notifications.unread %}
         	  <div>
         	    <a  href="{% url 'grocery:notify-delete' notification.id %}" class="dropdown-item" type="button">{{ notification.description }}</a>			
         		</div>
         		<div class="dropdown-divider"></div>
-        	{% endfor %} -->
+        	{% endfor %}
             
-          
-          
-          <!-- <li><a class="dropdown-item" href="{% url 'grocery:new_cat' %}">Add Category</a></li> -->
-
+        
           </ul>
-        </li>
+        </li> -->
 
-      </ul>
-    </div>
+      <!-- </ul> -->
+    <!-- </div> -->
   </div>
 </nav>
+
 <body>
 
   <div class="container">
-  {% block content %}
+    {% block content %}
 
-  {% endblock %}
-</div>
+    {% endblock %}
+  </div>
+  {% load static %}
+  <!-- <script src="https://use.fontawesome.com/2a6069159f.js"></script> -->
+  
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script> -->
+  <!-- <script src="scripts.js"></script> -->
+  <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
 
 </body>
+
 </html>
