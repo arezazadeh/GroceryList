@@ -48,9 +48,10 @@
     .nav {
       background-color: rgb(48, 48, 48);
       text-align: center;
-      height: 100px;
+      height: 90px;
       align-items: center;
       overflow: hidden;
+      width: 100%;
 
     }
 
@@ -59,7 +60,7 @@
       text-align: center;
       display: block;
       color: rgb(255, 205, 111);
-      padding: 15px 15px;
+      padding: 12px 12px;
       text-decoration: none;
       float: none;
       margin: 0 auto;
@@ -71,7 +72,7 @@
   </style>
 </head>
 
-<div class="nav">
+<nav class="nav">
   <a id=item href="/">
     <i class="fas fa-home"></i>
     <div class="text">
@@ -118,53 +119,7 @@
     </div>
   </a>
   {% endif %}
-  <!-- <ul class="navbar-nav">
-
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'grocery:user_lists' %}">Views Your List</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'grocery:menu' %}">Personal Menu</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'grocery:recipe_search' %}">Recipe Search</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'grocery:discussion' %}">Discussion</a>
-        </li>
-
-
-
-        {% if user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'user_account:logout' %}">Logout - {{ user }}</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'user_account:login' %}">Login</a>
-        </li>
-        {% endif %} -->
-
-  <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa fa-bell"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
-         {% for notification in  user.notifications.unread %}
-        	  <div>
-        	    <a  href="{% url 'grocery:notify-delete' notification.id %}" class="dropdown-item" type="button">{{ notification.description }}</a>			
-        		</div>
-        		<div class="dropdown-divider"></div>
-        	{% endfor %}
-            
-        
-          </ul>
-        </li> -->
-
-  <!-- </ul> -->
-  <!-- </div> -->
-</div>
+</nav>
 
 <body>
 
@@ -173,27 +128,6 @@
 
   {% endblock %}
 
-
-  {% load static %}
-  <!-- <script src="https://use.fontawesome.com/2a6069159f.js"></script> -->
-
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script> -->
-  <!-- <script src="scripts.js"></script> -->
-  <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
-  <!-- <script>
-    window.onscroll = function() {myFunction()};
-    
-    var navbar = document.getElementById("navbar");
-    var sticky = navbar.offsetTop;
-    
-    function myFunction() {
-      if (window.pageYOffset >= sticky) {
-        navbar.classList.add("sticky")
-      } else {
-        navbar.classList.remove("sticky");
-      }
-    }
-    </script> -->
 </body>
 
 </html>
