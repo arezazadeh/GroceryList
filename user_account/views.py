@@ -10,7 +10,8 @@ from .forms import UserRegisterForm
 def signup_view(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
-        
+        body = request.body
+        print(body)
         if form.is_valid():
             user = form.save()
             login(request, user)

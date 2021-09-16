@@ -41,7 +41,7 @@
             style="max-width: 100%; background-color:rgba(169, 169, 169, 0.728);float:none; margin:0 auto;">
             {% csrf_token %}
             <label for="item_add">Add Item</label>
-            <input type="text" id="item_add" name="item" class="form-control">
+            <input type="text" id="item_add" name="item" class="form-control" required placeholder="Onion">
             <input type="hidden" name="list_id" value="{{ list_id }}">
 
             <button type="submit" class="btn" style="background-color: black; color:white; margin-top:5px">Add</button>
