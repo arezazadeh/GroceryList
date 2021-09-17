@@ -5,10 +5,15 @@
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'main02.css' %}">
+
+
+<body id="base-bg-img-discussion">
+
+
 <a class="btn btn-outline-info mt-3" href="{% url 'grocery:discussion' %}">Back</a>
 
 
-<article class="media content-section">
+<article class="media content-section" style="background-color: rgba(255, 255, 255, 0.5);">
   <div class="media-body">
     <div class="article-metadata">
       <small class="mr-2"> {{ object.0.user_name|capfirst }} - </small>
@@ -28,7 +33,7 @@
     {% endif %}
 </article>
 
-<article class="media content-section" style="overflow: scroll; height:400px" >
+<article class="media content-section" style="overflow: scroll; height:400px;background-color: rgba(255, 255, 255, 0.5);" >
   {% for i in user_comment %}
   <div class="media-body">
     <div class="article-metadata">
@@ -62,7 +67,7 @@
   </form>
 
 </div>
-
+</body>
 
 
 

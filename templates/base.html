@@ -41,21 +41,23 @@
   {% progressive_web_app_meta %}
 
 
-
-
-
   <style>
     .nav {
       /* z-index to bring the object on top of everything, i used this when i made the navbar sticky */
      z-index: 1;
       background-color: rgba(48, 48, 48, 0.9);
       text-align: center;
-      height: 90px;
+      height: 70px;
       align-items: center;
       width: 100%;
+      top: 0;
       position: -webkit-sticky;
       position: sticky;
-      top: 0;
+      /* --- to possition the navbar in the bottom --- */
+      /*
+      position: fixed;
+      bottom: 0;
+      */
     }
 
 
@@ -64,7 +66,7 @@
       text-align: center;
       display: block;
       color: rgb(255, 205, 111);
-      padding: 12px 12px;
+      /* padding: 10px 10px;*/
       text-decoration: none;
       float: none;
       margin: 0 auto;
@@ -128,7 +130,7 @@
 
 <body>
 
-<div class="container">
+<div class="container" >
   {% block content %}
 
   {% endblock %}
