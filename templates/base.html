@@ -28,7 +28,7 @@
   <link rel="icon" type="image/jpg"
     href="https://banner2.cleanpng.com/20180330/ykq/kisspng-grocery-store-shopping-bags-trolleys-supermarket-grocery-5abe30a68d1a89.828493021522413734578.jpg" />
 
-  <!-- <script src="https://use.fontawesome.com/2a6069159f.js"></script> -->
+  <script src="https://use.fontawesome.com/2a6069159f.js"></script>
 
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'main02.css' %}">
@@ -47,19 +47,19 @@
   <style>
     .nav {
       /* z-index to bring the object on top of everything, i used this when i made the navbar sticky */
-      z-index: 1;
+     z-index: 1;
       background-color: rgb(48, 48, 48);
       text-align: center;
       height: 90px;
       align-items: center;
-      overflow: hidden;
       width: 100%;
-      position: fixed;
-
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
     }
 
 
-    #item {
+    #nav_item {
       font-size: 30px;
       text-align: center;
       display: block;
@@ -78,31 +78,31 @@
 </head>
 
 <nav class="nav">
-  <a id=item href="/">
+  <a id=nav_item href="/">
     <i class="fas fa-home"></i>
     <div class="text">
       Home</div>
   </a>
 
-  <a id=item href="{% url 'grocery:user_lists' %}">
+  <a id=nav_item href="{% url 'grocery:user_lists' %}">
     <i class="fas fa-clipboard-list"></i>
     <div class="text">
       List</div>
   </a>
-  <a id=item href="{% url 'grocery:menu' %}">
+  <a id=nav_item href="{% url 'grocery:menu' %}">
     <i class="fas fa-pizza-slice"></i>
     <div class="text">
       Menu
     </div>
   </a>
-  <a id=item href="{% url 'grocery:recipe_search' %}">
+  <a id=nav_item href="{% url 'grocery:recipe_search' %}">
     <i class="fas fa-utensils"></i>
     <div class="text">
       Recipe
     </div>
   </a>
 
-  <a id=item href="{% url 'grocery:discussion' %}">
+  <a id=nav_item href="{% url 'grocery:discussion' %}">
     <i class="fas fa-users"></i>
     <div class="text">
       Discussion
@@ -110,14 +110,14 @@
   </a>
 
   {% if user.is_authenticated %}
-  <a id=item href="{% url 'user_account:logout' %}">
+  <a id=nav_item href="{% url 'user_account:logout' %}">
     <i class="fas fa-sign-out-alt"></i>
     <div class="text">
       Logout
     </div>
   </a>
   {% else %}
-  <a id=item href="{% url 'user_account:login' %}">
+  <a id=nav_item href="{% url 'user_account:login' %}">
     <i class="fas fa-sign-in-alt"></i>
     <div class="text">
       Login
