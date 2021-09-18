@@ -59,7 +59,6 @@ class Favorite(models.Model):
     item = models.CharField(max_length=255, null=True)
     user_id = models.IntegerField(null=True)
 
-
     def __str__(self):
         return self.item
 

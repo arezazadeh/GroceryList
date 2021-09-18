@@ -162,7 +162,7 @@ def add_to_fav(request):
         for i in list_items:
             check_for_duplicate = GroceryList.objects.filter(name=selected_list[0], item=i.lower())
             if not check_for_duplicate:
-                GroceryList.objects.create(name=selected_list[0], item=i.lower())
+                GroceryList.objects.create(name=selected_list[0], item=i.lower(), favorite=True)
             else:
                 messages.warning(request, f"{i} already exists in {selected_list[0].name}")
                 return render(request, 'view_favorite.html', {'fav': favorite_list, 'lists': user_list})
@@ -444,7 +444,6 @@ class PostDetailView(DetailView):
     model = UserPost
     template_name = 'discussion/post_detail.html'
 
-
 class PostCreateView(LoginRequiredMixin ,CreateView):
     model = UserPost
     fields = ["title", "post"]
@@ -506,8 +505,6 @@ class CommentCreateView(LoginRequiredMixin ,CreateView):
     def form_valid(self, form):
         form.instance.user_name = self.request.user
         return super().form_valid(form)
-
-
 
 
 @login_required(login_url='/account/login')
