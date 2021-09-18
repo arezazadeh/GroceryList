@@ -261,5 +261,9 @@ PWA_APP_LANG = getattr(settings, 'PWA_APP_LANG', 'en-US')
 LOGIN_REDIRECT_URL = 'grocery'
 LOGIN_URL = 'user_account:login'
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ahmad1785@gmail.com'
+EMAIL_HOST_PASSWORD = 'GIZA_amoo#%52'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'ahmad1785@gmail.com'
