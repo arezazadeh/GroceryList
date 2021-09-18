@@ -92,7 +92,7 @@
             <tr>
 
                 <td>
-                    <a href="{% url 'grocery:complete' item_id=i.id list_id=i.name.id %}">{{ i.item }}</a>
+                    <a href="{% url 'grocery:complete' item_id=i.id list_id=i.name.id %}">{{ i.item|capfirst }}</a>
                 </td>
                 <td>--</td>
                 <td style="text-align: center;">

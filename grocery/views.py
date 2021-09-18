@@ -1,3 +1,4 @@
+from collections import UserList
 from datetime import date
 from django.http.response import JsonResponse
 from grocery.api_function import *
@@ -64,7 +65,8 @@ def add_to_list(request, list_id):
     if request.method == 'POST':
         list_name = request.POST.get('list')
         item_list = request.POST.getlist('item')
-        
+        my_list = get_object_or_404(GroceryList)
+        print(my_list)
         new_list = GroceryListName.objects.filter(id=list_id)
         print(new_list)
         print(item_list)
@@ -97,16 +99,23 @@ def add_custom_item_to_list(request, list_id):
     if request.method == 'POST':
         selected_item = request.POST.get('item').lower()
         list_id = request.POST.get('list_id')
-        
+
         item = selected_item.replace('/', ".")
         current_list = GroceryListName.objects.filter(id=list_id)
         user_items = GroceryList.objects.filter(name=current_list[0].id)
+        fav_list = Favorite.objects.filter(user_id=user_id)
+        fav_item = fav_list.filter(item=item)
         item_exist = user_items.filter(item=item)
-        
-        if not item_exist:
-            GroceryList.objects.create(item=item, name=current_list[0])
+        if fav_item:
+            if not item_exist:
+                GroceryList.objects.create(item=item, name=current_list[0], favorite=True)    
+            else:
+                messages.warning(request, f"{item} already in the list")
         else:
-            messages.warning(request, f"{item} already in the list")
+            if not item_exist:
+                GroceryList.objects.create(item=item, name=current_list[0], favorite=False)    
+            else:
+                messages.warning(request, f"{item} already in the list")
         
         grocery_list = GroceryList.objects.filter(name=list_id)
         
@@ -201,12 +210,12 @@ def delete_user_list(request, list_id):
     return redirect("grocery:user_lists")
     
 
-# Add Item to Favorite from Favorite
+# Add Item to Favorite from Favorite Form
 @login_required(login_url='/account/login')
 def add_fav(request):
     if request.method == "POST":
         user_id = request.session['_auth_user_id']
-        item = request.POST.get('item')
+        item = request.POST.get('item').lower()
         check_for_item = Favorite.objects.filter(user_id=user_id, item=item)
         if not check_for_item:
             Favorite.objects.create(user_id=user_id, item=item)
