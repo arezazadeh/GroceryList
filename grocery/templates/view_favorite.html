@@ -6,12 +6,13 @@
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
 
-<body id="base-bg-img">
-    <div class="container">
-        <div class="card">
+<body id="base-bg-img-discussion">
+    <div class="container mt-3">
+        <a href="{% url 'grocery:user_lists' %}" class="btn btn-outline-info mt-1 mb-3"> Back</a>
+        <div class="card" style="background-color: rgb(255, 255, 255, 0.2);">
             <div class="card-body">
                 <form method="POST" action="{% url 'grocery:add_to_fav' %}" class="form-control"
-                    style="max-width: 90%; ;float:none; margin:0 auto;">
+                    style="max-width: 90%; ;float:none; margin:0 auto; background-color: rgb(255, 255,255, 0.2)">
                     {% csrf_token %}
                     <label for="item_add">Add Item to Favorite</label>
                     <input type="text" id="item_add" name="item" class="form-control">
@@ -70,8 +71,8 @@
                         {% endfor %}
                         <tr>
                             <td>
-                                <button type="submit" class="btn btn-success">Add to List</button> 
-                                <a href="{% url 'grocery:user_lists' %}" class="btn btn-success"> Back</a>
+                                <button type="submit" class="btn btn-outline-info">Add to List</button> 
+                                
                                     
                             </td>
                         </tr>
