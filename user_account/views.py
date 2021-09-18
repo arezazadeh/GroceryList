@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from grocery.models import *
-
+from django.contrib.auth.models import User
 from .forms import UserRegisterForm
 
 
@@ -42,6 +42,32 @@ def login_view(request):
             return render(request, 'loginA.html')
     return render(request, 'loginA.html')
 
+
+def reset_password(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = User.objects.get(username=username)
+        user.set_password(password)
+        user.save()
+        return render(request, 'loginA.html')
+    return render(request, 'password_reset.html')
+
+
+def find_user(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        try:
+            user = User.objects.get(username=username)
+            print(user)
+            return render(request, 'password_reset.html', {'username': user})
+        except:
+            messages.error(request, f"User {username} was not found")
+            return render(request, 'search_user.html')
+        
+    return render(request, 'search_user.html')
+    
+    
 
 def logout_view(request):
     logout(request)

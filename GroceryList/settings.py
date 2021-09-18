@@ -260,3 +260,6 @@ PWA_APP_LANG = getattr(settings, 'PWA_APP_LANG', 'en-US')
 
 LOGIN_REDIRECT_URL = 'grocery'
 LOGIN_URL = 'user_account:login'
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))

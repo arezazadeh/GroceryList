@@ -13,6 +13,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from notifications.signals import notify
 from notifications.models import Notification
+import re
 
 
 
@@ -452,6 +453,9 @@ class PostCreateView(LoginRequiredMixin ,CreateView):
     
     def form_valid(self, form):
         form.instance.user_name = self.request.user
+        post = form.instance.post
+        url_pattern = re.compile("(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))")
+        # url = re.findall(url_pattern, post)
         return super().form_valid(form)
 
 

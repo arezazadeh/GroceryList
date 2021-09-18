@@ -15,4 +15,5 @@ urlpatterns = [
     path('account/', include('user_account.urls')),
     path('', include('pwa.urls')),
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]
