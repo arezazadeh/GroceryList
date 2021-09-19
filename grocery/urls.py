@@ -16,10 +16,14 @@ urlpatterns = [
     path('create_menu/', views.create_menu, name='c-menu'),
     path('view_menu/', views.view_menu, name='menu'),
     path('menu_detail/<int:dish_id>/', views.view_menu_detail, name='menu_detail'),  
+    
     path('recipe_search/', views.recipe_search, name="recipe_search"),
+    path('recipe_search/next/<path:recipe_link>/', views.recipe_next_page, name='recipe_next'),
     path('recipe_detail/<path:recipe_link>/', views.recipe_detail, name="recipe_detail"),
     path('add_recipe/<str:recipe_id>/', views.add_recipe_to_menu, name="add_recipe"),
     path('share_recipe/<str:recipe_id>/', views.share_recipe, name="share"),
+    
+    
     path('create_new_list/', views.create_new_list, name="new_list"),
     path('user_lists/', views.view_lists, name='user_lists'),
     path('delete_list/<int:list_id>/', views.delete_user_list, name='del_user_list'),

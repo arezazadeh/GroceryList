@@ -367,16 +367,31 @@ def recipe_search(request):
         food = request.POST.get('food')
         cuisine = request.POST.get('cuisine')
         result = food_search(food, cuisine)
+        next_page = result[1]
         food_list = []
-        
-        for food in result:
+        for food in result[0]:
             food_list.append({
                 'link': food["_links"]["self"]["href"],
                 'image': food["recipe"]["image"],
                 'label': food["recipe"]["label"]
             })
-        return render(request, 'recipe/recipe_view.html', {'food': food_list})
+        return render(request, 'recipe/recipe_view.html', {'food': food_list, 'next': next_page})
     return render(request, "recipe/recipe_search.html")
+
+
+# api returns around 10000 recipes, where it only shows 20 at a time, where the next page url is embeded in the api return
+def recipe_next_page(request, recipe_link):
+    result = recipe_next(recipe_link)
+    next_page = result[1]
+    food_list = []
+    for food in result[0]:
+        food_list.append({
+            'link': food["_links"]["self"]["href"],
+            'image': food["recipe"]["image"],
+            'label': food["recipe"]["label"]
+        })
+    return render(request, 'recipe/recipe_view.html', {'food': food_list, 'next': next_page})
+    
 
 
 @login_required(login_url='/account/login')
