@@ -419,7 +419,8 @@ def share_recipe(request, recipe_id):
         title=recipe_name,
         post=recipe_post
     )
-    return redirect("grocery:discussion")
+    print(user_post.id)
+    return post_update(request, post_id=user_post.id)
     
 
 
@@ -503,7 +504,7 @@ def post_update(request, post_id):
         form.save()
         return redirect(f"/grocery/post_detail/{post_id}/")
     context["form"] = form
-    return render(request, 'discussion/usercomments_form.html', {'form': form})
+    return render(request, 'discussion/user_post_form.html', {'form': form})
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

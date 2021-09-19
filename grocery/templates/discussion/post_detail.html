@@ -9,19 +9,18 @@
 
 <body id="base-bg-img-discussion">
 
-
 <a class="btn btn-outline-info mt-3" href="{% url 'grocery:discussion' %}">Back</a>
 
 
-<article class="media content-section" style="background-color: rgba(255, 255, 255, 0.5);">
-  <div class="media-body">
+<article class="media content-section" style="background-color: rgba(255, 255, 255, 0.5)">
+  <div class="media-body" >
     <div class="article-metadata">
       <small class="mr-2"> {{ object.0.user_name|capfirst }} - </small>
       <small class="text-muted">{{ object.0.date|date:"F d, Y" }}</small>
 
     </div>
     <h2 class="article-title">{{ object.0.title }}</h2>
-    <p class="article-content" id="post">{{ object.0.post }}</p>
+    <p class="article-content" id="post" >{{ object.0.post }}</p>
   </div>
   <div>
     <hr>
@@ -74,7 +73,7 @@
   function urlify(text) {
     let urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.replace(urlRegex, function(url) {
-      return '<a href="' + url + '" target="_blank">' + url + '</a>';
+      return '<a href="' + url + '" target="_blank">' + " Link to the site" + '</a>';
     })
     // or alternatively
     // return text.replace(urlRegex, '<a href="$1">$1</a>')
