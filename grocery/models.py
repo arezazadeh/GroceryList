@@ -75,6 +75,12 @@ class UserPost(models.Model):
     def get_absolute_url(self):
         return reverse("grocery:post-detail", kwargs={"pk": self.pk})
     
+    def get_total_likes(self):
+        return self.likes.count()
+    
+    def get_total_dis_likes(self):
+        return self.dis_likes.count()
+    
     
 class UserComments(models.Model):
     comment = models.TextField()
@@ -87,4 +93,15 @@ class UserComments(models.Model):
     
     def get_absolute_url(self):
         return reverse("grocery:post-detail", kwargs={"pk": self.pk})
+    
 
+class Like(models.Model):
+    post = models.ForeignKey(UserPost, related_name="likes", on_delete=models.CASCADE)
+    user_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now=True, null=True)
+    
+    
+class DisLike(models.Model):
+    post = models.ForeignKey(UserPost, related_name="dis_likes", on_delete=models.CASCADE)
+    user_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now=True, null=True)

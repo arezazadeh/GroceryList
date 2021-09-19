@@ -41,7 +41,7 @@
                         <div class="msg" style="width: 90%; margin:0 auto; float:none; margin-top:20px">
                             {% for message in messages %}
                             <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 {{ message | safe }}

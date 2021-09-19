@@ -26,13 +26,25 @@ class FavoriteAdmin(admin.ModelAdmin):
     list_display = ["id", "item", "user_id"]
 
 
+class UserPostAdmin(admin.ModelAdmin):
+    list_display = ["id", "post"]
+    
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ["post", "user_name", "date"]
+    
+
+class DisLikeAdmin(admin.ModelAdmin):
+    list_display = ["post", "user_name", "date"]
+
 admin.site.register(PersonalMenu, PersonalMenuAdmin)
 admin.site.register(DishItem, DishItemAdmin)
 admin.site.register(GroceryCategory, GroceryCategoryAdmin)
 admin.site.register(GroceryItem, GroceryItemAdmin)
 admin.site.register(GroceryList, GroceryListAdmin)
 admin.site.register(GroceryListName, GroceryListNameAdmin)
-admin.site.register(UserPost)
+admin.site.register(UserPost, UserPostAdmin)
 admin.site.register(UserComments)
 admin.site.register(Favorite, FavoriteAdmin)
+admin.site.register(Like, LikeAdmin)
+admin.site.register(DisLike, DisLikeAdmin)
 
