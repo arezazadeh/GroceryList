@@ -50,7 +50,9 @@ def reset_password(request):
         user = User.objects.get(username=username)
         user.set_password(password)
         user.save()
-        return render(request, 'loginA.html')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        return redirect('/')
     return render(request, 'password_reset.html')
 
 
