@@ -21,7 +21,7 @@
 
     </div>
     <h2 class="article-title">{{ object.0.title }}</h2>
-    <p class="article-content">{{ object.0.post }}</p>
+    <p class="article-content" id="post">{{ object.0.post }}</p>
   </div>
   <div>
     <hr>
@@ -47,7 +47,7 @@
       </div>
       {% endif %}
     </div>
-    <p class="article-content">{{ i.comment }}</p>
+    <p class="article-content" id="comment">{{ i.comment }}</p>
   </div>
   <div>
     {% endfor %}
@@ -70,6 +70,27 @@
 </div>
 </body>
 
+<script>
+  function urlify(text) {
+    let urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, function(url) {
+      return '<a href="' + url + '" target="_blank">' + url + '</a>';
+    })
+    // or alternatively
+    // return text.replace(urlRegex, '<a href="$1">$1</a>')
+  }
+  
+  let post = document.getElementById('post').innerHTML;
+  let postHtml = urlify(post);
+  document.getElementById('post').innerHTML = postHtml
 
+
+  let comment = document.getElementById('comment').innerHTML;  
+  let commentHtml = urlify(comment);
+  document.getElementById('comment').innerHTML = commentHtml
+  
+
+
+</script>
 
 {% endblock %}

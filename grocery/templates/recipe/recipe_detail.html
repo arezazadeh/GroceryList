@@ -7,12 +7,15 @@
 <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
 
-<div class="card">
+<body id="base-bg-img-discussion">
+<div class="card mt-3" style="background-color: rgb(255,255,255, 0.3);">
     <div class="card-header">
     <h4>{{ res.recipe.label }} </h4>
-    <span> <a href="{{ res.recipe.url }}" target="_blank">See Instruction</a></span>
-        <br>
-    <span><a href="{% url 'grocery:add_recipe' recipe_id=recipe_id %}">Add to Personal Menu</a></span>
+    <div>
+    <span> <a class="btn btn-outline-info" href="{{ res.recipe.url }}" target="_blank">See Instruction</a></span>
+    <span><a class="btn btn-outline-info" href="{% url 'grocery:add_recipe' recipe_id=recipe_id %}">Add to Personal Menu</a></span>
+    <span><a class="btn btn-outline-info" href="{% url 'grocery:share' recipe_id=recipe_id %}">Share</a></span>
+    </div>
     <br>
     <img src="{{ res.recipe.image }}">
     </div>
@@ -23,6 +26,6 @@
     </div>
 </div>
 
-
+</body>
 
 {% endblock %}

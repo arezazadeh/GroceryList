@@ -408,6 +408,22 @@ def add_recipe_to_menu(request, recipe_id):
         
 
 @login_required(login_url='/account/login')
+def share_recipe(request, recipe_id):
+    res = add_recipe_to_personal_menu(recipe_id)
+    user_id = request.session["_auth_user_id"]
+    recipe_name = res["recipe"]["label"]
+    url = res["recipe"]["url"]
+    recipe_post = recipe_name + "--" + url
+    user_post = UserPost.objects.create(
+        user_name=request.user,
+        title=recipe_name,
+        post=recipe_post
+    )
+    return redirect("grocery:discussion")
+    
+
+
+@login_required(login_url='/account/login')
 def delete_menu(request, menu_id):
     menu = PersonalMenu.objects.filter(pk=menu_id)
     menu.delete()
