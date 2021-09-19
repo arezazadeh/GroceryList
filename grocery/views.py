@@ -366,7 +366,8 @@ def recipe_search(request):
     if request.method == "POST":
         food = request.POST.get('food')
         cuisine = request.POST.get('cuisine')
-        result = food_search(food, cuisine)
+        mealType = request.POST.get('meal_type')
+        result = food_search(food, cuisine, mealType)
         next_page = result[1]
         food_list = []
         for food in result[0]:
@@ -435,7 +436,8 @@ def share_recipe(request, recipe_id):
         post=recipe_post
     )
     print(user_post.id)
-    return post_update(request, post_id=user_post.id)
+    return redirect("grocery:discussion")
+    # return post_update(request, post_id=user_post.id)
     
 
 
