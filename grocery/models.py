@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 class PersonalMenu(models.Model):
     user_id = models.IntegerField(null=True)
     dish = models.CharField(max_length=255, null=True)
+    instruction = models.TextField(null=True)
 
     def __str__(self):
         return self.dish

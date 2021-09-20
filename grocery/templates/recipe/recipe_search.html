@@ -12,6 +12,16 @@
     <div class="card-header">
         <h3>Recipe Search</h3>
     </div>
+    
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message | safe }}
+    </div>
+    {% endfor %}
+
     <div class="card-body">
 <form method="POST" action="{% url 'grocery:recipe_search' %}" class="form-control" style="border: none;background-color:rgba(255, 255, 255, 0)">
     {% csrf_token %}

@@ -317,21 +317,19 @@ def new_item(request):
 
 
 
-
-
-
 @login_required(login_url='/account/login')
 def create_menu(request):
     if request.method == "POST":
         user_id = request.session['_auth_user_id']
         dish = request.POST.get('dish')
         item_list = request.POST.getlist('item')
+        instruction = request.POST.get('instruction')
         
         new_dish = PersonalMenu.objects.filter(user_id=user_id)
         existing_dish = new_dish.filter(dish=dish)
         
         if not existing_dish:
-            create_new_dish = PersonalMenu.objects.create(user_id=user_id, dish=dish)
+            create_new_dish = PersonalMenu.objects.create(user_id=user_id, dish=dish, instruction=instruction)
             new_dish = PersonalMenu.objects.filter(dish=create_new_dish)
 
             for item in item_list:
@@ -368,15 +366,19 @@ def recipe_search(request):
         cuisine = request.POST.get('cuisine')
         mealType = request.POST.get('meal_type')
         result = food_search(food, cuisine, mealType)
-        next_page = result[1]
-        food_list = []
-        for food in result[0]:
-            food_list.append({
-                'link': food["_links"]["self"]["href"],
-                'image': food["recipe"]["image"],
-                'label': food["recipe"]["label"]
-            })
-        return render(request, 'recipe/recipe_view.html', {'food': food_list, 'next': next_page})
+        if result is None:
+            messages.error(request, "Please modify your search")
+            return render(request, "recipe/recipe_search.html")
+        else:
+            next_page = result[1]
+            food_list = []
+            for food in result[0]:
+                food_list.append({
+                    'link': food["_links"]["self"]["href"],
+                    'image': food["recipe"]["image"],
+                    'label': food["recipe"]["label"]
+                })
+            return render(request, 'recipe/recipe_view.html', {'food': food_list, 'next': next_page})
     return render(request, "recipe/recipe_search.html")
 
 
@@ -411,9 +413,10 @@ def add_recipe_to_menu(request, recipe_id):
     user_id = request.session["_auth_user_id"]
     
     recipe_name = res["recipe"]["label"]
+    instruction = res["recipe"]["url"]
     menu = PersonalMenu.objects.filter(dish=recipe_name)
     if not menu:
-        PersonalMenu.objects.create(user_id=user_id, dish=recipe_name)
+        PersonalMenu.objects.create(user_id=user_id, dish=recipe_name, instruction=instruction)
 
     new_menu = PersonalMenu.objects.filter(dish=recipe_name)
     for ing in res["recipe"]["ingredients"]:

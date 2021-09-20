@@ -14,11 +14,20 @@ def food_search(food, cuisine, mealType):
 
     querystring = {"cuisineType": cuisine or None, "q": food, "mealType": mealType, "imageSize": "REGULAR"}
     
-    response = requests.request("GET", url, params=querystring).json()
-    next_page = response["_links"]["next"]["href"]
-    res = response["hits"]
-    return res, next_page
+    response = requests.request("GET", url, params=querystring)
+    if response.status_code == 200:        
+        if "next" in response.json()["_links"]:
+            next_page = response.json()["_links"]["next"]["href"]
+        else:
+            next_page = False
+        # next_page = response.json()["_links"]["next"]["href"]
+        res = response.json()["hits"]
+        return res, next_page
 
+    else:
+        print(response.status_code)
+        return None
+    
 def recipe_next(url):
     response = requests.request("GET", url).json()
     next_page = response["_links"]["next"]["href"]

@@ -8,14 +8,15 @@
 
 <body id="base-bg-img">
 
-    <div class="card">
+    <div class="card mt-3" >
         <div class="card-header">
-            {% for i in dish %}
-            <h2> {{ i.dish }}</h2>
-            {% endfor %}
+            <h2> {{ dish.0.dish }}</h2>
         </div>
         <div class="card-body">
-
+            {% if dish.0.instruction %}
+            <h4> Instruction </h4>
+            <p id="dish">{{ dish.0.instruction }} </p>
+            {% endif %} 
 
             <table class="table table-striped table-bordered">
                 <tr>
@@ -36,6 +37,7 @@
                             </select>
                         </td>
                     </tr>
+                        
                     {% for item in dish_detail %}
                     <tr>
                         <td>
@@ -58,7 +60,25 @@
         </div>
     </div>
 </body>
+<script>
+    function urlify(text) {
+      let urlRegex = /(https?:\/\/[^\s]+)/g;
+      return text.replace(urlRegex, function (url) {
+        return '<a href="' + url + '" target="_blank">' + " Link to the site" + '</a>';
+      })
+      // or alternatively
+      // return text.replace(urlRegex, '<a href="$1">$1</a>')
+    }
+  
+    let post = document.getElementById('dish').innerHTML;
+    let postHtml = urlify(post);
+    document.getElementById('dish').innerHTML = postHtml
+  
 
+  
+  
+  
+  </script>
 
 
 {% endblock %}

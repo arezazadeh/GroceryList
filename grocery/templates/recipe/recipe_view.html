@@ -8,7 +8,9 @@
 
 <div>
     <a class="btn btn-outline-info mt-3" href="{% url 'grocery:recipe_search' %}">Back</a>
+    {% if next %}
 <a class="btn btn-outline-info mt-3" href="{% url 'grocery:recipe_next' recipe_link=next %}">Next</a>
+{% endif %}
 </div>
 
 <table class="table table-striped table-bordered" >
@@ -27,5 +29,8 @@
     </tr>
     {% endfor %}
 </table>
+{% if next %}
+<a class="btn btn-outline-info mt-2 mb-3" href="{% url 'grocery:recipe_next' recipe_link=next %}">Next</a>
+{% endif %}
 
 {% endblock %}
