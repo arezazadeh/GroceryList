@@ -1,4 +1,3 @@
-from collections import UserList
 from datetime import date
 from django.http.response import JsonResponse
 from grocery.api_function import *
@@ -6,7 +5,6 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse, HttpResponseRedirect
 from .models import *
 from .forms import *
-from django.db import connection, transaction
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
@@ -41,7 +39,6 @@ def create_new_list(request):
 @login_required(login_url='/account/login')
 def create_list(request, list_id):
 
-    cursor = connection.cursor()
     user_id = request.session['_auth_user_id']
     
     print("````````````````")

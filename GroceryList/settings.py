@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'pwa',
     'crispy_forms',
     'notifications',
+    'webpush',
 ]
 
 MIDDLEWARE = [
