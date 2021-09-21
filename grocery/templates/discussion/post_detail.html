@@ -102,10 +102,11 @@
 
       </div>
     </div>
-<button class="btn btn-outline-info" id="show-comment">Show Comments </button>
-<button class="btn btn-outline-info" id="hide-comment">Hide Comments </button>
   </article>
-
+  <div>
+  <button class="btn btn-outline-info" id="show-comment">Show Comments </button>
+  <button class="btn btn-outline-info" id="hide-comment">Hide Comments </button>
+  </div>
 
   <article class="media content-section"
     style="overflow: scroll; height:400px;background-color: rgba(255, 255, 255, 0.5); margin-bottom:200px;" id="comment-section">
@@ -159,16 +160,6 @@
     // or alternatively
     // return text.replace(urlRegex, '<a href="$1">$1</a>')
   }
-
-  let post = document.getElementById('post').innerHTML;
-  let postHtml = urlify(post);
-  document.getElementById('post').innerHTML = postHtml
-
-
-  let comment = document.getElementById('comment').innerHTML;
-  let commentHtml = urlify(comment);
-  document.getElementById('comment').innerHTML = commentHtml
-
   const commentSection = document.getElementById('comment-section')
   commentSection.style.display = "none"
  const commentForm = document.getElementById('comment-form')
@@ -190,6 +181,19 @@ function hideCommnets() {
   commentSection.style.display = "none"
   commentForm.style.display = "none"
 }
+
+
+
+
+  let post = document.getElementById('post').innerHTML;
+  let postHtml = urlify(post);
+  document.getElementById('post').innerHTML = postHtml
+
+
+  let comment = document.getElementById('comment').innerHTML;
+  let commentHtml = urlify(comment);
+  document.getElementById('comment').innerHTML = commentHtml
+ 
 
 </script>
 
