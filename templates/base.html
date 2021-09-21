@@ -42,36 +42,54 @@
 
 
   <style>
-    .nav {
+    #nav-bottom {
       /* z-index to bring the object on top of everything, i used this when i made the navbar sticky */
      z-index: 1;
-      background-color: rgba(48, 48, 48, 0.9);
+      background-color: rgba(69, 69, 69, 0.9);
+      margin-top: 40px;
       text-align: center;
       height: 70px;
+      width: 100%;
+      align-items: center;
+      overflow: hidden;
+      text-decoration: none;
+      /*top: 0;
+      position: -webkit-sticky;
+      position: sticky;*/
+      /* --- to possition the navbar in the bottom --- */
+      
+      position: fixed;
+      bottom: 0;
+      border-top: 1px solid #555;
+    }
+
+
+    #nav-top {
+      /* z-index to bring the object on top of everything, i used this when i made the navbar sticky */
+      z-index: 1;
+      background-color: rgba(69, 69, 69, 0.9);
+      overflow: hidden;
+      text-align: center;
+      height: 70px;
+      text-decoration: none;
       align-items: center;
       width: 100%;
       top: 0;
       position: -webkit-sticky;
       position: sticky;
-      /* --- to possition the navbar in the bottom --- */
-      /*
-      position: fixed;
-      bottom: 0;
-      */
+      border-bottom: 1px solid #555;
     }
-
 
     #nav_item {
       font-size: 30px;
       text-align: center;
       display: block;
-      color: rgb(255, 205, 111);
+      color: rgb(216, 192, 95);
       /* padding: 10px 10px;*/
       text-decoration: none;
       float: none;
       margin: 0 auto;
     }
-
     .text {
       font-size: 10px;
       margin-top: -2px;
@@ -79,24 +97,10 @@
   </style>
 </head>
 
-<nav class="nav">
-  <a id=nav_item href="/">
-    <i class="fas fa-home"></i>
-    <div class="text">
-      Home</div>
-  </a>
 
-  <a id=nav_item href="{% url 'grocery:user_lists' %}">
-    <i class="fas fa-clipboard-list"></i>
-    <div class="text">
-      List</div>
-  </a>
-  <a id=nav_item href="{% url 'grocery:menu' %}">
-    <i class="fas fa-pizza-slice"></i>
-    <div class="text">
-      Menu
-    </div>
-  </a>
+<!-- Top NavBar -->
+<nav class="nav" id="nav-top">
+
   <a id=nav_item href="{% url 'grocery:recipe_search' %}">
     <i class="fas fa-utensils"></i>
     <div class="text">
@@ -128,8 +132,29 @@
   {% endif %}
 </nav>
 
+<!-- Bottom NavBar -->
+<nav class="nav" id="nav-bottom">
+  <a id=nav_item href="/">
+    <i class="fas fa-home"></i>
+    <div class="text">
+      Home</div>
+  </a>
+
+  <a id=nav_item href="{% url 'grocery:user_lists' %}">
+    <i class="fas fa-clipboard-list"></i>
+    <div class="text">
+      List</div>
+  </a>
+  <a id=nav_item href="{% url 'grocery:menu' %}">
+    <i class="fas fa-pizza-slice"></i>
+    <div class="text">
+      Menu
+    </div>
+  </a>
+</nav>
+
 <body>
-<div class="container">
+<div class="container" style="margin-bottom: 100px;">
   {% block content %}
 
   {% endblock %}
