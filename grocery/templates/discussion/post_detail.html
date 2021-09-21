@@ -3,6 +3,27 @@
 
 {% block content %}
 
+<style>
+  #comment-form {
+    z-index: 1;
+    /* background-color: rgba(69, 69, 69, 0.9);
+    margin-top: 40px;
+    text-align: center;
+    height: 70px;
+    align-items: center; */
+    overflow: hidden;
+    
+    width: 90%;
+    margin-top: 60px;
+    /*top: 0;
+    position: -webkit-sticky;
+    position: sticky;*/
+    /* --- to possition the navbar in the bottom --- */
+    position: fixed;
+    bottom: 70px;
+  }
+</style>
+
 {% load static %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -27,7 +48,7 @@
   </div>
 
 
-  <article class="media content-section" style="background-color: rgba(255, 255, 255, 0.5)">
+  <article class="media content-section" style="background-color: rgba(255, 255, 255, 0.5);">
     <div class="media-body">
       <div class="article-metadata">
         <div class="row">
@@ -81,12 +102,13 @@
 
       </div>
     </div>
-
+<button class="btn btn-outline-info" id="show-comment">Show Comments </button>
+<button class="btn btn-outline-info" id="hide-comment">Hide Comments </button>
   </article>
 
 
   <article class="media content-section"
-    style="overflow: scroll; height:400px;background-color: rgba(255, 255, 255, 0.5);">
+    style="overflow: scroll; height:400px;background-color: rgba(255, 255, 255, 0.5); margin-bottom:200px;" id="comment-section">
     {% for i in user_comment %}
     <div class="media-body">
       <div class="article-metadata">
@@ -106,20 +128,21 @@
   </article>
 
 
-  <div class="content-section">
+  <div class="content-section" id="comment-form">
     <form method="POST" action="{% url 'grocery:comment-add' post_id=object.0.id %}">
       {% csrf_token %}
-      <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Comment</legend>
-        <textarea name="comment" class="form-control"></textarea>
-        <input type="hidden" name="post_id" value="{{ object.0.id }}">
-      </fieldset>
-      <div class="form-group mt-3">
-        <button class="btn btn-outline-info" type="submit">Comment</button>
+      <div>
+        <!-- <legend class="border-bottom mb-4" style="font-size: 14px;">Comment</legend> -->
+        <textarea rows="1" name="comment" class="form-control"></textarea>
+        <button class="btn btn-outline-info mt-1" style="font-size: 12px; font-weight:bold" type="submit">Comment</button>
       </div>
-    </form>
+        <input type="hidden" name="post_id" value="{{ object.0.id }}">
+      
+      
+      </form>
 
   </div>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -146,7 +169,27 @@
   let commentHtml = urlify(comment);
   document.getElementById('comment').innerHTML = commentHtml
 
+  const commentSection = document.getElementById('comment-section')
+  commentSection.style.display = "none"
+ const commentForm = document.getElementById('comment-form')
+ commentForm.style.display = "none";
 
+const hideComment = document.getElementById('hide-comment').addEventListener('click', hideCommnets)  
+const showComment = document.getElementById('show-comment').addEventListener('click', displayComments)
+
+function displayComments() {
+  const commentSection = document.getElementById('comment-section')
+  const commentForm = document.getElementById('comment-form')
+  commentSection.style.display = "block"
+  commentForm.style.display = "block"
+}
+
+function hideCommnets() {
+  const commentSection = document.getElementById('comment-section')
+  const commentForm = document.getElementById('comment-form')
+  commentSection.style.display = "none"
+  commentForm.style.display = "none"
+}
 
 </script>
 
