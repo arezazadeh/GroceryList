@@ -104,8 +104,8 @@
     </div>
   </article>
   <div>
-  <button class="btn btn-outline-info" id="show-comment">Show Comments </button>
-  <button class="btn btn-outline-info" id="hide-comment">Hide Comments </button>
+  <button class="btn btn-outline-info comment-key" id="show-comment">Show Comments </button>
+  <!-- <button class="btn btn-outline-info" id="hide-comment">Hide Comments </button> -->
   </div>
 
   <article class="media content-section"
@@ -143,7 +143,6 @@
       </form>
 
   </div>
-
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -157,32 +156,42 @@
     return text.replace(urlRegex, function (url) {
       return '<a href="' + url + '" target="_blank">' + " Link to the site" + '</a>';
     })
-    // or alternatively
-    // return text.replace(urlRegex, '<a href="$1">$1</a>')
   }
   const commentSection = document.getElementById('comment-section')
   commentSection.style.display = "none"
  const commentForm = document.getElementById('comment-form')
  commentForm.style.display = "none";
 
-const hideComment = document.getElementById('hide-comment').addEventListener('click', hideCommnets)  
-const showComment = document.getElementById('show-comment').addEventListener('click', displayComments)
+
+  document.querySelector('.comment-key').addEventListener('click', displayComments)
+
+
+ 
 
 function displayComments() {
-  const commentSection = document.getElementById('comment-section')
-  const commentForm = document.getElementById('comment-form')
-  commentSection.style.display = "block"
-  commentForm.style.display = "block"
+
+  if (document.querySelector('.comment-key').id === 'show-comment') {
+    const commentSection = document.getElementById('comment-section')
+    const commentForm = document.getElementById('comment-form')
+    commentSection.style.display = "block"
+    commentForm.style.display = "block"
+  
+    const showComment = document.getElementById('show-comment')
+    showComment.id = 'hide-comment'
+    showComment.innerHTML = "Hide Comments"
+    
+  } else {
+    const commentSection = document.getElementById('comment-section')
+    const commentForm = document.getElementById('comment-form')
+    commentSection.style.display = "none"
+    commentForm.style.display = "none"
+  
+    const hideComment = document.getElementById('hide-comment')
+    hideComment.id = 'show-comment'
+    hideComment.innerHTML = "Show Comments"
+  }
+  
 }
-
-function hideCommnets() {
-  const commentSection = document.getElementById('comment-section')
-  const commentForm = document.getElementById('comment-form')
-  commentSection.style.display = "none"
-  commentForm.style.display = "none"
-}
-
-
 
 
   let post = document.getElementById('post').innerHTML;
