@@ -13,3 +13,9 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = UserPost
         fields = ["title", "post"]
+        
+class MenuForm(forms.ModelForm):
+    class Meta:
+        model = PersonalMenu
+        fields = ["dish", "instruction"]
+        

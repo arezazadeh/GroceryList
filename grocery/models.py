@@ -5,10 +5,13 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 
+
 class PersonalMenu(models.Model):
     user_id = models.IntegerField(null=True)
+    username = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     dish = models.CharField(max_length=255, null=True)
     instruction = models.TextField(null=True)
+    
 
     def __str__(self):
         return self.dish
@@ -16,7 +19,7 @@ class PersonalMenu(models.Model):
 
 class DishItem(models.Model):
     item = models.CharField(max_length=255, null=True)
-    dish = models.ForeignKey(PersonalMenu, on_delete=models.CASCADE)
+    dish = models.ForeignKey(PersonalMenu, related_name="dish_items", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.item
@@ -39,6 +42,7 @@ class GroceryItem(models.Model):
 
 class GroceryListName(models.Model):
     user_id = models.IntegerField(null=True)
+    username = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
     
     def __str__(self):
@@ -59,6 +63,8 @@ class GroceryList(models.Model):
 class Favorite(models.Model):
     item = models.CharField(max_length=255, null=True)
     user_id = models.IntegerField(null=True)
+    username = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return self.item

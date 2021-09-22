@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<style>
+    #form {
+        padding: 0 12px;
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
+        align-items: center;
+    }
+</style>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'main02.css' %}">
+
+<div class="content-section container">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Update Menu</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info mt-2" type="submit">Update</button>
+        </div>
+    </form>
+
+
+    {% for item in form1 %}
+
+    <form class="form-control" id="form" method="POST"
+        action="{% url 'grocery:item-update' item_id=item.id menu_id=menu_id %}">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row" style="align-items: center;">
+                <div class="col-10" style="align-items: center;">
+                    <input class="form-control" name="item" type="text" value="{{ item.item }}" id="item">
+
+                </div>
+
+                <div class="col-1" style="text-align: right; align-items:center">
+                    <button style="font-size: 12px;" class="btn btn-outline-info"><i
+                            class="fas fa-pencil-alt"></i></button>
+
+                </div>
+                <div class="col-1" style="text-align: left; align-items:center">
+                    <a href="{% url 'grocery:item-delete' menu_id=menu_id item_id=item.id %}" style="font-size: 12px;" class="btn btn-outline-danger">
+                        <i class="fas fa-trash-alt"></i></a>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+    {% endfor %}
+    <div id="new-ing" class="mt-2"></div>
+
+    <div id="dynamicCheck" class="mt-3">
+        <button class="btn btn-outline-danger" type="button" value="Add Ingredients" onclick="createForm();">Add Ingredients</button>
+    </div>
+
+</div>
+
+<script>
+
+
+
+
+    function createForm() {
+        const parentDiv = document.getElementById('new-ing');
+
+        const formEl = document.createElement('form');
+        formEl.className = 'form-control mb-2 custom-form';
+        formEl.id = 'form';
+        formEl.method = 'POST';
+        formEl.action = "{% url 'grocery:item-add' menu_id=menu_id %}";
+
+        formEl.innerHTML = '{% csrf_token %}';
+
+        const containerDiv = document.createElement('div');
+        containerDiv.className = "container";
+
+
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'row';
+        rowDiv.style.alignItems = 'center';
+
+
+        const col10Div = document.createElement('div');
+        col10Div.className = "col-10";
+        col10Div.innerHTML = "<input class='form-control' type='text' name='item' vlaue='{{ item.item }}' required>";
+
+
+        const col1Div1 = document.createElement('div');
+        col1Div1.className = 'col-1';
+        col1Div1.style.textAlign = "right"
+        const btnEl = document.createElement('button');
+        btnEl.style.fontSize = '12px'
+        btnEl.className = 'btn btn-outline-info';
+        btnEl.innerHTML = "<i class='fas fa-plus'></i>";
+
+
+
+
+        const col1Div2 = document.createElement('div');
+        col1Div2.className = 'col-1';
+        col1Div2.style.textAlign = "left"
+        const aTag = document.createElement('button');
+        aTag.type = "submit"
+        aTag.id = "custom-ing"
+        aTag.style.fontSize = '12px'
+        aTag.className = 'btn btn-outline-danger';
+        aTag.innerHTML = "<i class='fas fa-trash-alt'></i>";
+        aTag.onclick = function() {
+            document.querySelector('.custom-form').remove()
+        }
+
+        parentDiv.appendChild(formEl);
+        formEl.appendChild(containerDiv);;
+        containerDiv.appendChild(rowDiv);
+        rowDiv.appendChild(col10Div);
+        col1Div1.appendChild(btnEl);
+        rowDiv.appendChild(col1Div1);
+        col1Div2.appendChild(aTag);
+        rowDiv.appendChild(col1Div2);
+
+    }
+
+
+</script>
+{% endblock content %}

@@ -16,6 +16,10 @@ urlpatterns = [
     path('create_menu/', views.create_menu, name='c-menu'),
     path('view_menu/', views.view_menu, name='menu'),
     path('menu_detail/<int:dish_id>/', views.view_menu_detail, name='menu_detail'),  
+    path('menu/update/<int:menu_id>/', views.update_menu, name='menu-update'),
+    path('item/update/<int:item_id>/<int:menu_id>/', views.item_update, name='item-update'),
+    path('item/add/<int:menu_id>/', views.add_item_existing_menu, name='item-add'),
+    path('item/delete/<int:menu_id>/<int:item_id>/', views.delete_item_from_existing_menu, name='item-delete'),
     
     path('recipe_search/', views.recipe_search, name="recipe_search"),
     path('recipe_search/next/<path:recipe_link>/', views.recipe_next_page, name='recipe_next'),

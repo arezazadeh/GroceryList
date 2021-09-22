@@ -12,6 +12,7 @@
         <div class="card-header">
             <h2> {{ dish.0.dish }}</h2>
         </div>
+        
         <div class="card-body">
             {% if dish.0.instruction %}
             <h4> Instruction </h4>
@@ -53,6 +54,7 @@
                     <tr>
                         <td>
                             <button type="submit" class="btn btn-outline-info">Add to List</button> <a href="{% url 'grocery:menu' %}" class="btn btn-outline-info"> Back</a>
+                            <a class="btn btn-outline-info" href="{% url 'grocery:menu-update' menu_id=dish.0.id %}">Update Menu</a>
                         </td>
                     </tr>
                 </form>

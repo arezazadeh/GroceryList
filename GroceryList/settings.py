@@ -259,7 +259,6 @@ PWA_APP_SPLASH_SCREEN = getattr(settings, 'PWA_APP_SPLASH_SCREEN', [
 PWA_APP_DIR = getattr(settings, 'PWA_APP_DIR', 'auto')
 PWA_APP_LANG = getattr(settings, 'PWA_APP_LANG', 'en-US')
 
-LOGIN_REDIRECT_URL = 'grocery'
 LOGIN_URL = 'user_account:login'
 
 EMAIL_HOST = 'smtp.gmail.com'

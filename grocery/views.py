@@ -2,7 +2,7 @@ from datetime import date
 from django.http.response import JsonResponse
 from grocery.api_function import *
 from django.contrib import messages
-from django.shortcuts import get_object_or_404, render, redirect, HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect, HttpResponse, HttpResponseRedirect
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
@@ -334,10 +334,54 @@ def create_menu(request):
             messages.success(request, f"{dish} was added successfully")
             return redirect("grocery:c-menu")
         
-        # else statement if the dish already exists 
-        
+        # else statement if the dish already exists         
     return render(request, "add_dish.html")
 
+
+def update_menu(request, menu_id):
+    context = {}
+    
+    menu_obj = get_object_or_404(PersonalMenu, id=menu_id)
+    form1 = menu_obj.dish_items.filter(dish=menu_id)
+    
+    form = MenuForm(request.POST or None, instance=menu_obj)
+    
+    if form.is_valid():
+        form.save()
+        return redirect(f"/grocery/menu_detail/{menu_id}/")
+    context["form"] = form
+    context["form1"] = form1
+    return render(request, 'menu_update_form.html', {'form': form, 'form1': form1, 'menu_id': menu_id})
+    
+
+def item_update(request, item_id, menu_id):
+    if request.method == 'POST': 
+        updated_item = request.POST.get('item')
+        print(updated_item)
+        menu_id = PersonalMenu.objects.get(id=menu_id)
+        item = DishItem.objects.get(id=item_id, dish=menu_id.id)
+        item.item = updated_item
+        item.save()
+        
+        return HttpResponse(updated_item)
+
+    return HttpResponse("hello")
+    
+
+def add_item_existing_menu(request, menu_id):
+    if request.method == "POST":
+        item = request.POST.get('item')
+        dish = PersonalMenu.objects.get(pk=menu_id)
+        DishItem.objects.create(dish=dish, item=item)
+        return redirect(f'/grocery/menu/update/{menu_id}/')
+
+
+def delete_item_from_existing_menu(request, menu_id, item_id):
+    item = DishItem.objects.get(pk=item_id, dish=menu_id)
+    item.delete()
+    
+    return redirect(f'/grocery/menu/update/{menu_id}/')
+    
 
 @login_required(login_url='/account/login')
 def view_menu(request):
