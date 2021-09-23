@@ -5,7 +5,7 @@
 
 <style>
     #form {
-        padding: 0 12px;
+        padding: 0 0;
         background-color: rgba(255, 255, 255, 0);
         border: none;
         align-items: center;
@@ -30,23 +30,22 @@
 
 
     {% for item in form1 %}
-
     <form class="form-control" id="form" method="POST"
-        action="{% url 'grocery:item-update' item_id=item.id menu_id=menu_id %}">
+        action="{% url 'grocery:item-update' item_id=item.id menu_id=menu_id %}" style="margin: 0 0; padding:0 0">
         {% csrf_token %}
         <div class="container">
             <div class="row" style="align-items: center;">
-                <div class="col-10" style="align-items: center;">
+                <div class="col-8" style="align-items: center; padding:0 0">
                     <input class="form-control" name="item" type="text" value="{{ item.item }}" id="item">
 
                 </div>
 
-                <div class="col-1" style="text-align: right; align-items:center">
+                <div class="col-2" style="text-align: center; align-items:center; padding:0 0">
                     <button style="font-size: 12px;" class="btn btn-outline-info"><i
                             class="fas fa-pencil-alt"></i></button>
 
                 </div>
-                <div class="col-1" style="text-align: left; align-items:center">
+                <div class="col-2" style="text-align: right; align-items:center; padding:0 0">
                     <a href="{% url 'grocery:item-delete' menu_id=menu_id item_id=item.id %}" style="font-size: 12px;" class="btn btn-outline-danger">
                         <i class="fas fa-trash-alt"></i></a>
 
@@ -90,12 +89,14 @@
 
 
         const col10Div = document.createElement('div');
-        col10Div.className = "col-10";
+        col10Div.className = "col-8";
+        col10Div.style.padding = "0 0"
         col10Div.innerHTML = "<input class='form-control' type='text' name='item' vlaue='{{ item.item }}' required>";
 
 
         const col1Div1 = document.createElement('div');
-        col1Div1.className = 'col-1';
+        col1Div1.className = 'col-2';
+        col1Div1.style.padding = "0 0"
         col1Div1.style.textAlign = "right"
         const btnEl = document.createElement('button');
         btnEl.style.fontSize = '12px'
@@ -106,8 +107,9 @@
 
 
         const col1Div2 = document.createElement('div');
-        col1Div2.className = 'col-1';
+        col1Div2.className = 'col-2';
         col1Div2.style.textAlign = "left"
+        col1Div2.style.padding = "0 0"
         const aTag = document.createElement('button');
         aTag.type = "submit"
         aTag.id = "custom-ing"
