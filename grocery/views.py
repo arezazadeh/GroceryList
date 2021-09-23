@@ -335,7 +335,7 @@ def create_menu(request):
         # else statement if the dish already exists         
     return render(request, "add_dish.html")
 
-
+@login_required(login_url='/account/login')
 def update_menu(request, menu_id):
     context = {}
     
@@ -351,7 +351,7 @@ def update_menu(request, menu_id):
     context["form1"] = form1
     return render(request, 'menu_update_form.html', {'form': form, 'form1': form1, 'menu_id': menu_id})
     
-
+@login_required(login_url='/account/login')
 def item_update(request, item_id, menu_id):
     if request.method == 'POST': 
         updated_item = request.POST.get('item')
@@ -365,7 +365,7 @@ def item_update(request, item_id, menu_id):
 
     return HttpResponse("hello")
     
-
+@login_required(login_url='/account/login')
 def add_item_existing_menu(request, menu_id):
     if request.method == "POST":
         item = request.POST.get('item')
@@ -373,7 +373,7 @@ def add_item_existing_menu(request, menu_id):
         DishItem.objects.create(dish=dish, item=item)
         return redirect(f'/grocery/menu/update/{menu_id}/')
 
-
+@login_required(login_url='/account/login')
 def delete_item_from_existing_menu(request, menu_id, item_id):
     item = DishItem.objects.get(pk=item_id, dish=menu_id)
     item.delete()
