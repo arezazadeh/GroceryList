@@ -43,7 +43,6 @@ urlpatterns = [
     path('comment/add/<int:post_id>/', views.comment_add, name='comment-add'),
     path('comment/update/<int:comment_id>/<int:post_id>/', views.comment_update, name='comment-update'),
     path('comment/delete/<int:comment_id>/<int:post_id>/', views.delete_comment, name='comment-delete'),
-    path('notification/delete/<int:notify_id>/', views.delete_notification, name='notify-delete'),
     
     path('add_favorite_item/<int:item_id>/<str:item_name>/<int:list_id>/', views.favorite_item, name='fav_item'),
     path('remove_favorite_item/<int:item_id>/<str:item_name>/<int:list_id>/', views.remove_fav_item, name='un_fav_item'),

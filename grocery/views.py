@@ -608,11 +608,6 @@ def comment_add(request, post_id):
         comment = request.POST.get('comment')
         post = request.POST.get('post_id')
         
-        user_name = user_post[0].user_name
-        receiver = User.objects.get(username=user_name)        
-        sender = User.objects.get(username=request.user)
-        
-        notify.send(sender, recipient=receiver, verb='Message', description=f"{sender} commented on your post")
         # print(b[0])
         # for n in b:
         #     for g in n[1]:
@@ -632,15 +627,6 @@ def comment_add(request, post_id):
         return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment, "post_id": post_id})
         
     return render(request, 'discussion/post_detail.html', {'object': user_post, 'user_comment': user_comment, "post_id": post_id})
-
-
-@login_required(login_url='/account/login')
-def delete_notification(request, notify_id):
-    notification_id = Notification.objects.get(id=notify_id).delete()
-    return redirect("/")
-    
-
-
 
 
 @login_required(login_url='/account/login')
@@ -670,15 +656,6 @@ class UpdatePostVote(LoginRequiredMixin, View):
         opinion = self.kwargs.get('opinion', None) # like or dislike button clicked
 
         user_post = get_object_or_404(UserPost, id=post_id)
-        print("22222222222")
-        # like = user_post.likes.get(user_name=request.user)
-        # print(like.user_name)
-        # print(like.post.id)
-        # a = user_post.likes.add(request.user)
-        # print(a)
-        # print("22222222222")
-        # a = user_post.dis_likes.all()[0].user_name
-        # print(a)
 
         if opinion.lower() == 'like':
             print("like")
@@ -703,36 +680,7 @@ class UpdatePostVote(LoginRequiredMixin, View):
                 dis_liked_already.delete()
                 return redirect(f"/grocery/post_detail/{post_id}/")
         print(user_post.get_total_dis_likes())
-            
-        # try:
-        #     # If child DisLike model doesnot exit then create
-        #     user_post.dis_likes
-        # except UserPost.dis_likes.RelatedObjectDoesNotExist as identifier:
-        #     UserPost.DisLike.objects.create(post = user_post)
 
-        # try:
-        #     # If child Like model doesnot exit then create
-        #     user_post.likes
-        # except Like.DoesNotExist as identifier:
-        #     user_post.Like.objects.create(user_name=request.user)
-
-        # if opinion.lower() == 'like':
-
-        #     if request.user in user_post.likes.get(user_name=request.user):
-        #         user_post.likes.remove(request.user)
-        #     else:    
-        #         user_post.likes.create(request.user)
-        #         user_post.dis_likes.get(request.user).delete()
-
-        # elif opinion.lower() == 'dis_like':
-
-        #     if request.user in user_post.dis_likes.user.all():
-        #         user_post.dis_likes.user.remove(request.user)
-        #     else:    
-        #         user_post.dis_likes.user.add(request.user)
-        #         user_post.likes.user.remove(request.user)
-        # else:
-        #     return HttpResponseRedirect(reverse('post-detail'))
         return redirect(f"/grocery/post_detail/{post_id}/")
 
 
