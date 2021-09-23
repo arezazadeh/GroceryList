@@ -63,8 +63,6 @@ def add_to_list(request, list_id):
     if request.method == 'POST':
         list_name = request.POST.get('list')
         item_list = request.POST.getlist('item')
-        my_list = get_object_or_404(GroceryList)
-        print(my_list)
         new_list = GroceryListName.objects.filter(id=list_id)
         print(new_list)
         print(item_list)
