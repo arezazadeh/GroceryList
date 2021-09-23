@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'pwa',
     'crispy_forms',
     'notifications',
-    'webpush',
 ]
 
 MIDDLEWARE = [
@@ -128,11 +127,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-WEBPUSH_SETTINGS = {
-    "VAPID_PUBLIC_KEY": "BD2TUiN5x8SC2xJA_pzCMiqLewFWuD21QqCEm34rCeYwYYyLQ98oKTJAM3nX7ZRUzHiucjo0Wy1P6Lma5gemlAk",
-    "VAPID_PRIVATE_KEY": "PfyTe9pU6dRBzKOIHKyqIv0dV2Ba8tdJv8_5FdOgJnw",
-    "VPID_ADMIN_EMAIL": "ahmad1785@gmail.com"
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
