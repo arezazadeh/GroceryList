@@ -384,14 +384,14 @@ def add_item_existing_menu(request, menu_id):
         DishItem.objects.create(dish=dish, item=item)
         all_items = DishItem.objects.filter(dish=menu_id)
         return render(request, 'menu_item_update_form.html', {'form1': all_items, 'menu_id': menu_id})
-        # return redirect(f'/grocery/menu/update/{menu_id}/')
+
 
 @login_required(login_url='/account/login')
 def delete_item_from_existing_menu(request, menu_id, item_id):
     item = DishItem.objects.get(pk=item_id, dish=menu_id)
     item.delete()
-    
-    return redirect(f'/grocery/menu/update/{menu_id}/')
+    all_items = DishItem.objects.filter(dish=menu_id)
+    return render(request, 'menu_item_update_form.html', {'form1': all_items, 'menu_id': menu_id})
     
 
 @login_required(login_url='/account/login')
