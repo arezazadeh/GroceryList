@@ -337,6 +337,7 @@ def create_menu(request):
 
 @login_required(login_url='/account/login')
 def update_menu(request, menu_id):
+    print(menu_id)
     context = {}
     
     menu_obj = get_object_or_404(PersonalMenu, id=menu_id)
@@ -351,19 +352,29 @@ def update_menu(request, menu_id):
     context["form1"] = form1
     return render(request, 'menu_update_form.html', {'form': form, 'form1': form1, 'menu_id': menu_id})
     
+
+def item_update_form(request, menu_id):
+    personal_menu = PersonalMenu.objects.get(id=menu_id)
+    item = DishItem.objects.filter(dish=personal_menu.id)
+    return render(request, 'menu_item_update_form.html', {'form1': item, 'menu_id': menu_id})
+
+
+
 @login_required(login_url='/account/login')
 def item_update(request, item_id, menu_id):
     if request.method == 'POST': 
+        personal_menu = PersonalMenu.objects.get(id=menu_id)
+        all_items = DishItem.objects.filter(dish=personal_menu.id)
+        print(request.body)
         updated_item = request.POST.get('item')
         print(updated_item)
-        menu_id = PersonalMenu.objects.get(id=menu_id)
-        item = DishItem.objects.get(id=item_id, dish=menu_id.id)
+        personal_menu = PersonalMenu.objects.get(id=menu_id)
+        item = DishItem.objects.get(id=item_id, dish=personal_menu.id)
         item.item = updated_item
         item.save()
-        
-        return HttpResponse(updated_item)
-
-    return HttpResponse("hello")
+        print(menu_id)
+        return render(request, 'menu_item_update_form.html', {'form1': all_items, 'item_id': item_id, 'menu_id': menu_id})
+    
     
 @login_required(login_url='/account/login')
 def add_item_existing_menu(request, menu_id):
@@ -371,7 +382,9 @@ def add_item_existing_menu(request, menu_id):
         item = request.POST.get('item')
         dish = PersonalMenu.objects.get(pk=menu_id)
         DishItem.objects.create(dish=dish, item=item)
-        return redirect(f'/grocery/menu/update/{menu_id}/')
+        all_items = DishItem.objects.filter(dish=menu_id)
+        return render(request, 'menu_item_update_form.html', {'form1': all_items, 'menu_id': menu_id})
+        # return redirect(f'/grocery/menu/update/{menu_id}/')
 
 @login_required(login_url='/account/login')
 def delete_item_from_existing_menu(request, menu_id, item_id):
@@ -395,7 +408,7 @@ def view_menu_detail(request, dish_id):
     dish_item = DishItem.objects.filter(dish=dish[0])
     user_list = GroceryListName.objects.filter(user_id=user_id)
     
-    return render(request, 'menu_detail.html', {'dish': dish, 'dish_detail': dish_item, 'lists': user_list})
+    return render(request, 'menu_detail.html', {'dish': dish, 'dish_detail': dish_item, 'lists': user_list, 'menu_id': dish_id})
 
 
 @login_required(login_url='/account/login')
