@@ -1,21 +1,40 @@
 from datetime import date
+from django.contrib.auth.models import AnonymousUser
+from django.http import request
 from django.http.response import JsonResponse
 from grocery.api_function import *
 from django.contrib import messages
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect, HttpResponse, HttpResponseRedirect
 from .models import *
 from .forms import *
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from notifications.signals import notify
 from notifications.models import Notification
 import re
+from django.views.decorators.csrf import csrf_exempt
 
 
+def permission_denied(request):
+    return render(request, 'permission/permission_denied.html')
+
+def in_admin_group(user):
+    a = user.groups.filter(name='admin').exists()
+    print(a)
+    if not a:
+        a = user.groups.filter(name='user').exists()
+        print(a)
+        if not a:
+            a = user.groups.filter(name='group1').exists()
+            print(a)
+            
+    print(a)
+    return a
 
 
+# @user_passes_test(in_admin_group, login_url="grocery:denied")
 @login_required(login_url='/account/login')
 def create_new_list(request):
     user_id = request.session['_auth_user_id']
@@ -124,7 +143,7 @@ def add_custom_item_to_list(request, list_id):
 @login_required(login_url='/account/login')
 def view_list(request, list_id):
     grocery_list = GroceryList.objects.filter(name=list_id)
-    return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+    return render(request, 'view_list_responsive.html', {'list': grocery_list, 'list_id': list_id})
 
 
 @login_required(login_url='/account/login')
@@ -172,7 +191,7 @@ def complete(request, item_id, list_id):
     grocery_item = grocery_list.filter(id=item_id)
     grocery_item.update(completed=True, date=date.today())
     
-    return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+    return render(request, 'view_list_responsive.html', {'list': grocery_list, 'list_id': list_id})
     
 
 @login_required(login_url='/account/login')
@@ -730,10 +749,18 @@ def delete_comment(request, comment_id, post_id):
 
 
 
-
-def api_get(request):
+def api_get(request, username):
     if request.method == "GET":
-        user_id = 2
-        menu = PersonalMenu.objects.filter(user_id=user_id).values("dish")
-        return JsonResponse({"result": list(menu)})
+        try:
+            request_user = User.objects.get(username=request.user)
+            user = User.objects.filter(username=username).values('username')
+            return JsonResponse({"user_list": list(user)})
 
+        except User.DoesNotExist:
+            return JsonResponse({"error": "permission denied"})
+
+@csrf_exempt
+def api_view_grocery_list(request):
+    if request.method == "POST":
+        print()
+    return HttpResponse("this")

@@ -31,6 +31,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
 
         if user is not None:
+            request.session["admin"] = "admin"
             login(request, user)
             if 'next' in request.POST:
                 print(request.POST.get('next'))

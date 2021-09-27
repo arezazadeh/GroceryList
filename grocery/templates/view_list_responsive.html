@@ -1,0 +1,158 @@
+<title>Grocery List</title>
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+
+<head>
+
+    {% load static %}
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'edit_bar.css' %}">
+    <style>
+.dropdown-menu {
+    text-align:center; 
+min-width: 7rem;
+}
+#item-row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#dropdownMenuButton {
+    min-width: 2rem;
+    min-height: 2rem;
+}
+    </style>
+
+</head>
+
+<body id="base-bg-img-discussion">
+    <div class="container">
+        <br>
+        <div class="row" style="width: 100%; margin:0 auto; float:none; margin-bottom:10px">
+            <div class="col-4" style="font-size: 30px; text-align:left;">
+                <a class="btn btn-outline-info" href="{% url 'grocery:user_lists' %}"><i
+                        class="fas fa-angle-double-left"></i></a>
+            </div>
+
+            <div class="col-4" style="font-size: 30px; text-align:center">
+                <a class="btn btn-outline-danger" href="{% url 'grocery:view_fav' %}"><i class="fas fa-heart"></i></a>
+            </div>
+
+            <div class="col-4" style="font-size: 30px; text-align:right">
+                <a class="btn btn-outline-info" href="{% url 'grocery:create_list' list_id=list_id %}"><i
+                        class="fas fa-plus"></i> </a>
+            </div>
+
+
+
+        </div>
+        <form method="POST" action="{% url 'grocery:custom_item' list_id=list_id %}" class="form-control"
+            style="max-width: 100%; background-color:rgba(169, 169, 169, 0.728);float:none; margin:0 auto;">
+            {% csrf_token %}
+            <label for="item_add">Add Item</label>
+            <input type="text" id="item_add" name="item" class="form-control" required placeholder="Onion">
+            <input type="hidden" name="list_id" value="{{ list_id }}">
+
+            <button type="submit" class="btn" style="background-color: black; color:white; margin-top:5px">Add</button>
+
+        </form>
+
+        <!-- error handling msg -->
+        <div class="msg" style="width: 90%; margin:0 auto; float:none; margin-top:20px">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message | safe }}
+            </div>
+            {% endfor %}
+        </div>
+        <!-- End of Error Handling Msg -->
+        {% for i in list %}
+        <div class="row" id="item-row">
+
+            {% if i.completed %}
+            <div class="col-8">
+                <s><a href="{% url 'grocery:undo' item_id=i.id list_id=i.name.id %}">{{ i.item|capfirst }}</a></s>
+            </div>
+            <div class="col-4" style="text-align: right;">
+
+                <div class="dropdown">
+                    <button style="font-size: 12px;" class="dropdown-toggle btn btn-outline-info" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                        <div>
+                        <a class="btn btn-outline-danger"
+                            href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
+                                class="fa fa-trash"></i></a>
+
+                        {% if i.favorite %}
+                        <a class="btn btn-outline-warning"
+                            href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                                class="fas fa-star"></i></a>
+                        {% else %}
+                        <a class="btn btn-outline-warning"
+                            href="{% url 'grocery:fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                                class="far fa-star"></i></a>
+
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            {% else %}
+            <div class="col-8">
+                <a href="{% url 'grocery:complete' item_id=i.id list_id=i.name.id %}">{{ i.item|capfirst }}</a>
+            </div>
+            <div class="col-4" style="text-align: right;">
+
+
+                <div class="dropdown">
+                    <button style="font-size: 12px;" class="dropdown-toggle btn btn-outline-info" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div>
+                            <a class="btn btn-outline-danger" href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
+                                class="fa fa-trash"></i></a>
+                        {% if i.favorite %}
+        
+                        <a class="btn btn-outline-warning"
+                            href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                                class="fas fa-star"></i></a>
+        
+                        {% else %}
+                        <a class="btn btn-outline-warning"
+                            href="{% url 'grocery:fav_item' item_id=257 item_name=i.item list_id=i.name.id %}"><i
+                                class="far fa-star"></i></a>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body >
+
+
+            {% endblock %}

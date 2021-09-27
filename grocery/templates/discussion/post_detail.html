@@ -12,7 +12,7 @@
     height: 70px;
     align-items: center; */
     overflow: hidden;
-    
+
     width: 90%;
     margin-top: 60px;
     /*top: 0;
@@ -104,20 +104,21 @@
     </div>
   </article>
   <div>
-  <button class="btn btn-outline-info comment-key" id="show-comment">Show Comments </button>
-  <!-- <button class="btn btn-outline-info" id="hide-comment">Hide Comments </button> -->
+    <button class="btn btn-outline-info comment-key" id="show-comment">Show Comments </button>
+    <!-- <button class="btn btn-outline-info" id="hide-comment">Hide Comments </button> -->
   </div>
 
   <article class="media content-section"
-    style="overflow: scroll; height:400px;background-color: rgba(255, 255, 255, 0.5); margin-bottom:200px;" id="comment-section">
+    style="overflow: scroll; height:400px;background-color: rgba(255, 255, 255, 0.5); margin-bottom:200px;"
+    id="comment-section">
     {% for i in user_comment %}
     <div class="media-body">
       <div class="article-metadata">
         <small class="mr-2"> {{ i.user_name|capfirst }} - </small>
         <small class="text-muted">{{ i.date|date:"M d, Y" }}</small>
         {% if i.user_name == user %}
-          <a href="{% url 'grocery:comment-update' i.id object.0.id %}"><i class="fa fa-edit"></i></a>
-          <a href="{% url 'grocery:comment-delete' i.id object.0.id %}"><i class="fa fa-trash"></i></a>
+        <a href="{% url 'grocery:comment-update' i.id object.0.id %}"><i class="fa fa-edit"></i></a>
+        <a href="{% url 'grocery:comment-delete' i.id object.0.id %}"><i class="fa fa-trash"></i></a>
 
       </div>
       {% endif %}
@@ -135,12 +136,13 @@
       <div>
         <!-- <legend class="border-bottom mb-4" style="font-size: 14px;">Comment</legend> -->
         <textarea rows="1" name="comment" class="form-control"></textarea>
-        <button class="btn btn-outline-info mt-1" style="font-size: 12px; font-weight:bold" type="submit">Comment</button>
+        <button class="btn btn-outline-info mt-1" style="font-size: 12px; font-weight:bold"
+          type="submit">Comment</button>
       </div>
-        <input type="hidden" name="post_id" value="{{ object.0.id }}">
-      
-      
-      </form>
+      <input type="hidden" name="post_id" value="{{ object.0.id }}">
+
+
+    </form>
 
   </div>
 </body>
@@ -151,47 +153,82 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
   integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
+
   function urlify(text) {
     let urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.replace(urlRegex, function (url) {
       return '<a href="' + url + '" target="_blank">' + " Link to the site" + '</a>';
     })
   }
+
+
+  function user_mention(post) {
+    const userRegex = /@\b(\w*\w*)\b/g;
+    return post.replace(userRegex, function (username) {
+      return '<a href="">' + `${username}` + '</a>';
+    })
+  }
+
+  const user_name = document.getElementById('post').innerHTML;
+  function user_mention_api_call(text) {
+
+    const userRegex = /@\b(\w*\w*)\b/g;
+    const testing = userRegex.test(text)
+    console.log(testing)
+    const a = text.match(userRegex)
+    console.log(a.length)
+    if (a !== null) {
+      if (a.length === 1) {
+        const user_mentioned = a[0].split('@')[1]
+        fetch(`/grocery/api/user/${user_mentioned}`).then(response => response.json())
+          .then(function (data) {
+            console.log(data.user_list)
+            if (data.user_list.length !== 0) {
+              const user_name = document.getElementById('post').innerHTML;
+              const user_mention_txt = user_mention(user_name);
+              document.getElementById('post').innerHTML = user_mention_txt
+            }
+          })
+      }
+    }
+
+  }
+  user_mention_api_call(user_name)
+
+
   const commentSection = document.getElementById('comment-section')
   commentSection.style.display = "none"
- const commentForm = document.getElementById('comment-form')
- commentForm.style.display = "none";
+  const commentForm = document.getElementById('comment-form')
+  commentForm.style.display = "none";
 
 
   document.querySelector('.comment-key').addEventListener('click', displayComments)
 
 
- 
+  function displayComments() {
 
-function displayComments() {
+    if (document.querySelector('.comment-key').id === 'show-comment') {
+      const commentSection = document.getElementById('comment-section')
+      const commentForm = document.getElementById('comment-form')
+      commentSection.style.display = "block"
+      commentForm.style.display = "block"
 
-  if (document.querySelector('.comment-key').id === 'show-comment') {
-    const commentSection = document.getElementById('comment-section')
-    const commentForm = document.getElementById('comment-form')
-    commentSection.style.display = "block"
-    commentForm.style.display = "block"
-  
-    const showComment = document.getElementById('show-comment')
-    showComment.id = 'hide-comment'
-    showComment.innerHTML = "Hide Comments"
-    
-  } else {
-    const commentSection = document.getElementById('comment-section')
-    const commentForm = document.getElementById('comment-form')
-    commentSection.style.display = "none"
-    commentForm.style.display = "none"
-  
-    const hideComment = document.getElementById('hide-comment')
-    hideComment.id = 'show-comment'
-    hideComment.innerHTML = "Show Comments"
+      const showComment = document.getElementById('show-comment')
+      showComment.id = 'hide-comment'
+      showComment.innerHTML = "Hide Comments"
+
+    } else {
+      const commentSection = document.getElementById('comment-section')
+      const commentForm = document.getElementById('comment-form')
+      commentSection.style.display = "none"
+      commentForm.style.display = "none"
+
+      const hideComment = document.getElementById('hide-comment')
+      hideComment.id = 'show-comment'
+      hideComment.innerHTML = "Show Comments"
+    }
+
   }
-  
-}
 
 
   let post = document.getElementById('post').innerHTML;
@@ -202,7 +239,7 @@ function displayComments() {
   let comment = document.getElementById('comment').innerHTML;
   let commentHtml = urlify(comment);
   document.getElementById('comment').innerHTML = commentHtml
- 
+
 
 </script>
 
