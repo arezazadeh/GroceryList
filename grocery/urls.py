@@ -3,7 +3,6 @@ from . import views
 
 app_name = 'grocery'
 urlpatterns = [
-    path('permission_denied/', views.permission_denied, name='denied'),
     path('create_list/<int:list_id>/', views.create_list, name='create_list'),
     path('add/<int:list_id>/', views.add_to_list, name='add'),
     path('list/<int:list_id>/', views.view_list, name='list'),
@@ -54,7 +53,6 @@ urlpatterns = [
     path('del_fav/<int:item_id>/', views.del_fav, name='del_fav'),
     
     path('api/user/<str:username>/', views.api_get),
-    path('api/grocery/list/', views.api_view_grocery_list),
     
     
 
