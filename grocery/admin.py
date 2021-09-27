@@ -4,7 +4,7 @@ from .models import *
 # Register your models here.
 
 class PersonalMenuAdmin(admin.ModelAdmin):
-    list_display = ["user_id", "dish"]
+    list_display = ["user_id", "username", "dish"]
 
 class DishItemAdmin(admin.ModelAdmin):
     list_display = ["item", "dish"]
@@ -19,7 +19,7 @@ class GroceryListAdmin(admin.ModelAdmin):
     list_display = ["id", "name", "item", "completed", "date"]
     
 class GroceryListNameAdmin(admin.ModelAdmin):
-    list_display = ["id", "user_id", "name"]
+    list_display = ["id", "user_id", "username", "name"]
     
 
 class FavoriteAdmin(admin.ModelAdmin):

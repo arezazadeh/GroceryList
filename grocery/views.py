@@ -103,7 +103,7 @@ def add_to_list(request, list_id):
             else:
                 print('Item already in your list')
         grocery_list = GroceryList.objects.filter(name=list_id)
-        return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+        return render(request, 'view_list_responsive.html', {'list': grocery_list, 'list_id': list_id})
     return redirect('grocery:create_list', {'list_id': list_id})
 
 
@@ -134,7 +134,7 @@ def add_custom_item_to_list(request, list_id):
         
         grocery_list = GroceryList.objects.filter(name=list_id)
         
-        return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+        return render(request, 'view_list_responsive.html', {'list': grocery_list, 'list_id': list_id})
     
     return redirect('grocery:create_list', {'list_id': list_id})
 
@@ -199,7 +199,7 @@ def delete_item(request, item_id, list_id):
     user_id = request.session['_auth_user_id']
     grocery_list = GroceryList.objects.filter(name=list_id)
     grocery_list.filter(id=item_id).delete()
-    return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+    return render(request, 'view_list_responsive.html', {'list': grocery_list, 'list_id': list_id})
 
 
 @login_required(login_url='/account/login')
@@ -207,7 +207,7 @@ def undo_item(request, item_id, list_id):
     user_id = request.session['_auth_user_id']
     grocery_list = GroceryList.objects.filter(name=list_id)
     grocery_list.filter(id=item_id).update(completed=False)
-    return render(request, 'view_list.html', {'list': grocery_list, 'list_id': list_id})
+    return render(request, 'view_list_responsive.html', {'list': grocery_list, 'list_id': list_id})
 
 
 @login_required(login_url='/account/login')
@@ -268,10 +268,10 @@ def favorite_item(request, item_id, item_name, list_id):
         add_item_to_fav = Favorite.objects.create(item=item_name.lower(), user_id=user_id)
     else:
         messages.warning(request, "Item Already in Favorite")
-        return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id}) 
+        return render(request, 'view_list_responsive.html', {'list': grocery_item, 'list_id': list_id}) 
         
     grocery_item.filter(item=item_name).update(favorite=True)
-    return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id})
+    return render(request, 'view_list_responsive.html', {'list': grocery_item, 'list_id': list_id})
 # End of Add item to Favorite
 
 
@@ -286,7 +286,7 @@ def remove_fav_item(request, item_id, item_name, list_id):
     favorite_list = Favorite.objects.filter(user_id=user_id)
     fav_item = favorite_list.filter(item=item_name)
     fav_item.delete()
-    return render(request, 'view_list.html', {'list': grocery_item, 'list_id': list_id})
+    return render(request, 'view_list_responsive.html', {'list': grocery_item, 'list_id': list_id})
 
 
 
