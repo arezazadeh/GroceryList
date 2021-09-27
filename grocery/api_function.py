@@ -32,6 +32,7 @@ def recipe_next(url):
     response = requests.request("GET", url).json()
     next_page = response["_links"]["next"]["href"]
     res = response["hits"]
+    
     return res, next_page
     
 

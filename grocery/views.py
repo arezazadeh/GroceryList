@@ -336,11 +336,12 @@ def create_menu(request):
 
             for item in item_list:
                 DishItem.objects.create(item=item, dish=new_dish[0])
+            created_dish = PersonalMenu.objects.filter(user_id=user_id, dish=dish)
             messages.success(request, f"{dish} was added successfully")
-            return redirect("grocery:c-menu")
-        
-        # else statement if the dish already exists         
+            return redirect(f"/grocery/menu_detail/{created_dish[0].id}/")
     return render(request, "add_dish.html")
+
+
 
 @login_required(login_url='/account/login')
 def update_menu(request, menu_id):
