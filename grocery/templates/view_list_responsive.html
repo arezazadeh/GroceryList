@@ -13,20 +13,21 @@
     <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'edit_bar.css' %}">
     <style>
-.dropdown-menu {
-    text-align:center; 
-min-width: 7rem;
-}
-#item-row {
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-#dropdownMenuButton {
-    min-width: 2rem;
-    min-height: 2rem;
-}
+        .dropdown-menu {
+            text-align: center;
+            min-width: 7rem;
+        }
+
+        #item-row {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        #dropdownMenuButton {
+            min-width: 2rem;
+            min-height: 2rem;
+        }
     </style>
 
 </head>
@@ -89,22 +90,22 @@ min-width: 7rem;
                         id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div>
-                        <a class="btn btn-outline-danger"
-                            href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
-                                class="fa fa-trash"></i></a>
+                            <a class="btn btn-outline-danger"
+                                href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
+                                    class="fa fa-trash"></i></a>
 
-                        {% if i.favorite %}
-                        <a class="btn btn-outline-warning"
-                            href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
-                                class="fas fa-star"></i></a>
-                        {% else %}
-                        <a class="btn btn-outline-warning"
-                            href="{% url 'grocery:fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
-                                class="far fa-star"></i></a>
+                            {% if i.favorite %}
+                            <a class="btn btn-outline-warning"
+                                href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                                    class="fas fa-star"></i></a>
+                            {% else %}
+                            <a class="btn btn-outline-warning"
+                                href="{% url 'grocery:fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                                    class="far fa-star"></i></a>
 
-                        {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -126,19 +127,20 @@ min-width: 7rem;
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div>
-                            <a class="btn btn-outline-danger" href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
-                                class="fa fa-trash"></i></a>
-                        {% if i.favorite %}
-        
-                        <a class="btn btn-outline-warning"
-                            href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
-                                class="fas fa-star"></i></a>
-        
-                        {% else %}
-                        <a class="btn btn-outline-warning"
-                            href="{% url 'grocery:fav_item' item_id=257 item_name=i.item list_id=i.name.id %}"><i
-                                class="far fa-star"></i></a>
-                        {% endif %}
+                            <a class="btn btn-outline-danger"
+                                href="{% url 'grocery:del_item' item_id=i.id list_id=i.name.id %}"><i
+                                    class="fa fa-trash"></i></a>
+                            {% if i.favorite %}
+
+                            <a class="btn btn-outline-warning"
+                                href="{% url 'grocery:un_fav_item' item_id=i.id item_name=i.item list_id=i.name.id %}"><i
+                                    class="fas fa-star"></i></a>
+
+                            {% else %}
+                            <a class="btn btn-outline-warning"
+                                href="{% url 'grocery:fav_item' item_id=257 item_name=i.item list_id=i.name.id %}"><i
+                                    class="far fa-star"></i></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -149,10 +151,16 @@ min-width: 7rem;
         </div>
         {% endfor %}
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body >
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
 
 
-            {% endblock %}
+{% endblock %}
