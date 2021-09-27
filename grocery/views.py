@@ -1,6 +1,4 @@
 from datetime import date
-from django.contrib.auth.models import AnonymousUser
-from django.http import request
 from django.http.response import JsonResponse
 from grocery.api_function import *
 from django.contrib import messages
@@ -14,27 +12,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from notifications.signals import notify
 from notifications.models import Notification
 import re
-from django.views.decorators.csrf import csrf_exempt
 
 
-def permission_denied(request):
-    return render(request, 'permission/permission_denied.html')
-
-def in_admin_group(user):
-    a = user.groups.filter(name='admin').exists()
-    print(a)
-    if not a:
-        a = user.groups.filter(name='user').exists()
-        print(a)
-        if not a:
-            a = user.groups.filter(name='group1').exists()
-            print(a)
-            
-    print(a)
-    return a
 
 
-# @user_passes_test(in_admin_group, login_url="grocery:denied")
+
 @login_required(login_url='/account/login')
 def create_new_list(request):
     user_id = request.session['_auth_user_id']
@@ -758,9 +740,3 @@ def api_get(request, username):
 
         except User.DoesNotExist:
             return JsonResponse({"error": "permission denied"})
-
-@csrf_exempt
-def api_view_grocery_list(request):
-    if request.method == "POST":
-        print()
-    return HttpResponse("this")
