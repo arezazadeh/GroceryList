@@ -125,12 +125,18 @@ def add_custom_item_to_list(request, list_id):
 @login_required(login_url='/account/login')
 def view_list(request, list_id):
     grocery_list = GroceryList.objects.filter(name=list_id)
-    return render(request, 'view_list_responsive.html', {'list': grocery_list, 'list_id': list_id})
+    item_list = []
+    for i in grocery_list:
+        item_list.append(i.item)
+    user_items = "  -".join(item_list)
+    print(user_items)
+    return render(request, 'view_list_responsive.html', {'list': grocery_list, 'list_id': list_id, 'user_items': user_items})
 
 
 @login_required(login_url='/account/login')
 def view_lists(request):
     user_id = request.session['_auth_user_id']
+    
     user_lists = GroceryListName.objects.filter(user_id=user_id)
     return render(request, 'user_lists.html', {'user_lists': user_lists})
 
