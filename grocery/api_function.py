@@ -44,6 +44,7 @@ def get_recipe_detail(recipe_link):
     print()
     print()
     response = requests.get(recipe_link).json()
+    print(json.dumps(response, indent=4))
     
     # res = response["hits"]
     return response
