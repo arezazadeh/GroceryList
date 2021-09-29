@@ -12,6 +12,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from notifications.signals import notify
 from notifications.models import Notification
 import re
+from rest_framework.decorators import api_view 
+from rest_framework.response import Response 
+
 
 
 
@@ -21,12 +24,13 @@ import re
 def create_new_list(request):
     user_id = request.session['_auth_user_id']
     current_category = GroceryCategory.objects.all()
+    username = User.objects.get(username=request.user)
     
     if request.method == "POST":
         list_name = request.POST.get('name')
         exising_name = GroceryListName.objects.filter(user_id=user_id, name=list_name)
         if not exising_name:
-            GroceryListName.objects.create(user_id=user_id, name=list_name)
+            GroceryListName.objects.create(username=username, user_id=user_id, name=list_name)
         else:
             print("list is there")
             
@@ -747,3 +751,8 @@ def api_get(request, username):
 
         except User.DoesNotExist:
             return JsonResponse({"error": "permission denied"})
+
+
+
+
+

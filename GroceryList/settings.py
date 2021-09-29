@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'pwa',
     'crispy_forms',
     'notifications',
+    'api',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

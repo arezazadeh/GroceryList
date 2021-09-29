@@ -1,0 +1,36 @@
+
+{% extends 'base.html' %}
+<title>Grocery List</title>
+
+
+
+
+{% block content %}
+
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'grocery.css' %}">
+<body id="base-bg-img-discussion">
+
+<input type="hidden" id="user" value="{{ user.id }}">
+
+<div class="mt-3 mb-3">
+    <a href="/" class="btn btn-outline-info">Back </a>
+    <a href="{% url 'grocery:new_list' %}" class="btn btn-outline-info">New List</a>
+    </div>
+
+
+<div id="container" class="container">
+
+</div>
+
+</div>
+{% load static %}
+<script src="{% static 'js/view_list.js' %}"></script>
+
+
+</body>
+{% endblock %}
+
+
