@@ -32,6 +32,7 @@
                         <th>Image</th>
                         <th>Ingredients</th>
                         <th>Measure </th>
+                        <th>Category</th>
                     </tr>
                     {% for i in res.recipe.ingredients %}
                     <tr>
@@ -43,6 +44,9 @@
                         </td>
                         <td>
                         {{ i.quantity }} {{ i.measure }}
+                        </td>
+                        <td>
+                            {{ i.foodCategory }}
                         </td>
                     </tr>
                     {% endfor %}

@@ -9,9 +9,27 @@
 <body id="base-bg-img-discussion">
 <div class="container">
     <a href="{% url 'grocery:menu' %}" class="btn btn-outline-info mt-2"> Back</a>
+    
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message | safe }}
+    </div>
+    {% endfor %}
+
+
     <div class="card mt-3" >
         <div class="card-header">
+          <div class="row">
+            <div class="col-9">
             <h2> {{ dish.0.dish }}</h2>
+            </div>
+            <div class="col-3" style="text-align: right;" >
+              <a class="btn btn-outline-info" href="{% url 'grocery:menu-share' menu_id=dish.0.id %}"><i class="fas fa-share-square"></i></a> 
+            </div>
+          </div>
         </div>
         
         <div class="card-body">
