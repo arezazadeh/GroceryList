@@ -44,7 +44,7 @@ def get_recipe_detail(recipe_link):
     print()
     print()
     response = requests.get(recipe_link).json()
-    print(json.dumps(response, indent=4))
+    # print(json.dumps(response, indent=4))
     
     # res = response["hits"]
     return response
@@ -53,6 +53,5 @@ def get_recipe_detail(recipe_link):
 def add_recipe_to_personal_menu(recipe_id):
     url = f"https://api.edamam.com/api/recipes/v2/{recipe_id}?type=public&app_id={app_id_02}&app_key={app_key_02}"
     response = requests.get(url).json()
-    print(response)
     
     return response

@@ -362,18 +362,18 @@ def share_menu(request, menu_id):
         user_dish_items = DishItem.objects.filter(dish=user_dish)
         for i in user_dish_items:
             dish_items.append(i.item)
-            
+
         new_user_post = UserPost.objects.create(
             user_name=request.user,
             title=user_dish.dish,
             post=user_dish.instruction
         )
-    
+
         posted_user_dish = UserPost.objects.get(user_name=request.user, title=user_dish.dish)
         posted_user_dish.post += "\n \n \nIngredients: \n"
         posted_user_dish.post += "------------- \n"
         posted_user_dish.post += f"{chr(10).join(dish_items)}"
-    
+
         posted_user_dish.save()
         messages.success(request, f"Your {user_dish.dish} dish was shared in Discussion")
         return redirect(f'/grocery/menu_detail/{menu_id}/')
@@ -499,12 +499,52 @@ def recipe_next_page(request, recipe_link):
 
 @login_required(login_url='/account/login')
 def recipe_detail(request, recipe_link):
+
     res = get_recipe_detail(recipe_link)
+    
     recipe_id = res["recipe"]["uri"].split("#recipe_")[1]
     res['link'] = res["_links"]["self"]["href"]
     
     return render(request, 'recipe/recipe_detail.html', {'res': res, 'recipe_id': recipe_id})
+
+
+
+@login_required(login_url='/account/login')
+def share_recipe(request, recipe_id):
+    recipe_ing = []
+    
+    res = add_recipe_to_personal_menu(recipe_id)
+    recipe_link = res["_links"]["self"]["href"]
+
+    for i in res["recipe"]["ingredientLines"]:
+        recipe_ing.append(i)
+    
+    recipe_name = res["recipe"]["label"]
+    try:
+        posted_user_dish = UserPost.objects.get(user_name=request.user, title=recipe_name)
         
+        if posted_user_dish:
+            messages.error(request, "you have already shared this recipe")
+            return redirect(f"grocery:discussion")
+    except UserPost.DoesNotExist:
+        url = res["recipe"]["url"]
+        recipe_post = recipe_name + "--" + url
+        user_post = UserPost.objects.create(
+            user_name=request.user,
+            title=recipe_name,
+            post=recipe_post
+        )
+        posted_user_dish = UserPost.objects.get(user_name=request.user, title=recipe_name)
+        posted_user_dish.post += "\n \n \nIngredients: \n"
+        posted_user_dish.post += "------------- \n"
+        posted_user_dish.post += f"{chr(10).join(recipe_ing)}"
+        posted_user_dish.save()
+
+        return redirect(f"grocery:discussion")
+    # return post_update(request, post_id=user_post.id)
+
+
+
 
 @login_required(login_url='/account/login')
 def add_recipe_to_menu(request, recipe_id):
@@ -524,23 +564,9 @@ def add_recipe_to_menu(request, recipe_id):
     
         DishItem.objects.create(item=ingredient, dish=new_menu[0])
     return redirect("grocery:menu")
-        
 
-@login_required(login_url='/account/login')
-def share_recipe(request, recipe_id):
-    res = add_recipe_to_personal_menu(recipe_id)
-    user_id = request.session["_auth_user_id"]
-    recipe_name = res["recipe"]["label"]
-    url = res["recipe"]["url"]
-    recipe_post = recipe_name + "--" + url
-    user_post = UserPost.objects.create(
-        user_name=request.user,
-        title=recipe_name,
-        post=recipe_post
-    )
-    print(user_post.id)
-    return redirect("grocery:discussion")
-    # return post_update(request, post_id=user_post.id)
+
+
     
 
 
