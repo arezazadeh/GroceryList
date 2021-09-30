@@ -351,13 +351,15 @@ def create_menu(request):
 def share_menu(request, menu_id):
     
     dish_items = []
-    user_dish = PersonalMenu.objects.get(pk=menu_id)
     
-    posted_user_dish = UserPost.objects.get(user_name=request.user, title=user_dish.dish)
-    if posted_user_dish:
-        messages.error(request, f"This dish has been shared already")
+    user_dish = PersonalMenu.objects.get(pk=menu_id)
+        
+    try:
+        posted_user_dish = UserPost.objects.get(user_name=request.user, title=user_dish.dish)
+        messages.error(request, "you have already shared this")
         return redirect(f'/grocery/menu_detail/{menu_id}/')
-    else:
+        
+    except UserPost.DoesNotExist:
         
         user_dish_items = DishItem.objects.filter(dish=user_dish)
         for i in user_dish_items:
