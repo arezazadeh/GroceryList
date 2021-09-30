@@ -499,6 +499,13 @@ def recipe_next_page(request, recipe_link):
 
 @login_required(login_url='/account/login')
 def recipe_detail(request, recipe_link):
+    print("recipe detail")
+    print(recipe_link)
+    print(request.GET)
+    if len(request.GET) > 0:
+        
+        recipe_link = f"{recipe_link}/?type=public&app_id=a0427f25&app_key=e3d448df6e8b3b07b0bd556064aaddf0"
+    print("recipe detail")
 
     res = get_recipe_detail(recipe_link)
     
@@ -514,7 +521,7 @@ def share_recipe(request, recipe_id):
     recipe_ing = []
     
     res = add_recipe_to_personal_menu(recipe_id)
-    recipe_link = res["_links"]["self"]["href"]
+    recipe_link_url = f"https://api.edamam.com/api/recipes/v2/{recipe_id}?type=public&app_id={app_id_02}&app_key={app_key_02}"
 
     for i in res["recipe"]["ingredientLines"]:
         recipe_ing.append(i)
@@ -525,7 +532,9 @@ def share_recipe(request, recipe_id):
         
         if posted_user_dish:
             messages.error(request, "you have already shared this recipe")
-            return redirect(f"grocery:discussion")
+            return redirect(f'/grocery/recipe_detail/{recipe_link_url}/')
+        
+        
     except UserPost.DoesNotExist:
         url = res["recipe"]["url"]
         recipe_post = recipe_name + "--" + url
@@ -539,8 +548,10 @@ def share_recipe(request, recipe_id):
         posted_user_dish.post += "------------- \n"
         posted_user_dish.post += f"{chr(10).join(recipe_ing)}"
         posted_user_dish.save()
-
-        return redirect(f"grocery:discussion")
+        print("before return")
+        print(recipe_link_url)
+        print("before return")
+        return redirect(f'/grocery/recipe_detail/{recipe_link_url}/')
     # return post_update(request, post_id=user_post.id)
 
 

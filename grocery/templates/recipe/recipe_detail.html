@@ -9,6 +9,16 @@
 
 <body id="base-bg-img-discussion">
     <div class="card mt-3" style="background-color: rgb(255,255,255, 0.3);">
+
+        {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message | safe }}
+        </div>
+        {% endfor %}
+        
         <div class="card-header">
             
             <div class="mb-3 mt-2">
