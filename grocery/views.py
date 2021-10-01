@@ -533,13 +533,13 @@ def share_recipe(request, recipe_id):
         posted_user_dish = UserPost.objects.get(user_name=request.user, title=recipe_name)
         
         if posted_user_dish:
-            messages.error(request, "you have already shared this recipe")
+            messages.error(request, "<small>you have already shared this recipe</small>")
             return redirect(f'/grocery/recipe_detail/{recipe_link_url}/')
         
         
     except UserPost.DoesNotExist:
         url = res["recipe"]["url"]
-        recipe_post = recipe_name + "--" + url
+        recipe_post = f"For instruction click here -- {url}"
         user_post = UserPost.objects.create(
             user_name=request.user,
             title=recipe_name,
@@ -548,11 +548,12 @@ def share_recipe(request, recipe_id):
         posted_user_dish = UserPost.objects.get(user_name=request.user, title=recipe_name)
         posted_user_dish.post += "\n \n \nIngredients: \n"
         posted_user_dish.post += "------------- \n"
-        posted_user_dish.post += f"{chr(10).join(recipe_ing)}"
+        posted_user_dish.post += f"-{chr(10).join(recipe_ing)}"
         posted_user_dish.save()
         print("before return")
         print(recipe_link_url)
         print("before return")
+        messages.success(request, "<small>recipe was shared successfully</small>")
         return redirect(f'/grocery/recipe_detail/{recipe_link_url}/')
     # return post_update(request, post_id=user_post.id)
 
