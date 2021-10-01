@@ -10,5 +10,6 @@ from . import views
 urlpatterns = [
     path('list/<int:pk>/', views.getList),
     path('createlist/', views.createList),
+    path('user/all/', views.view_users),
 
 ]

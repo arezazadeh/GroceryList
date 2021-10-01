@@ -20,7 +20,6 @@ class GroceryListView(viewsets.ModelViewSet):
 @api_view(["GET"])
 def getList(request, pk):
     user_lists = GroceryListName.objects.filter(user_id=pk).values('id', 'username', 'name')
-    print("hello")
     return Response(list(user_lists))
 
 
@@ -38,4 +37,9 @@ def createList(request):
     
     return Response({"result": list(user_lists)})
 
+
+@api_view(["GET"])
+def view_users(request):
+    users = User.objects.all().values('id', 'username', 'email')
+    return Response(list(users))
     

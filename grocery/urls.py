@@ -53,9 +53,6 @@ urlpatterns = [
     path('add_to_fav/', views.add_to_fav, name='add_fav'),
     path('add_fav/', views.add_fav, name='add_to_fav'),
     path('del_fav/<int:item_id>/', views.del_fav, name='del_fav'),
-    
-    path('api/user/<str:username>/', views.api_get),
-    
-    
+        
 
 ]

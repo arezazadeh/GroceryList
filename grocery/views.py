@@ -501,13 +501,8 @@ def recipe_next_page(request, recipe_link):
 
 @login_required(login_url='/account/login')
 def recipe_detail(request, recipe_link):
-    print("recipe detail")
-    print(recipe_link)
-    print(request.GET)
     if len(request.GET) > 0:
-        
         recipe_link = f"{recipe_link}/?type=public&app_id=a0427f25&app_key=e3d448df6e8b3b07b0bd556064aaddf0"
-    print("recipe detail")
 
     res = get_recipe_detail(recipe_link)
     
@@ -535,7 +530,6 @@ def share_recipe(request, recipe_id):
         if posted_user_dish:
             messages.error(request, "<small>you have already shared this recipe</small>")
             return redirect(f'/grocery/recipe_detail/{recipe_link_url}/')
-        
         
     except UserPost.DoesNotExist:
         url = res["recipe"]["url"]
@@ -815,18 +809,6 @@ def delete_comment(request, comment_id, post_id):
     return redirect('/')
 
 
-
-
-
-def api_get(request, username):
-    if request.method == "GET":
-        try:
-            request_user = User.objects.get(username=request.user)
-            user = User.objects.filter(username=username).values('username')
-            return JsonResponse({"user_list": list(user)})
-
-        except User.DoesNotExist:
-            return JsonResponse({"error": "permission denied"})
 
 
 
