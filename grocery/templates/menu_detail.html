@@ -35,7 +35,7 @@
         <div class="card-body">
             {% if dish.0.instruction %}
             <h4> Instruction </h4>
-            <p id="dish">{{ dish.0.instruction }} </p>
+            <p id="dish" class="article-content">{{ dish.0.instruction }} </p>
             {% endif %} 
             <a class="btn btn-outline-info mt-1 mb-3" href="{% url 'grocery:menu-update' menu_id=dish.0.id %}">Update Instruction</a> 
                 <form action="{% url 'grocery:add' list_id=0 %}" method="post" class="form-control">
