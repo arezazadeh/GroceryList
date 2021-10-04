@@ -3,7 +3,7 @@ from . import views
 
 app_name = 'grocery'
 urlpatterns = [
-    path('create_list/<int:list_id>/', views.create_list, name='create_list'),
+    # path('create_list/<int:list_id>/', views.create_list, name='create_list'),
     path('add/<int:list_id>/', views.add_to_list, name='add'),
     path('list/<int:list_id>/', views.view_list, name='list'),
     path('complete/<int:item_id>/<int:list_id>/', views.complete, name='complete'),

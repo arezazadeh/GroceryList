@@ -6,7 +6,7 @@ from rest_framework import serializers
 
 class ListNameSerializer(serializers.ModelSerializer):
     class Meta:
-        model = GroceryListName
+        model = GroceryList
         fields = "__all__"
         
 

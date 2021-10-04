@@ -25,35 +25,21 @@ class DishItem(models.Model):
         return self.item
 
 
-class GroceryCategory(models.Model):
-    category = models.CharField(max_length=255, null=True)
 
-    def __str__(self):
-        return self.category
-
-
-class GroceryItem(models.Model):
-    item = models.CharField(max_length=255, null=True)
-    category = models.ForeignKey(GroceryCategory, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.item
-
-
-class GroceryListName(models.Model):
+class GroceryList(models.Model):
     user_id = models.IntegerField(null=True)
     username = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, null=True)
     
     def __str__(self):
         return self.name
 
 
-class GroceryList(models.Model):
-    name = models.ForeignKey(GroceryListName, on_delete=models.CASCADE, null=True)
+class GroceryItem(models.Model):
+    name = models.ForeignKey(GroceryList, on_delete=models.CASCADE, null=True)
     item = models.CharField(max_length=255, null=True)
-    favorite = models.BooleanField(default=False)
-    completed = models.BooleanField(default=False)
+    favorite = models.BooleanField(default=False, null=True)
+    completed = models.BooleanField(default=False, null=True)
     date = models.DateField(null=True)
 
     def __str__(self):
