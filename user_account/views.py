@@ -17,6 +17,7 @@ def signup_view(request):
             user = form.save()
             login(request, user)
             form_username = form.cleaned_data.get('username')
+            print(form_username)
             username = User.objects.get(username=form_username)
             mylist = GroceryList.objects.create(username=username, user_id=request.session['_auth_user_id'] ,name="MyList")
             messages.success(request, f'Account created for {username}!')
