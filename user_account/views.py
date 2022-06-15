@@ -18,7 +18,7 @@ def signup_view(request):
             login(request, user)
             form_username = form.cleaned_data.get('username')
             username = User.objects.get(username=form_username)
-            mylist = GroceryListName.objects.create(username=username, user_id=request.session['_auth_user_id'] ,name="MyList")
+            mylist = GroceryList.objects.create(username=username, user_id=request.session['_auth_user_id'] ,name="MyList")
             messages.success(request, f'Account created for {username}!')
             return redirect('/')
     else:
